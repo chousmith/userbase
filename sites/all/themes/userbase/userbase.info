@@ -1,0 +1,91 @@
+name = UserBase
+description = Base Theme (with child theme options?) for the UserBase Learning Engine LMS, originally based off of the Omega 3x theme
+core = 7.x
+engine = phptemplate
+screenshot = screenshot.png
+base theme = omega
+
+; REQUIRED CORE REGIONS
+
+regions[page_top] = Page Top
+regions[page_bottom] = Page Bottom
+regions[content] = Content
+
+; ADDITIONAL REGIONS
+
+regions[user_first] = User Bar First
+regions[user_second] = User Bar Second
+
+regions[branding] = Branding
+regions[menu] = Menu
+
+regions[sidebar_first] = Sidebar First
+regions[sidebar_second] = Sidebar Second
+
+regions[header_first] = Header First
+regions[header_second] = Header Second
+
+regions[preface_first] = Preface First
+regions[preface_second] = Preface Second
+regions[preface_third] = Preface Third
+
+regions[postscript_first] = Postscript First
+regions[postscript_second] = Postscript Second
+regions[postscript_third] = Postscript Third
+regions[postscript_fourth] = Postscript Fourth
+
+regions[footer_first] = Footer First
+regions[footer_second] = Footer Second
+
+regions[pre_top] = Pre Top
+
+; ZONES
+
+zones[user] = User
+zones[branding] = Branding
+zones[menu] = Menu
+zones[header] = Header
+zones[preface] = Preface
+zones[content] = Content
+zones[postscript] = Postscript
+zones[footer] = Footer
+
+; OPTIONAL STYLESHEETS
+
+css[global.css][name] = Your custom global styles
+css[global.css][description] = This file holds all the globally active custom CSS of your theme.
+css[global.css][options][weight] = 10
+
+; CSS GRID SYSTEMS
+
+grids[def][name] = 12 column grid 1080 wide (1080px)
+grids[def][layouts][wide] = Wide
+grids[def][columns][12] = 12 Columns
+grids[def][layouts][normal] = Normal
+grids[def][columns][12] = 12 Columns
+grids[def][layouts][narrow] = Narrow
+grids[def][columns][12] = 12 Columns
+
+; CSS FILES
+
+stylesheets[all][] = css/typography.css
+
+stylesheets[all and (max-width: 1080px)][] = css/wide.css
+stylesheets[all and (min-width: 1080px)][] = css/grid/elite/wide/elite-default-wide-12.css
+
+stylesheets[all and (max-width: 770px)][] = css/normal.css
+stylesheets[all and (min-width: 770px)][] = css/grid/elite/normal/elite-default-normal-12.css
+
+stylesheets[all and (max-width: 320px)][] = css/narrow.css
+stylesheets[all and (min-width: 320px)][] = css/grid/elite/narrow/elite-default-narrow-12.css
+
+; WHITELABEL STYLES
+
+css[thinkabit.css][name] = Thinkabit styles
+css[thinkabit.css][description] = Provides additional styling for the Club Thinkabit LMS site.
+css[thinkabit.css][path] = whitelabel/thinkabit/css
+css[thinkabit.css][options][weight] = 12
+
+; JS FILES
+
+scripts[] = js/userbase.js
