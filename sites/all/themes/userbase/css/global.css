@@ -182,7 +182,11 @@ a.outBtn,
 a.outbtn,
 .completecount,
 .not-logged-in.page-user #zone-content,
-.not-logged-in.page-user h1 {
+.not-logged-in.page-user h1,
+.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-title,
+.view-sliders .views-slideshow-cycle-main-frame-row .views-field-title,
+.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-subheader,
+.view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-subheader {
   color: #fff;
 }
 #block-elite-custom-avatar-block .points-wrapper,
@@ -423,7 +427,7 @@ p  {
   left: 60px;
   font-size: 60px;
   line-height: 1;
-  width: 50%;
+  width: 45%;
 }
 .view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-subheader,
 .view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-subheader {

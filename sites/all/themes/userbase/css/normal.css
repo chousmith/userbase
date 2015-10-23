@@ -370,3 +370,24 @@ padding-left: 0;
     top: 10px;
     right: 9px;
   }
+  body.logged-in #zone-branding,
+  body.logged-in #zone-content,
+  body.page-node #zone-content,
+  .section-title {
+    background: #fff url(../images/border768.gif) repeat-y 0 0;
+  }
+  body.page-trainings #zone-content,
+  body.page-trends #zone-content,
+  body.page-news #zone-content,
+  body.page-node.node-type-training #zone-content,
+  body.page-node.node-type-quiz #zone-content,
+  body.page-node.node-type-article #zone-content,
+  body.page-node.node-type-tool #zone-content {
+    background-image: url(../images/bg-twocol768.gif) !important;
+  }
+  article.node-training .field-name-field-image, 
+	article.node-article .field-name-field-image, 
+	#qvideo, 
+	.sublimevideo-View {
+    padding-left: 1px;
+  }
