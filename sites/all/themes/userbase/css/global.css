@@ -1,8 +1,273 @@
+/* typography */
+body,
+.block-views h2.block-title,
+body.page-trainings h1#page-title,
+body.page-trends h1#page-title,
+body.page-news h1#page-title,
+body.page-resources h1#page-title,
+body.node-type-quiz #quiz_progress,
+body.node-type-quiz #quiz_score_possible,
+body.node-type-quiz #quiz-report-form,
+.view-tools .views-field-body,
+.view-tools .views-field-field-rating .views-label,
+.node-tool .field-name-field-rating .field-label,
+body.node-type-page article.node h1,
+.not-logged-in.page-user .form-text,
+.not-logged-in.page-user .form-select,
+#elite-user-flop .user-name,
+#elite-user-flop a.x,
+#elite-user-flop ul.usermenu li a .title,
+#elite-user-flop ul.usermenu li a .count,
+article.node-reward .field-type-commerce-product-reference .form-submit,
+.node-tool .field-name-body .field-label,
+.section-title,
+#block-elite-custom-avatar-block .points-wrapper,
+#elite-user-flop .points-wrapper strong,
+h1,
+.poll-title,
+.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-subheader,
+.view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-subheader,
+.view-trainings .views-field-title,
+.view-blog .views-field-title,
+.view-trends .views-field-title,
+.view-store .views-field-title,
+.view-tools .views-field-title,
+.view-tools .view-header h1#page-title,
+.view-tools .view-header h2,
+#elite-user-block-wrapper .points-wrapper,
+#elite-user-flop .points-wrapper,
+button, input[type="reset"], input[type="submit"], input[type="button"] {
+  font-weight: 400;
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+}
+
+.privatemsg-send-link-profile,
+.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-title,
+.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-slide-button,
+.view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-slide-button,
+.view-sliders .views-slideshow-cycle-main-frame-row .views-field-title,
+.view-trainings .view-footer article.node-poll h2.node-title,
+#elite-user-block-wrapper .points-wrapper,
+#elite-user-block-wrapper .points-wrapper strong,
+.view-popular-content .views-field-field-base-points,
+.view-trainings .views-field-field-base-points,
+.view-trends .views-field-field-base-points,
+.view-polls .field-name-field-base-points,
+.view-popular-content .views-field-field-base-points strong,
+.view-trainings .views-field-field-base-points strong,
+.view-trends .views-field-field-base-points strong,
+.view-polls .field-name-field-base-points strong,
+.block.block-tips .more-link,
+.block.block-store .more-link,
+.block.block-app .more-link,
+.not-logged-in.page-user h1,
+body.context-vive.node-type-page article.node h1,
+.view-trainings .view-footer article.node-poll h1,
+.view-trainings .view-footer article.node-poll .poll-title,
+.block.block-tips h2,
+.block.block-store h2,
+.block.block-app h2,
+.page-forum ul.action-links a,
+.page-messages ul.action-links a,
+.node-forum .content ul.links.inline a,
+.logged-in .form-actions input[type="submit"],
+.logged-in .form-actions input.form-submit,
+.vote-form input.form-submit,
+.logged-in .form-actions input[type="submit"].form-submit,
+form.comment-form input[type="submit"],
+form.comment-form input.form-submit,
+form.comment-form input[type="submit"].form-submit,
+a.bigBtn,
+span.bigBtn,
+a.outBtn,
+a.bigbtn,
+span.bigbtn,
+a.outbtn,
+#quiz-start-quiz-button-form .form-submit,
+body.node-type-quiz .answering-form input#edit-op,
+body.node-type-quiz .answering-form input#edit-back,
+body.node-type-quiz .answering-form input#edit-submit,
+body.node-type-quiz .quiz-score-submit input.form-submit,
+.comment-links a,
+th {
+  font-weight: 700;
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+}
+/* colors */
+body,
+.zone-footer,
+#block-menu-menu-footer-menu ul.menu li a,
+#block-menu-menu-reg-footer-menu ul.menu li a,
+.block.block-tips .more-link a,
+.block.block-app .more-link a,
+a:link,
+a:visited {
+  color: #111;
+}
+a:hover,
+a:focus,
+h1,
+.poll-title,
+.not-logged-in.page-user h1,
+.view-popular-content .views-field-title a:link,
+.view-popular-content .views-field-title a:visited,
+.section-title {
+  color: #000
+}
+#elite-user-block-wrapper .points-wrapper,
+#block-system-main-menu ul.menu li a:link,
+#block-system-main-menu ul.menu li a:visited {
+  color: #000018;
+}
+.page-forum ul.action-links a,
+.page-messages ul.action-links a,
+.node-forum .content ul.links.inline a,
+.logged-in .form-actions input[type="submit"],
+.logged-in .form-actions input.form-submit,
+.vote-form input.form-submit,
+.logged-in .form-actions input[type="submit"].form-submit,
+form.comment-form input[type="submit"],
+form.comment-form input.form-submit,
+form.comment-form input[type="submit"].form-submit,
+#quiz-start-quiz-button-form .form-submit,
+body.node-type-quiz .answering-form input#edit-op,
+body.node-type-quiz .answering-form input#edit-back,
+body.node-type-quiz .answering-form input#edit-submit,
+body.node-type-quiz .quiz-score-submit input.form-submit,
+a.bigBtn,
+span.bigBtn,
+a.outBtn,
+a.bigbtn,
+span.bigbtn,
+a.outbtn {
+  color: #252525;
+}
+.block-views h2.block-title,
+body.page-trainings h1#page-title,
+body.page-trends h1#page-title,
+body.page-news h1#page-title,
+body.page-resources h1#page-title {
+  color: #464646;
+}
+.block-main-menu ul.menu li a:link,
+.block-main-menu ul.menu li a:visited {
+  color: #959595;
+}
+.block-main-menu ul.menu li a:hover,
+.block-main-menu ul.menu li a.active:link,
+.block-main-menu ul.menu li a.active:visited,
+#elite-user-flop .points-wrapper,
+.not-logged-in.page-user label,
+.not-logged-in.page-user #edit-field-terms-conditions .description,
+.not-logged-in.page-user label .form-required,
+.block-alerts-block .views-row,
+.block-alerts-block .views-row a,
+.forum-title,
+.forum-title a,
+.block.block-tips,
+.block.block-store,
+.block.block-app,
+.block.block-store h2,
+.block.block-app h2,
+#quiz-start-quiz-button-form .form-submit,
+body.node-type-quiz .answering-form input#edit-op,
+body.node-type-quiz .answering-form input#edit-back,
+body.node-type-quiz .answering-form input#edit-submit,
+body.node-type-quiz .quiz-score-submit input.form-submit,
+a.bigBtn,
+a.bigbtn,
+span.bigBtn,
+span.bigbtn,
+a.outBtn,
+a.outbtn,
+.completecount,
+.not-logged-in.page-user #zone-content,
+.not-logged-in.page-user h1 {
+  color: #fff;
+}
+#block-elite-custom-avatar-block .points-wrapper,
+#elite-user-block-wrapper .points-wrapper strong,
+#elite-user-flop .points-wrapper strong,
+#elite-user-flop ul.usermenu li a .count,
+#elite-user-flop ul.usermenu li a:hover,
+#block-system-main-menu ul.menu li a:hover,
+#block-system-main-menu ul.menu li a.active:link,
+#block-system-main-menu ul.menu li a.active:visited,
+.view-trainings .taken .views-field-field-base-points,
+.view-trends .taken .views-field-field-base-points,
+.view-popular-content .taken .views-field-field-base-points,
+.block-views.block-alerts-block h2.block-title,
+.page-user .userpoints-points strong {
+  color: #b3bb16;
+}
+body.logged-in #zone-branding,
+body.logged-in #zone-content,
+body.page-node #zone-content,
+.section-title {
+  border-bottom: 1px solid #cfcfcf;
+}
+.section-title {
+  border-top: 1px solid #cfcfcf;
+}
+.not-logged-in.page-user #zone-content,
+#zone-branding {
+  background: none;
+}
+body,
+.section-title {
+  background: #fff;
+}
+body.not-logged-in {
+  background: #fff url(../images/bg-logins.gif) no-repeat 50% 184px;
+}
+.quiz-end a.button,
+.not-logged-in.page-user #block-system-main,
+.not-logged-in.page-user.responsive-layout-narrow #block-system-main,
+#quiz-start-quiz-button-form .form-submit,
+body.node-type-quiz .answering-form input#edit-op,
+body.node-type-quiz .answering-form input#edit-back,
+body.node-type-quiz .answering-form input#edit-submit,
+body.node-type-quiz .quiz-score-submit input.form-submit {
+  background: #b2bb16 !important;
+}
+.page-forum ul.action-links a,
+.page-messages ul.action-links a,
+.node-forum .content ul.links.inline a,
+.logged-in .form-actions input[type="submit"],
+.logged-in .form-actions input.form-submit,
+.vote-form input.form-submit,
+.logged-in .form-actions input[type="submit"].form-submit,
+form.comment-form input[type="submit"],
+form.comment-form input.form-submit,
+form.comment-form input[type="submit"].form-submit,
+.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a,
+.view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a,
+.not-logged-in.page-user .form-submit,
+.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a:hover,
+.view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a:hover,
+a.bigBtn,
+span.bigBtn,
+a.outBtn,
+a.bigbtn,
+span.bigbtn,
+a.outbtn {
+  background: #fdb800;
+}
+body.node-type-blog .page-header, 
+body.page-blog .page-header,
+.view-trainings .view-footer article.node-poll,
+.block-alerts-block,
+.forum-title {
+	background: #464646;
+}
+.view-trainings .view-footer article.node-poll .field-name-field-base-points {
+  background: #838383;
+}
+
 body {
   margin: 0;
-  font: 16px/1.5em "Qualcomm-Regular", Helvetica, sans-serif;
-  color:#363636;
-  background: #1b2021;
+  font-size: 16px;
+  line-height: 1.5;
 }
 img {
   border: none;
@@ -16,12 +281,10 @@ a {
 }
 a:link,
 a:visited {
-  color: #111;
   text-decoration: none;
 }
 a:hover,
 a:focus {
-  color: #000;
   text-decoration: underline;
 }
 * {
@@ -42,8 +305,6 @@ h1,
 .poll-title {
   font-size: 2em;
   margin: 0 0 0.5em;
-  font-family: "Qualcomm-Semibold";
-  color: #000;
 }
 h2 {
   font-size: 2em;
@@ -131,13 +392,7 @@ hr {
   height: 54px;
   line-height: 54px;
   padding: 0 15px;
-  color: #959595;
   text-decoration: none;
-}
-.block-main-menu ul.menu li a:hover,
-.block-main-menu ul.menu li a.active:link,
-.block-main-menu ul.menu li a.active:visited {
-  color: #fff;
 }
 p  {
   margin: 0 0 1em;
@@ -166,26 +421,23 @@ p  {
   position: absolute;
   top: 35px;
   left: 60px;
-  font-size: 5em;
-  line-height: 1em;
-  color: #fff;
-  font-family: 'Qualcomm-Light';
+  font-size: 60px;
+  line-height: 1;
+  width: 50%;
 }
 .view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-subheader,
 .view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-subheader {
   position: absolute;
-  top: 116px;
+  top: 170px;
   left: 60px;
-  font-size: 1.6em;
-  line-height: 1em;
-  color: #fff;
+  font-size: 18px;
+  line-height: 1;
 }
 .view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-slide-button,
 .view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-slide-button {
   position: absolute;
   bottom: 76px;
   left: 60px;
-  font-family: 'Qualcomm-Semibold';
   font-size: 1.3em;
 }
 .view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a,
@@ -225,8 +477,6 @@ p  {
 		top: auto;
 		bottom: 30px;
 		left: 20px;
-		
-		font-family: 'Qualcomm-Semibold';
 	}
 	.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-slide-button,
 	.view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-slide-button {
@@ -315,7 +565,12 @@ body.page-trends h1#page-title {
   font-size: 1.6em;
   color: #898989;
   margin: 0;
-  font-family: "Qualcomm-Regular";
+}
+body.page-resources h1#page-title,
+body.page-news h1#page-title {
+  padding: 15px 20px;
+  font-size: 1.6em;
+  margin: 0;
 }
 .block-views h2.block-title.centered {
   text-align: center;
@@ -371,10 +626,6 @@ body.page-trends h1#page-title {
 .view-popular-content .views-field-field-base-points .field-content {
   padding: 0 20px;
 }
-.view-popular-content .views-field-field-base-points strong {
-  font-weight: normal;
-  font-family: "Qualcomm-Bold";
-}
 .view-popular-content .views-field-field-media-types {
   position: absolute;
   bottom: 5px;
@@ -426,7 +677,8 @@ body.page-trends h1#page-title {
 .view-trends .views-field-title,
 .view-store .views-field-title,
 .view-tools .views-field-title {
-  font: 1.2em/1 "Qualcomm-SemiBold";
+  font-size: 1.2em;
+  line-height: 1;
   margin: 0 1em 2em;
 }
 .view-store .views-field-title {
@@ -456,7 +708,7 @@ body.page-trends h1#page-title {
   width: 100%;
   height: 30px;
   line-height: 30px;
-  font-size: 1.2em;
+  font-size: 16px;
   background: #ebebeb; /* Old browsers */
   background: -moz-linear-gradient(top,  #ebebeb 0%, #ffffff 100%); /* FF3.6+ */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ebebeb), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -471,13 +723,7 @@ body.page-trends h1#page-title {
 .view-trainings .views-field-field-base-points .field-content,
 .view-trends .views-field-field-base-points .field-content,
 .view-store .views-field-commerce-price .field-content {
-  padding: 0 20px;
-}
-.view-trainings .taken .views-field-field-base-points,
-.view-trends .taken .views-field-field-base-points,
-.view-store .taken .views-field-commerce-price,
-.view-popular-content .taken .views-field-field-base-points {
-  color: #c0c0c0;
+  padding: 0 20px 0 37px;
 }
 .view-trainings .taken .views-field-field-base-points span.chk,
 .view-trends .taken .views-field-field-base-points span.chk,
@@ -486,18 +732,28 @@ body.page-trends h1#page-title {
   position: absolute;
   top: 0;
   left: 0;
-  background: url(../images/taken.png) no-repeat 0 0;
+  background: url(../images/icn-completed.png) no-repeat 0 0;
   display: block;
   width: 29px;
-  height: 30px;
+  height: 29px;
+}
+.view-trainings .views-field-field-base-points span.required,
+.view-trends .views-field-field-base-points span.required,
+.view-popular-content .views-field-field-base-points span.required {
+  background: url(../images/icn-required.png) no-repeat 0 0;
+  float: left;
+  position: relative;
+  margin: 0 8px 0 -20px;
+  width: 29px;
+  height: 29px;
 }
 .view-trainings .views-field-field-base-points strong,
 .view-trends .views-field-field-base-points strong,
 .view-store .views-field-commerce-price strong,
 .view-polls .field-name-field-base-points strong {
   font-weight: normal;
-  font-family: "Qualcomm-Bold";
 }
+/* store?! */
 .view-store .views-field-add-to-cart-form {
   position: absolute;
   bottom: 0;
@@ -519,12 +775,10 @@ body.page-trends h1#page-title {
   height: 28px;
   line-height: 28px;
   border-left: 1px solid #e2e2e2;
-  font-family: "Qualcomm-Bold";
   text-transform: uppercase;
   padding: 0 20px;
   font-weight: normal;
   font-size: 1.15em;
-  color: #dd7a10;
 }
 .view-trainings .views-field-field-media-types,
 .view-trends .views-field-field-media-typees {
@@ -539,10 +793,8 @@ body.page-trends h1#page-title {
 }
 .view-trainings .view-footer article.node-poll h1,
 .view-trainings .view-footer article.node-poll .poll-title {
-  color: #fff;
-  font-size: 1.4em;
-  line-height: 1.2em;
-  font-family: "Qualcomm-Regular";
+  font-size: 22px;
+  line-height: 24px;
 }
 .view-trainings .view-footer article.node-poll .poll .vote-form {
   text-align: left;
@@ -553,16 +805,8 @@ body.page-trends h1#page-title {
 .view-trainings .view-footer article.node-poll .poll .vote-form .choices label {
   margin-left: 10px;
 }
-.view-trainings .view-footer article.node-poll .poll {
-  color: #fff;
-}
 .view-trainings .view-footer article.node-poll h2.node-title {
   font-size: 1.5em;
-  font-family: "Qualcomm-Light";
-  color: #fff;
-}
-.view-trainings .view-footer article.node-poll h2.node-title a {
-  color: #fff;
 }
 .view-trainings .view-footer article.node-poll .field-name-field-base-points {
   position: absolute;
@@ -671,11 +915,8 @@ article.node-reward .field-type-commerce-product-reference .form-submit {
   border: 0;
   padding: 10px 0;
   text-shadow: none;
-  color: #fff;
   font-size: 1.5em;
   text-transform: uppercase;
-  font-family: "Qualcomm-Semibold";
-  font-weight: normal;
   width: 100%;
   margin: 0 -20px;
 }
@@ -688,7 +929,6 @@ article.node-reward .field-type-commerce-product-reference .form-submit {
 .block.block-app {
   position: relative;
   background: #008d95 url(../images/icon-tools.png) no-repeat 388px 50px;
-  color: #fff;
   min-height: 248px;
   line-height: 1em;
 }
@@ -701,7 +941,6 @@ article.node-reward .field-type-commerce-product-reference .form-submit {
 .block.block-tips h2,
 .block.block-store h2,
 .block.block-app h2 {
-  color: #fff;
   text-transform: uppercase;
   padding: 35px 0 0 25px;
   font-size: 1.65em;
@@ -726,7 +965,6 @@ article.node-reward .field-type-commerce-product-reference .form-submit {
   line-height: 30px;
   text-align: left;
   text-transform: uppercase;
-  font-family: "Qualcomm-Bold";
 }
 .block.block-tips .more-link a,
 .block.block-store .more-link a,
@@ -909,10 +1147,8 @@ body.node-type-quiz .quiz-score-submit input.form-submit {
   border: 0;
   padding: 10px 0;
   text-shadow: none;
-  color: #fff;
   font-size: 1.5em;
   text-transform: uppercase;
-  font-family: "Qualcomm-Semibold";
   font-weight: normal;
   width: 100%;
   margin: 0 0 20px;
@@ -986,8 +1222,6 @@ body.node-type-quiz #quiz_progress,
 body.node-type-quiz #quiz_score_possible,
 body.node-type-quiz #quiz-report-form {
 	font-size: 18px;
-	font-weight: normal;
-	font-family: "Qualcomm-Regular", sans-serif;
 }
 body.node-type-quiz #quiz_score_possible,
 body.node-type-quiz #quiz-report-form {
@@ -1019,7 +1253,6 @@ body.node-type-quiz #quiz-report-form .dd table tr.correct td {
 .quiz-end {
 	padding: 0 30px 30px;
 }
-
 a.bigBtn,
 a.bigbtn,
 span.bigBtn,
@@ -1029,15 +1262,15 @@ a.outbtn {
   float: left;
   margin: 0 0 35px;
   width: 100%;
-  height: 57px;
+  height: 55px;
   font-size: 24px;
-  line-height: 57px;
-  font-family: "Qualcomm-Semibold", sans-serif;
-  color: #fff;
+  line-height: 55px;
   text-transform: uppercase;
   background: url(../images/btn-large.jpg) no-repeat 0 0;
   text-align: center;
 	border-radius: 8px;
+  -webkit-box-shadow: 0 5px 0 0 #b2b2b2;
+  box-shadow: 0 5px 0 0 #b2b2b2;
 }
 a.bigBtn:focus,
 a.bigbtn:focus,
@@ -1098,7 +1331,6 @@ span.bigbtn.taken {
 }
 /* Tools */
 .view-tools .view-header {
-	color: #fff;
 	padding: 2em;
   background: #f25f22; /* Old browsers */
   background: -moz-linear-gradient(top,  #f25f22 0%, #f5871f 100%); /* FF3.6+ */
@@ -1110,13 +1342,14 @@ span.bigbtn.taken {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f25f22', endColorstr='#f5871f',GradientType=0 ); /* IE6-9 */
 }
 .view-tools .view-header h1#page-title {
-	color: #fff;
-	font: 5em/1 "Qualcomm-Light";
+	font-size: 5em;
+  line-height: 1;
 	margin: 0;
 	padding: 0;
 }
 .view-tools .view-header h2 {
-	font: 1.6em/1 "Qualcomm-Light";
+	font-size: 1.6em;
+  line-height: 1;
 	margin: 0;
 	padding: 0;
 }
@@ -1129,7 +1362,8 @@ span.bigbtn.taken {
 }
 .view-tools .views-field-body {
 	margin: 0 1em;
-	font: 1.2em/1.11 "Qualcomm-Regular";
+	font-size: 1.2em;
+  line-height: 1.2;
 }
 .view-tools .views-field-field-rating {
 	float: left;
@@ -1137,7 +1371,8 @@ span.bigbtn.taken {
 }
 .view-tools .views-field-field-rating .views-label {
 	float: left;
-	font: 1.2em/1 "Qualcomm-Regular";
+	font-size: 1.2em;
+  line-height: 1;
 }
 .view-tools .views-field-field-rating .field-content {
 	float: left;
@@ -1164,7 +1399,8 @@ span.bigbtn.taken {
 	background-color: #f8f8f8;
 }
 .node-tool .field-name-body .field-label {
-	font: 2em/1.4 "Qualcomm-Semibold";
+	font-size: 2em;
+  line-height: 1.4;
 	padding: 0.5em 1em 0.25em;
 }
 .node-tool .field-name-body .field-items {
@@ -1182,10 +1418,8 @@ span.bigbtn.taken {
 	float: left;
 }
 .node-tool .field-name-field-rating .field-label {
-	font-family: "Qualcomm-Regular";
 	font-size: 1.2em;
 	line-height: 1;
-	font-weight: normal;
 }
 .node-tool .field-name-field-rating .field-items,
 .node-tool .flag-outer-favorites {
@@ -1264,9 +1498,8 @@ span.bigbtn.taken {
 	right: 15px;
 	background-position: -11px 0;
 }
-/* progress bars */
+/* progress bars */.block.block-tips h2,
 .completecount {
-  color: #fff;
   margin: 0 auto;
   max-width: 90%;
   text-align: center;
@@ -1430,13 +1663,12 @@ form.comment-form input[type="submit"].form-submit,
   width: 100%;
 }
 .logged-in #poll-cancel-form .form-actions input.form-submit {
-  background: #ddd url(../../../../omega/omega/images/button.png) repeat-x;
+  background: #ddd url(../../omega/omega/images/button.png) repeat-x;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #ddd));
   background: -moz-linear-gradient(top center, #fff 0%, #ddd 100%);
   -webkit-border-radius: 11px;
   -moz-border-radius: 11px;
   border-radius: 11px;
-  font-family: Arial, sans-serif;
   font-size: 12px;
   line-height: 1.2;
   padding: 3px 10px 4px;
@@ -1599,7 +1831,6 @@ body.context-cart #region-content {
 }
 .view-commerce-user-orders .views-table td.views-field-order-number {
   text-align: center;
-  font-family: "Qualcomm-Semibold";
 }
 table.commerce-price-formatted-components {}
 table.commerce-price-formatted-components tr {
@@ -1638,7 +1869,6 @@ body.context-checkout  fieldset.form-wrapper legend {
   position: absolute;
   top: 30px;
   left: 0px;
-  font-family: "Qualcomm-Semibold";
   font-size: 1.15em;
 }
 #commerce-checkout-form-checkout .customer_profile_shipping {}
@@ -1671,10 +1901,8 @@ body.context-checkout .checkout-buttons .checkout-continue {
   border: 0;
   padding: 10px 20px;
   text-shadow: none;
-  color: #fff;
   font-size: 1.5em;
   text-transform: uppercase;
-  font-family: "Qualcomm-Semibold";
   font-weight: normal;
   display: inline-block;
   margin: 0 10px 10px 0;
@@ -1692,8 +1920,6 @@ table.checkout-review .pane-title td {}
 * Generic page
 */
 .section-title {
-  font-family: "Qualcomm-Semibold";
-  color: #fff;
   font-size: 2em;
   padding: 30px 35px;
   background: #008d95; /* Old browsers */
@@ -1722,7 +1948,6 @@ body.front #block-system-main {
 body.node-type-page article.node h1,
 body.node-type-webform article.node h1,
 body.page-verify article.node h1 {
-  font-family: "Qualcomm-Regular";
   font-size: 1.7em;
 }
 body.node-type-page .region-sidebar-second {
@@ -1795,16 +2020,13 @@ body.node-type-page .region-sidebar-second {
   text-align: center;
   padding: 50px 0;
   position: relative;
-  color: #fff;
 }
 .not-logged-in.page-user #region-content {
   padding: 0;
 }
 .not-logged-in.page-user h1 {
-  font-family: 'Qualcomm-Bold';
   font-size: 4.5em;
   letter-spacing: -1px;
-  color: #fff;
   line-height: 70%;
 }
 .not-logged-in.page-user #block-system-main {
@@ -1910,7 +2132,6 @@ body.node-type-page .region-sidebar-second {
 .not-logged-in.page-user .form-select {
   border: 0;
   width: 100%;
-  font-family: 'Qualcomm-Regular';
   padding: 5px;
   font-size: 1.1em;
   -webkit-border-radius: 6px;
@@ -1964,6 +2185,30 @@ body.node-type-page .region-sidebar-second {
   color: #fff;
 }
 
+.not-logged-in .branding-data .logo-img a {
+  background: url(../images/logo-logins.png) no-repeat 0 0;
+  display: block;
+  margin: 12px auto;
+  width: 142px;
+  height: 82px;
+}
+.not-logged-in.page-user #zone-content {
+  padding-top: 15px;
+}
+.not-logged-in.page-user label,
+.not-logged-in.page-user #edit-field-terms-conditions .description,
+.not-logged-in.page-user label .form-required {
+  font-size: 16px;
+  line-height: 1.1;
+}
+.not-logged-in.page-user .form-submit {
+  -webkit-box-shadow: 0 5px 0 0 #7c830f;
+  box-shadow: 0 5px 0 0 #7c830f;
+  color: #000;
+  font-size: 18px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
 /*
 * profile
 */
@@ -1978,9 +2223,7 @@ body.node-type-page .region-sidebar-second {
   margin: 5px 17px 0 12px;
 }
 #block-elite-custom-avatar-block .points-wrapper {
-  color: #dd7a10;
   float: left;
-  font-family: 'Qualcomm-SemiBold';
   font-size: 1.6em;
   height: 54px;
   line-height: 54px;
@@ -2004,6 +2247,12 @@ body.node-type-page .region-sidebar-second {
   height: 209px;
   padding: 41px 0 0;
 }
+#elite-user-block-wrapper {
+  background-color: transparent !important;
+  background-image: url(../images/right-node-userimg-bg-full.jpg);
+  height: auto !important;
+  min-height: 470px;
+}
 #elite-user-flop {
   padding-top: 0;
   height: auto;
@@ -2026,20 +2275,15 @@ body.node-type-page .region-sidebar-second {
 #elite-user-flop .points-wrapper {
   color: #d97914;
   display: block;
-  font: 28px/31px "Qualcomm-Light", sans-serif;
+  font-size: 28px;
+  line-height: 31px;
   text-align: center;
-}
-#elite-user-block-wrapper .points-wrapper strong,
-#elite-user-flop .points-wrapper strong {
-  color: #fff;
-  font-family: "Qualcomm-Semibold", sans-serif;
-  font-weight: normal;
 }
 #elite-user-flop .user-name,
 #elite-user-flop a.x {
   text-align: center;
-  font: 24px/28px "Qualcomm-Regular", sans-serif;
-  color: #fff;
+  font-size: 24px;
+  line-height: 28px;
   display: block;
   margin: 10px 0 44px;
 }
@@ -2107,7 +2351,8 @@ body.node-type-page .region-sidebar-second {
   background-position: 0 -338px;
 }
 #elite-user-flop ul.usermenu li a .title {
-  font: 18px/24px "Qualcomm-Regular", sans-serif;
+  font-size: 14px;
+  line-height: 24px;
   float: left;
   width: 155px;
   margin: 13px 0 0;
@@ -2124,7 +2369,8 @@ body.i18n-ru #elite-user-flop ul.usermenu li.trainings a .title {
 }
 #elite-user-flop ul.usermenu li a .count {
   color: #cc7212;
-  font: 24px/28px "Qualcomm-Regular", sans-serif;
+  font-size: 24px;
+  line-height: 28px;
   float: right;
   width: 31px;
   height: 32px;
@@ -2222,7 +2468,6 @@ div.quiz-report .dt div.quiz-report-score-container {
 	*/
 body.node-type-blog .page-header, 
 body.page-blog .page-header {
-	background: #464646;
 	padding: 30px 20px;
 	color: #fff;
 }
@@ -2371,4 +2616,9 @@ body.page-user #userpoints-list-transactions tr.userpoints-myuserpoints-total-pe
 	padding-left: 50px;
 	font-weight: bold;
 	font-size: 19px;
+}
+/* chat fix */
+#drupalchat ul li a,
+#drupalchat ul li a.active {
+  height: auto;
 }

@@ -1,4 +1,4 @@
-/* CSS for width > 770px? */
+/* CSS for width > 770 */
 body.page-node.node-type-training #zone-content,
 body.page-node.node-type-quiz #zone-content,
 body.page-node.node-type-article #zone-content,
@@ -477,8 +477,6 @@ body.page-user-me-edit .block-main {
 	margin-bottom: 30px;
 }
 
-
-
 /*
 	* Subnav
 	*/
@@ -507,3 +505,40 @@ body.page-user-me-edit .block-main {
 	margin-right: 20px;
 }
 
+.view-home-slides,
+#views_slideshow_cycle_main_home_slides-block,
+#views_slideshow_cycle_teaser_section_home_slides-block,
+.block-home-slides-block  {
+  height: 455px !important;
+}
+
+  #messages {
+    max-width: 771px;
+  }
+  .youtubeplayer {
+    /* 16x9 */
+    width: 810px;
+    height: 456px;
+  }
+  .block-home-slides-block,
+  .view-home-slides,
+  #views_slideshow_cycle_main_home_slides-block,
+  #views_slideshow_cycle_teaser_section_home_slides-block {
+    width: 1080px;
+    height: 455px !important;
+  }
+body.logged-in #zone-branding,
+  body.logged-in #zone-content,
+  body.page-node #zone-content,
+  .section-title {
+    background-image: url(../images/border1080.gif);
+  }
+  body.page-trainings #zone-content,
+  body.page-trends #zone-content,
+  body.page-news #zone-content,
+  body.page-node.node-type-training #zone-content,
+  body.page-node.node-type-quiz #zone-content,
+  body.page-node.node-type-article #zone-content,
+  body.page-node.node-type-tool #zone-content {
+    background-image: url(../images/bg-twocol.gif) !important;
+  }

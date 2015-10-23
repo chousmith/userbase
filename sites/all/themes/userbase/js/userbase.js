@@ -55,16 +55,16 @@ function userbase_taketraining_btn() {
 				}
 			}).trigger('resize.userbase');
 			
-			if ( $('#userbase-user-flop').size() > 0 ) {
+			if ( $('#elite-user-flop').size() > 0 ) {
 				$('#avatar-block-wrapper a').unbind('click.userbase').bind('click.userbase',function() {
-					$('#block-userbase-custom-userflop').slideToggle(100);
+					$('#block-elite-custom-userflop').slideToggle(100);
 					return false;
 				});
-				if ( $('#userbase-user-flop a.x').size() == 0 ) {
+				if ( $('#elite-user-flop a.x').size() == 0 ) {
 					$('<a href="#x" class="x">x</a>').click(function() {
-						$('#block-userbase-custom-userflop').slideUp(41);
+						$('#block-elite-custom-userflop').slideUp(41);
 						return false;
-					}).appendTo('#userbase-user-flop');
+					}).appendTo('#elite-user-flop');
 				}
 			}
 			// training details

@@ -188,7 +188,7 @@ function elite_custom_block_user_view() {
     $picture_markup = elite_custom_user_image($user,'rounduser');
   $points = '<strong>'. userpoints_get_current_points($user->uid) .'</strong> '. t('points');
   $points_markup = elite_custom_markup_wrapper($points, array('class' => 'points-wrapper'));
-  
+    /*
   $counts = elite_custom_user_training_count( $user->uid, false, true );
   
   //$comp_markup = '<div style="display:none"><pre>'. print_r($counts,true) .'</pre></div>';
@@ -200,8 +200,8 @@ function elite_custom_block_user_view() {
   $comp_markup .= '<span class="count">'. $counts['required']['complete'] .'</span>';
   $comp_markup .= '<progress value="'. $counts['required']['complete'] .'" max="'. $counts['required']['total'] .'"></progress>';
   $comp_markup .= '<span class="count">'. $counts['required']['total'] .'</span></div>';
-  
-  $markup = $picture_markup . $points_markup . $comp_markup;
+  */
+  $markup = $picture_markup . $points_markup; // . $comp_markup;
   
   return elite_custom_markup_wrapper($markup, array('id' => 'elite-user-block-wrapper'));
 }

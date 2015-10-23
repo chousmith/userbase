@@ -106,14 +106,9 @@
   
     <?php if ($display_submitted): ?>
       <div class="submitted">
-        <?php
-        $usr = user_load( $variables['uid'] );
-        $uname = '';
-        if (!empty($usr->field_user_name_first)) {
-          $uname = $usr->field_user_name_first[LANGUAGE_NONE][0]['value'];
-        }
-        print t('<strong>Submitted by:</strong> !username on !datetime', array('!username' => $uname, '!datetime' => $variables['date']));
-        //print str_replace( t('Submitted by !username on !datetime', array('!username' => $uname, '!datetime' => $variables['date'])), t('<strong>Submitted by:</strong> !username on !datetime', array('!username' => $uname, '!datetime' => $variables['date'])), $submitted ); ?>
+        <?php print $user_picture; ?>
+        <?php print str_replace( t('Submitted by !username on !datetime', array('!username' => $variables['name'], '!datetime' => $variables['date'])), t('<strong>Submitted by:</strong> !username on !datetime', array('!username' => $variables['name'], '!datetime' => $variables['date'])), $submitted ); ?>
+        <?php //print render($content['taxonomy_forums']); ?>
       </div>
     <?php endif; ?>
   </div>
