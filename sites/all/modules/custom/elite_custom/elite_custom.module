@@ -220,7 +220,7 @@ function elite_custom_user_image($user, $style) {
       'style_name' => $style,
     ));
   } else {
-    $picture = '<img src="/sites/all/themes/elite/images/profile-'. $style .'.png" alt="user image here" />';
+    $picture = '<img src="/sites/all/themes/userbase/images/profile-'. $style .'.png" alt="user image here" />';
   }
 		$picture = l( $picture, 'user', array('html'=>true));
     $oot = elite_custom_markup_wrapper($picture, array('class' => 'picture-wrapper' ) );
