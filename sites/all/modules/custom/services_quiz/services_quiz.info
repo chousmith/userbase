@@ -1,0 +1,6 @@
+name = Services Quiz
+description = "Provides services for evaluating quizzes"
+package = Services
+dependencies[] = services
+dependencies[] = quiz
+core = 7.x

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Elite Trends feature.
+ */
+
+include_once 'elite_trends.features.inc';

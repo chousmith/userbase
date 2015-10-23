@@ -1,0 +1,380 @@
+<?php
+/**
+ * @file
+ * Code related to validating users and clubs
+ */
+
+/**
+ * hook_menu
+ *
+ * to insert some page(s)
+ */
+function club_validation_menu() {
+  $items['verify'] = array(
+    'title' => 'Additional Steps Required',
+    'page callback' => 'club_validation_under13_landing',
+    //'access callback' => true,
+    'access arguments' => array('access under13 page'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * hook_permission
+ *
+ * add some simple permissions
+ */
+function club_validation_permission() {
+  return array(
+    'access under13 page' => array(
+      'title' => t('Access under13 page'),
+      'description' => t('Allow users to view the Under 13 splash page'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * This will alter the user registration form to add a club field
+ * that can be used for both the students and sponsers
+ *
+ * and more?
+ */
+function club_validation_form_alter(&$form, &$form_state, $form_id) {
+  // #id = user-register-form
+  if ($form_id == 'user_register_form') {
+    if(isset($form_state['values']['skip_email']) && $form_state['values']['skip_email'] == 1){
+        $form_state['values']['mail'] = '';
+    }
+    // add disclaimer text below E-mal field
+    // from elite_custom_form_user_register_form_alter
+    $form['account']['mail']['#suffix'] = '<p class="emailageclar">E-mail for Recovery of Password. <span class="ifover13and">If you have your own email address, enter your own email address. Otherwise, p</span><span class="underand">P</span>lease enter your parent\'s or family email address.</p>';
+    
+    // adding "Club ID" checkbox after the Password fields
+    $form['account']['club_id'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Club ID'),
+      '#size' => 15,
+      '#required' => TRUE,
+      '#weight' => 7,
+    );
+    // set Password weight to before 'club_id' weight
+    $form['account']['pass']['#weight'] = 6;
+    // add 'skip_email' checkbox option
+    $form['account']['skip_email'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Check here if you do not know or have an email address to enter above.'),
+      '#weight' => 5,
+      '#attributes' => array(
+        'onchange' => 'if(jQuery(this).is(":checked")){jQuery("#edit-mail").attr("disabled", "disabled").val("");}else{jQuery("#edit-mail").removeAttr("disabled")}'
+      ),
+    );
+    // move birthdate weight to top?
+    $form['field_age_range']['#weight'] = -1;// add 'skip_email' checkbox option
+    // add Teacher... checkbox
+    $form['check_teacher'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Check here if you are a Teacher or Faculty.'),
+      '#weight' => 0,
+      /*
+      '#attributes' => array(
+        'onchange' => 'if(jQuery(this).is(":checked")){jQuery("#edit-mail").attr("disabled", "disabled").val("");}else{jQuery("#edit-mail").removeAttr("disabled")}'
+      ),
+      */
+    );
+    //$form['account']['region']['#weight'] = 8;
+    // inject our own validate & submit handlers
+    $form['#validate'][] = 'club_validation_user_register_validate';
+    $form['#submit'][] = 'club_validation_user_register_submit';
+    
+    // turn browser "autocomplete" flag OFF
+    $form['#attributes'] = array('autocomplete' => 'off');
+    
+    // change submit btn text
+    $form['actions']['submit']['#value'] = t('Accept & Create New Account');
+  }
+  if ( $form_id == 'club_id_node_form' ) {
+    if ( ( arg(0) == 'node' ) && ( arg(1) == 'add' ) ) {
+      // when we are adding a new Club ID, hide the "Sponsors" & "Students"
+      $form['field_sponsors']['#access'] = 0;
+      $form['field_students']['#access'] = 0;
+    }
+  }
+  
+  if ($form_id == 'user_profile_form') {
+    global $user;
+    if ( is_array($user->roles) ) {
+      if ( in_array( 'under13', array_values($user->roles))) {
+        // under13 : hide profile picture?
+        $form['picture']['#access'] = 0;
+      }
+    }
+  }
+  //watchdog('cvfalt', 'form id : '. $form_id .' <br />form:<br /><pre>'. print_r($form,true) .'</pre>');
+}
+
+/**
+ * Form alter validate
+ */
+function club_validation_user_register_validate($form, &$form_state) {
+  // Check the club id against valid database ids
+  $club_id = $form_state['values']['club_id'];
+  if (!club_validation_club_id($club_id)) {
+    form_set_error('club_id', t('The Club ID you entered appears to be invalid. Please double check with your sponsor.'));
+  }
+  
+  // check terms & conditions, from elite_custom_validate_user_register
+  if($form_state['values']['field_terms_conditions'][LANGUAGE_NONE][0]['value'] != 1) {
+    form_set_error('field_terms_conditions', t('You must agree to the terms and conditions.'));
+  }
+  if($form_state['values']['skip_email'] == 1){
+    $form_state['complete form']['account']['mail']['#attributes']['disabled'] = 'disabled';
+    form_unset_error('mail');
+    $form_state['values']['mail'] = 'student+'.time().$form_state['values']['field_user_name_first'][LANGUAGE_NONE][0]['value'][0].$form_state['values']['field_user_name_last'][LANGUAGE_NONE][0]['value'][0].'@thinkabitlab.com';
+    form_set_value($form['account']['mail'], $form_state['values']['mail'], $form_state);
+  }
+}
+
+function form_unset_error($name) {
+  $errors = &drupal_static('form_set_error', array());
+  $removed_messages = array();
+  if (isset($errors[$name])) {
+    $removed_messages[] = $errors[$name];
+    unset($errors[$name]);
+  }
+  $_SESSION['messages']['error'] = array_diff($_SESSION['messages']['error'], $removed_messages);
+  if (empty($_SESSION['messages']['error'])) {
+    unset ($_SESSION['messages']['error']);
+  }
+}
+
+/**
+ * Form alter submit
+ */
+function club_validation_user_register_submit($form, &$form_state) {
+  $club_id = $form_state['values']['club_id'];
+  $user_id = $form_state['values']['uid'];
+  $loaded_club = club_validation_load_club($club_id);
+  $loaded_club->field_students[LANGUAGE_NONE][]['target_id'] = (string) $user_id;
+  node_submit($loaded_club);
+  node_save($loaded_club);
+  if($form_state['values']['skip_email'] == 1){
+    $messages = drupal_get_messages('status');
+    foreach($messages['status'] as $message) {
+      if($message != 'Further instructions have been sent to your e-mail address.') {
+        drupal_set_message($message, 'status');
+      }
+    }
+  }
+}
+
+/**
+ * look up if given "club_id" matches one of the "Club ID" 's already set
+ */
+function club_validation_club_id($club_id) {
+  $query = new EntityFieldQuery;
+
+  $result = $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'club_id')
+    ->propertyCondition('status', 1)
+    ->propertyCondition('title', $club_id)
+    ->count()
+    ->execute();
+  
+  return ($result > 0);
+}
+
+/**
+ * helper to look up a "Club ID" node from a provided "club_id"
+ */
+function club_validation_load_club($club_id) {
+  $query = new EntityFieldQuery;
+
+  $result = $query
+    ->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'club_id')
+    ->propertyCondition('status', 1)
+    ->propertyCondition('title', $club_id)
+    ->execute();
+
+  if (count($result) > 0) {
+    $id = array_keys($result['node']);
+    $club = entity_load('node', $id);
+
+    // Return just the object.
+    return reset($club);
+  }
+
+  return FALSE;
+}
+
+/**
+ *
+ */
+function club_validation_load_user_club($lookupval = array()) {
+  if (array_key_exists('uid', $lookupval)) {
+    $uid = $lookupval['uid'];
+    $query = new EntityFieldQuery;
+
+    $result = $query
+      ->entityCondition('entity_type', 'node')
+			->entityCondition('bundle', 'club_id')
+      ->propertyCondition('status', 1)
+      ->fieldCondition('field_students', 'target_id', $uid, '=')
+			->addMetaData('account', user_load(1))
+      ->execute();
+
+    if (count($result) > 0) {
+      $id = array_keys($result['node']);
+      $store = entity_load('node', $id);
+
+      // Return just the object.
+      return reset($store);
+    }
+  }
+
+  return FALSE;
+}
+
+/**
+ * hook_node_access
+ *
+ * allows anonymous users to view some about/privacy-policy type of pages
+ */
+function club_validation_node_access($node, $op, $account) {
+  $type = is_string($node) ? $node : $node->type;
+
+  // if its a super cool content type, user content types machine name.
+  if ( $op == 'view') {
+		global $user;
+		if ( $user->uid > 0 ) {
+			return NODE_ACCESS_ALLOW;
+		} else {
+			// not logged in, can only view certain PAGES?
+			if ( in_array( $type , array( 'page', 'webform' ) ) ) {
+				$alias = drupal_get_path_alias('node/'. $node->nid);
+				if ( in_array( $alias, array('about', 'about/privacy-policy', 'about/cookie-policy', 'about/terms-conditions', 'contact') ) ) {
+					return NODE_ACCESS_ALLOW;
+				}
+			}
+			return NODE_ACCESS_DENY;
+		}
+	}
+  return NODE_ACCESS_IGNORE;
+}
+
+/**
+ * hook_user_insert
+ *
+ * checks user age and add roles accordingly
+ */
+function club_validation_user_insert(&$edit, $account, $category) {
+  //watchdog( 'usin', 'acct : <pre>'. print_r($account,true) .'</pre>' );
+  $under13 = false;
+  $verified = true;
+  $student = true;
+  $teacher = false;
+  if ( isset( $account->check_teacher ) ) {
+    if ( $account->check_teacher === 1 ) {
+      $teacher = true;
+      $student = false;
+    }
+  }
+  $roles = user_roles(TRUE);
+  if ( $student ) {
+    // check for student role..
+    $rid = array_search('student', $roles);
+    if ($rid != FALSE) {
+      db_insert('users_roles')
+        ->fields(array('uid' => $account->uid, 'rid' => $rid))
+        ->execute();
+    }
+    
+    // check age for under13?
+    if ( isset( $account->field_age_range ) ) {
+      $arange = $account->field_age_range[LANGUAGE_NONE][0]['value'];
+      if ( $arange ) {
+        if ( $arange == 'Under 13' ) {
+          $under13 = true;
+          $verified = false;
+        }
+      }
+    }
+    if ( $under13 ) {
+      // check for under13 role..
+      $rid = array_search('under13', $roles);
+      if ($rid != FALSE) {
+        db_insert('users_roles')
+          ->fields(array('uid' => $account->uid, 'rid' => $rid))
+          ->execute();
+      }
+    }
+  }
+  if ( $teacher ) {
+    // if they checked Yes for the Teacher checkbox on reg, add Teacher role
+    $rid = array_search('teacher', $roles);
+    if ($rid != FALSE) {
+      db_insert('users_roles')
+        ->fields(array('uid' => $account->uid, 'rid' => $rid))
+        ->execute();
+    }
+  }
+  if ( $verified ) {
+    // if they checked Yes for the Teacher checkbox on reg, add Teacher role
+    $rid = array_search('verified', $roles);
+    if ($rid != FALSE) {
+      db_insert('users_roles')
+        ->fields(array('uid' => $account->uid, 'rid' => $rid))
+        ->execute();
+    }
+  }
+}
+
+/**
+ * callback for under13 landing page
+ */
+function club_validation_under13_landing() {
+  global $user;
+  $user = user_load( $user->uid );
+  if ( $user->uid > 0 ) {
+    // grab email address provided by the user
+    $email = $user->mail;
+    // look up corresponding Club ID node to find matching visit date
+    $clubdate = false;
+    $club = club_validation_load_user_club( array( 'uid' => $user->uid ) );
+    if ( $club !== false ) {
+      if ( isset( $club->field_visit_date ) ) {
+        if ( isset( $club->field_visit_date[LANGUAGE_NONE] ) ) {
+          if ( isset( $club->field_visit_date[LANGUAGE_NONE][0] ) ) {
+            if ( isset( $club->field_visit_date[LANGUAGE_NONE][0]['value'] ) ) {
+              $clubdate = $club->field_visit_date[LANGUAGE_NONE][0]['value'];
+              // reformat "2015-09-23 00:00:00" to MM/DD/YYYY
+              $clubdate = substr( $clubdate, 0, 10 );
+              $clubdate = explode( '-', $clubdate );
+              $clubdate = $clubdate[1] .'/'. $clubdate[2] .'/'. $clubdate[0];
+            }
+          }
+        }
+      }
+    }
+    
+    $oot = '<h1>'. t('Additional Steps Required') .'</h1>';
+    $oot .= '<p>' . t('Thank you for registering at Club.Thinkabit. At this time, additional steps are required to verify that you have parental consent to participate in our website. An email with more information has been sent to the email address <strong>@email</strong> you provided on registration.', array( '@email' => $email )) .'</p>';
+    $oot .= '<p>'. t('You can also print out <strong><a href="@form">this form</a></strong> for your parent to fill out and submit to us. They can submit the filled out form to us by faxing it to <strong>@phone</strong>, or scanning it and emailing it to <strong><a href="mailto:@mailto">@mailto</a></strong>, or mailing it to the address below :', array( '@form' => '
+https://club.thinkabitlab.com/sites/default/files/tools/ClubThinkabit_Parental_Consent.pdf', '@phone' => '(858)###-####', '@mailto' => 'studentverification@thinkabitlab.com' )) .'</p>';
+    $oot .= '<p>'. t('Qualcomm Thinkabit Lab<br />Attn: Club.Thinkabit Parent Consent<br />5775 Morehouse Dr<br />San Diego, CA 92121') .'</p>';
+    
+    if ( $clubdate !== false ) {
+      $oot .= '<p>'. t('<strong>Note:</strong> If your parent has already signed a permission slip which was brought in when you visited the Thinkabit Lab on @vdate, then that information should get updated in our system in the next 1-2 business days, and you can disregard the steps above.', array( '@vdate' => $clubdate ) ) .'</p>';
+    }
+    $oot .= '<p>'. t('You will receive an additional email notification to <strong>@email</strong> when consent has been verified.', array( '@email' => $email )) .'</p>';
+    $oot .= '<p>'. t('Thank you,<br />The Thinkabit Lab Team') . '</p>';
+  }
+  //$oot .= '<pre>'. print_r($user,true) .'</pre>';
+  
+  $oot = '<article class="node node-page">'. $oot .'</article>';
+  
+  return array( '#markup' => $oot );
+}

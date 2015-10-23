@@ -1,0 +1,1745 @@
+<?php
+/**
+ * Implements hook_permission() to define some new permissions
+ */
+function elite_custom_permission() {
+  return array(
+    'access Home section' => array(
+      'title' => t('Access the full Home section'),
+    ),
+    'access Trainings' => array(
+      'title' => t('Access content in the Trainings section'),
+    ),
+    'access Trends' => array(
+      'title' => t('Access content in the Trends section'),
+    ),
+    'access Student Downloads' => array(
+      'title' => t('Access content in the Student Downloads section'),
+    ),
+    'access Faculty Resources' => array(
+      'title' => t('Access content in the Faculty Resources section'),
+    ),
+    'access My Activity' => array(
+      'title' => t('Access the "My Activity" section'),
+    ),
+    'access My Favorites' => array(
+      'title' => t('Access the "My Favorites" section'),
+    ),
+  );
+}
+/**
+ * Implements hook_init() to redirect anon home page to login
+ */
+function elite_custom_init() {
+  drupal_add_http_header('Expires', 'Sun, 26 June 1978 05:00:00 GMT');
+	if ( drupal_is_front_page() ) {
+		if ( !user_access('access Home section') && !drupal_is_cli() ) {
+			drupal_goto('user');
+		}
+	}
+}
+/**
+ * hook_form_alter
+ */
+function elite_custom_form_alter(&$form, &$form_state, $form_id) {
+  global $user;
+  if($form_id == 'user_login') {
+    $form['#attributes'] = array('autocomplete' => 'off');
+    $register_link = elite_custom_markup_wrapper(t('Register'), array('href' => '/user/register', 'class' => 'user-link'), 'a');
+    $forgot_link = elite_custom_markup_wrapper(t('Forgot Password'), array('href' => '/user/password', 'class' => 'user-link'), 'a');
+    
+    
+    $form['links'] = array(
+      '#markup' => elite_custom_markup_wrapper("$register_link   |   $forgot_link", array('class' => 'user-links')),
+      '#weight' => 101
+    );
+  }
+  if ($form_id == 'user_profile_form') {
+    $form['#attributes'] = array('autocomplete' => 'off');
+    
+    // check form submit so we could redirect to front facing view?
+    $form['#submit'][] = 'elite_custom_user_profile_sub';
+  }
+	if ( $form_id == 'poll_view_voting' ) {
+		$form['vote']['#submit'][] = 'elite_custom_poll_vote';
+		//watchdog('poll form alt', 'form_id '. $form_id .' **form <pre>'. print_r($form,true) .'</pre><br />**formstate <pre>'. print_r($form_state,true) .'</pre>');
+	}
+	if ( $form_id == 'poll_cancel_form' ) {
+		$form['actions']['submit']['#submit'][] = 'elite_custom_poll_cancel';
+		//watchdog('poll c form alt', 'form_id '. $form_id .' **form <pre>'. print_r($form,true) .'</pre>');
+	}
+  if ($form_id == 'views_form_commerce_cart_form_default') {
+    $order = commerce_cart_order_load($user->uid);
+    $order_wrapper =  entity_metadata_wrapper('commerce_order', $order);
+    $order_total = $order_wrapper->commerce_order_total->value();
+    $points_required = $order_total['amount'];
+    if(function_exists('userpoints_get_current_points')) {
+      $points_available = userpoints_get_current_points($user->uid);
+    }
+    if ($points_required > $points_available) {
+      drupal_set_message( t('Sorry, you don\'t have enough points to complete the checkout process. Take more trainings and read more trends to earn more.'), 'error');
+      $form['actions']['checkout']['#disabled'] = TRUE;
+    }
+  }
+  if ( $form_id == 'quiz_question_answering_form' ) {
+    if ( isset ( $form['navigation'] ) ) {
+      if ( isset( $form['navigation']['submit'] ) ) {
+        if ( $form['navigation']['submit']['#value'] == t('Next') ) {
+          $form['navigation']['submit']['#value'] = t('Answer');
+          
+          $form['op'] = array(
+            '#type' => 'hidden',
+            '#value' => t('Next')
+          );
+        }
+      }
+    }
+    //watchdog('form alt', 'form_id '. $form_id .' **form <pre>'. print_r($form,true) .'</pre>');
+  }
+	//watchdog('form alt', 'form_id '. $form_id);
+}
+/**
+ * custom handler for user profile form submit
+ */
+function elite_custom_user_profile_sub( $form, &$form_state ) {
+  //watchdog('prof', '<pre>'. print_r($form_state['values'],true) .'</pre>');
+  // redirect to public profile view
+  drupal_goto( 'user/'. $form_state['values']['uid'] );
+}
+
+function elite_custom_block_info() {
+  $blocks['avatar_block'] = array(
+    'info' => t('Avatar Block'),
+    'cache' => DRUPAL_CACHE_PER_USER
+  );
+	
+  $blocks['elite_user_block'] = array(
+    'info' => t('Elite User Block'),
+    'cache' => DRUPAL_CACHE_PER_USER
+  );
+	
+  $blocks['userflop'] = array(
+    'info' => t('Elite User Flop Block'),
+    'cache' => DRUPAL_CACHE_PER_USER
+  );
+
+  return $blocks;
+}
+
+function elite_custom_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'avatar_block':
+      $block['content'] = array(
+        '#markup' =>  elite_custom_block_avatar_view()
+      );
+			break;
+    case 'elite_user_block':
+      $block['content'] = array(
+        '#markup' =>  elite_custom_block_user_view()
+      );
+			break;
+    case 'userflop':
+      $block['content'] = array(
+        '#markup' =>  elite_custom_block_flop_view()
+      );
+			break;
+  }
+
+  return $block;
+}
+
+/*
+ * Provides content for the user Avatar block in the header,
+ * displaying userpoints + small user image thumbnail
+ */
+function elite_custom_block_avatar_view() {
+  global $user;
+  $user = user_load($user->uid);
+
+  if($user->uid == 0) {
+    return '';
+  }
+  
+	$picture_markup = elite_custom_user_image($user,'micro');
+	
+  $points = userpoints_get_current_points($user->uid);
+  $points_markup = elite_custom_markup_wrapper($points, array('class' => 'points-wrapper'));
+  
+  $markup =  $points_markup . $picture_markup;
+  
+//  drupal_add_css(drupal_get_path('module', 'elite_custom') . '/css/avatar-block.css');
+  
+  return elite_custom_markup_wrapper($markup, array('id' => 'avatar-block-wrapper'));
+}
+/*
+ * Provides content for the user block, for right column areas,
+ * displaying larger user image thumbnail + points total
+ * + possibly more info in the futures?
+ */
+function elite_custom_block_user_view() {
+  global $user;
+  $user = user_load($user->uid);
+
+  if($user->uid == 0) {
+    return '';
+  }
+  
+    $picture_markup = elite_custom_user_image($user,'rounduser');
+  $points = '<strong>'. userpoints_get_current_points($user->uid) .'</strong> '. t('points');
+  $points_markup = elite_custom_markup_wrapper($points, array('class' => 'points-wrapper'));
+  
+  $counts = elite_custom_user_training_count( $user->uid, false, true );
+  
+  //$comp_markup = '<div style="display:none"><pre>'. print_r($counts,true) .'</pre></div>';
+  $comp_markup = '<div class="completecount"><h5>'. t('Total Completed') .'</h5>';
+  $comp_markup .= '<span class="count">'. $counts['complete'] .'</span>';
+  $comp_markup .= '<progress value="'. $counts['complete'] .'" max="'. $counts['total'] .'"></progress>';
+  $comp_markup .= '<span class="count">'. $counts['total'] .'</span>';
+  $comp_markup .= '<h5>'. t('Required Completed') .'</h5>';
+  $comp_markup .= '<span class="count">'. $counts['required']['complete'] .'</span>';
+  $comp_markup .= '<progress value="'. $counts['required']['complete'] .'" max="'. $counts['required']['total'] .'"></progress>';
+  $comp_markup .= '<span class="count">'. $counts['required']['total'] .'</span></div>';
+  
+  $markup = $picture_markup . $points_markup . $comp_markup;
+  
+  return elite_custom_markup_wrapper($markup, array('id' => 'elite-user-block-wrapper'));
+}
+/*
+ * helper function for html of a user image
+ */
+function elite_custom_user_image($user, $style) {
+	if ( !in_array($style,array('rounduser','micro'))){
+		$style = 'rounduser';
+	}
+	
+	$oot = '';
+	 if (!empty($user->picture)) {
+	$picture = theme('image_style', array(
+	  'path' => $user->picture->uri,
+      'style_name' => $style,
+    ));
+  } else {
+    $picture = '<img src="/sites/all/themes/elite/images/profile-'. $style .'.png" alt="user image here" />';
+  }
+		$picture = l( $picture, 'user', array('html'=>true));
+    $oot = elite_custom_markup_wrapper($picture, array('class' => 'picture-wrapper' ) );
+		
+		return $oot;
+}
+
+/*
+ * Provides content for the detailed user block, for flop out,
+ * displaying larger user image thumbnail + points total
+ * + more
+ */
+function elite_custom_block_flop_view() {
+  global $user;
+  $user = user_load($user->uid);
+
+  if($user->uid == 0) {
+    return '';
+  }
+  
+	$uname = '';
+  if (!empty($user->field_user_name_first)) {
+		$uname .= $user->field_user_name_first[LANGUAGE_NONE][0]['value'];
+	}
+  // no last name..
+  /*
+	$uname .= ' ';
+  if (!empty($user->field_user_name_last)) {
+		$uname .= $user->field_user_name_last[LANGUAGE_NONE][0]['value'];
+	}
+  */
+	$uname_markup = elite_custom_markup_wrapper( check_plain( $uname ), array('class' => 'user-name' ) );
+	
+  $picture_markup = elite_custom_user_image($user, 'rounduser');
+	
+  $points = '<strong>'. userpoints_get_current_points($user->uid) .'</strong> '. t('points');
+  $points_markup = elite_custom_markup_wrapper($points, array('class' => 'points-wrapper'));
+  
+	$umenu = '<ul class="usermenu">';
+	if ( function_exists('commerce_cart_order_load') ) {
+		if ($order = commerce_cart_order_load($user->uid)) {
+			// Count the number of product line items on the order.
+			$wrapper = entity_metadata_wrapper('commerce_order', $order);
+			$quantity = commerce_line_items_quantity($wrapper->commerce_line_items, commerce_product_line_item_types());
+	
+			// If there are more than 0 product line items on the order...
+			if ($quantity > 0) {
+				// Use the dynamic menu item title.
+				$cattr = array('count'=>$quantity);
+				$umenu .= '<li class="cart">'. l( elite_custom_markup_wrapper(t('Cart'), $cattr, 'usermenu'), 'cart', array('html'=>true) ) .'</li>';
+			}
+		}
+	}
+	
+  // My Account
+	$myaccount = t('My Account');
+	$myaccount = elite_custom_markup_wrapper($myaccount, array(), 'usermenu');
+	$laccount = l( $myaccount, 'user/'. $user->uid .'/edit', array('html'=>true) );
+	$umenu .= '<li class="account nocount active">'. $laccount .'</li>';
+	
+  // Trainings Completed (with #)
+	$training = t('Trainings Completed');
+	$tnum = elite_custom_user_training_count( $user->uid );
+	$mattr = array('count'=>$tnum);
+	$training = elite_custom_markup_wrapper($training, $mattr, 'usermenu');
+  $aurl = user_access('access Trainings') ? 'user/'. $user->uid .'/points' : false;
+  $atts = array( 'html' => true );
+  if ( $aurl == false ) {
+    $atts['attributes'] = array( 'onclick' => 'return false' );
+  }
+	$lt = l( $training, $aurl, $atts );
+	$umenu .= '<li class="trainings'. ( $aurl == false ? ' disabled' : 'active' ) .'">'. $lt .'</li>';
+	
+  if ( function_exists( 'privatemsg_unread_count' ) ) {
+    // My Messages (with #)
+    $mnum = privatemsg_unread_count();
+    $mattr = $mnum > 0 ? array('count'=>$mnum) : false;
+    $umenu .= '<li class="notifications active">'. l( elite_custom_markup_wrapper(t('My Messages'), $mattr, 'usermenu'), 'messages', array('html'=>true) ) .'</li>';
+  }
+  // My Activity
+  $aurl = user_access('access My Activity') ? 'user/'. $user->uid .'/points' : false;
+  $atts = array( 'html' => true );
+  if ( $aurl == false ) {
+    $atts['attributes'] = array( 'onclick' => 'return false' );
+  }
+	$umenu .= '<li class="activity nocount'. ( $aurl == false ? ' disabled' : 'active' ) .'">'. l( elite_custom_markup_wrapper(t('My Activity'), false, 'usermenu'), $aurl, $atts ) .'</li>';
+	
+  // My Favorites (with #)
+	$fnum = elite_custom_user_favorites_count();
+	$mattr = $fnum > 0 ? array('count'=>$fnum) : false;
+  
+  $aurl = user_access('access My Favorites') ? 'favorites' : false;
+  $atts = array( 'html' => true );
+  if ( $aurl == false ) {
+    $atts['attributes'] = array( 'onclick' => 'return false' );
+  }
+	$umenu .= '<li class="favorites'. ( $aurl == false ? ' disabled' : 'active' ) .'">'. l( elite_custom_markup_wrapper(t('My Favorites'), $mattr, 'usermenu'), $aurl, $atts ) .'</li>';
+	
+  // Log out
+	$umenu .= '<li class="logout nocount active">'. l( elite_custom_markup_wrapper(t('Log out'), false, 'usermenu'), 'user/logout', array('html'=>true) ) .'</li>';
+	
+	$umenu .= '</ul>';
+	
+	// put it all together
+  $markup = $uname_markup . $picture_markup . $points_markup . $umenu;
+	//$markup .= '<pre style="display:none">'. print_r($user,true) .'</pre>';
+	
+  return elite_custom_markup_wrapper($markup, array('id' => 'elite-user-flop'));
+}
+
+/*
+ * assist in checking if Article / Training is "required"?
+ */
+function elite_custom_check_required($obj, $uid = -1, $account = null) {
+  if ( $uid != -1 ) {
+    if ( !$account ) {
+      $account = user_load( $uid );
+    }
+  } else {
+    global $user;
+    $account = $user;
+  }
+  $req = false;
+  $areamanager = false;
+  $mobileaudio = false;
+  $portableaudio = false;
+  foreach ( $account->roles as $r ) {
+    switch ( $r ) {
+      case 'area manager':
+        $areamanager = true;
+        break;
+      case 'mobile audio':
+        $mobileaudio = true;
+        break;
+      case 'portable audio':
+        $mobileaudio = true;
+        break;
+    }
+  }
+  $msg = ''. $uid .' : '. $obj->nid .' ';
+  if ( $areamanager ) {
+    $msg .= 'field_required_managers';
+    if ( isset( $obj->field_required_managers ) ) {
+      $arr = $obj->field_required_managers;
+      if ( is_array( $arr ) ) {
+        if ( isset( $arr[LANGUAGE_NONE] ) ) {
+          if ( isset( $arr[LANGUAGE_NONE][0] ) ) {
+            if ( isset( $arr[LANGUAGE_NONE][0]['value'] ) ) {
+              $msg .= ' = '. $arr[LANGUAGE_NONE][0]['value'];
+              if ( $arr[LANGUAGE_NONE][0]['value'] == 1 ) {
+                $req = true;
+                $msg .= ' = REQ';
+              } else {
+                $msg .= ' (not req)';
+              }
+            }
+          }
+        }
+      }
+    }
+  } elseif ( $mobileaudio ) {
+    $msg .= 'field_required_mobile_audio';
+    if ( isset( $obj->field_required_mobile_audio ) ) {
+      $arr = $obj->field_required_mobile_audio;
+      if ( is_array( $arr ) ) {
+        if ( isset( $arr[LANGUAGE_NONE] ) ) {
+          if ( isset( $arr[LANGUAGE_NONE][0] ) ) {
+            if ( isset( $arr[LANGUAGE_NONE][0]['value'] ) ) {
+              $msg .= ' = '. $arr[LANGUAGE_NONE][0]['value'];
+              if ( $arr[LANGUAGE_NONE][0]['value'] == 1 ) {
+                $req = true;
+                $msg .= ' = REQ';
+              } else {
+                $msg .= ' (not req)';
+              }
+            }
+          }
+        }
+      }
+    }
+  } elseif ( $portableaudio ) {
+    $msg .= 'field_required_portable_audio';
+    if ( isset( $obj->field_required_portable_audio ) ) {
+      $arr = $obj->field_required_portable_audio;
+      if ( is_array( $arr ) ) {
+        if ( isset( $arr[LANGUAGE_NONE] ) ) {
+          if ( isset( $arr[LANGUAGE_NONE][0] ) ) {
+            if ( isset( $arr[LANGUAGE_NONE][0]['value'] ) ) {
+              $msg .= ' = '. $arr[LANGUAGE_NONE][0]['value'];
+              if ( $arr[LANGUAGE_NONE][0]['value'] == 1 ) {
+                $req = true;
+                $msg .= ' = REQ';
+              } else {
+                $msg .= ' (not req)';
+              }
+            }
+          }
+        }
+      }
+    }
+  } else {
+    $msg .= 'field_required_asrs';
+    if ( isset( $obj->field_required_asrs ) ) {
+      $arr = $obj->field_required_asrs;
+      if ( is_array( $arr ) ) {
+        if ( isset( $arr[LANGUAGE_NONE] ) ) {
+          if ( isset( $arr[LANGUAGE_NONE][0] ) ) {
+            if ( isset( $arr[LANGUAGE_NONE][0]['value'] ) ) {
+              $msg .= ' = '. $arr[LANGUAGE_NONE][0]['value'];
+              if ( $arr[LANGUAGE_NONE][0]['value'] == 1 ) {
+                $req = true;
+                $msg .= ' = REQ';
+              } else {
+                $msg .= ' (not req)';
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  //watchdog('checkreq', $msg .' :: <pre>'. print_r($obj, true) .'</pre><br /><br /><pre>'. print_r($account->roles, true) .'</pre>');
+  return $req;
+}
+/*
+ * hook_views_pre_render to change some things as needed
+ * NOTE : for SERVICES / API output, there is function elite_custom_services_request_postprocess_alter too
+ */
+function elite_custom_views_pre_render(&$view) {
+	global $user;
+  
+  $view->set_title(t($view->get_title()));
+	$logone = true;
+	if ( $view->name == 'trainings' ) {
+		foreach($view->result as $result) {
+			if( isset($result->node_field_data_field_training_quiz_nid) ) {
+				$result->node_field_data_field_training_quiz_nid = elite_custom_user_taken_quiz( $result->node_field_data_field_training_quiz_nid );
+        
+        // replace "points" with Complete?
+        if ( $result->node_field_data_field_training_quiz_nid === 1 ) {
+          $result->field_field_base_points[0]['rendered']['#markup'] = '<strong class="complete">'. t('Complete') .'</strong>';
+        } else {
+          $req = elite_custom_check_required( $result->_field_data['nid']['entity'] );
+          if ( $req === true ) {
+            $result->field_field_base_points[0]['rendered']['#markup'] .= '<span class="required"></span>';
+          }
+        }
+			}
+			if ( isset( $result->flagging_flagged ) ) $result->flagging_flagged = (int)$result->flagging_flagged;
+		}
+	}
+	
+	if ( in_array( $view->name, array( 'popular_content', 'trends', 'favorites' ) ) ) {
+		foreach ( $view->result as $result ) {
+			$nid = $result->nid;
+			$type = $result->_field_data['nid']['entity']->type;
+			if ( $type  == 'training' ) {
+				$nid = $result->node_field_data_field_training_quiz_nid;
+			}
+			$result->node_field_data_field_training_quiz_nid = elite_custom_check_taken_content( $type, $nid );
+      
+      // replace "points" with Completed?
+      if ( $result->node_field_data_field_training_quiz_nid === 1 ) {
+        $result->field_field_base_points[0]['rendered']['#markup'] = '<strong class="complete">'. t('Complete') .'</strong>';
+      } else {
+        if ( $type  == 'training' ) {
+          $req = elite_custom_check_required( $result->_field_data['nid']['entity'] );
+          if ( $req === true ) {
+            $result->field_field_base_points[0]['rendered']['#markup'] .= '<span class="required"></span>';
+          }
+        }
+      }
+			if ( isset( $result->flagging_flagged ) ) $result->flagging_flagged = (int)$result->flagging_flagged;
+      /*
+      if ( $logone ) {
+        //watchdog('logone', '<pre>'. print_r($result,true) .'</pre>');
+        $logone = false;
+      }
+      */
+		}
+	}
+	
+	if ( $view->name == 'related_content' ) {
+		foreach ( $view->result as $result ) {
+			$nid = $result->node_field_data_field_related_content_nid;
+			$type = $result->_field_data['node_field_data_field_related_content_nid']['entity']->type;
+			if ( $type  == 'training' ) {
+				$nid = $result->node_field_data_field_training_quiz_nid;
+			}
+			$result->node_field_data_field_training_quiz_nid = elite_custom_check_taken_content( $type, $nid );
+      
+      // replace "points" with Completed?
+      if ( $result->node_field_data_field_training_quiz_nid === 1 ) {
+        $result->field_field_base_points[0]['rendered']['#markup'] = '<strong class="complete">'. t('Complete') .'</strong>';
+      }
+		}
+	}
+}
+
+function elite_custom_services_poll_data_fetch(&$return) {
+  $poll = node_load($return->nid);
+  if (isset($poll->field_base_points) && !empty($poll->field_base_points)) {
+    $return->base_points = $poll->field_base_points;
+  } 
+}
+
+function elite_custom_markup_wrapper($markup, $attributes = NULL, $tag = 'div') {
+	if ( $tag == 'usermenu' ) {
+		$output = '<span class="icon"></span><span class="title">'. $markup .'</span>';
+		if (isset($attributes) && is_array($attributes)) {
+			if ( isset( $attributes['count'] ) ) {
+				$output .= '<span class="count">'. $attributes['count'] .'</span>';
+			}
+		}
+	} else {
+		$attrs = '';
+		if (isset($attributes) && is_array($attributes)) {
+			foreach($attributes as $k => $v) {
+					$attrs .= " $k='$v'";
+			}
+		}
+		$output = "<$tag$attrs>$markup</$tag>";
+	}
+  return $output;
+}
+/**
+ * given a quiz NID, return the Training node referencing that Quiz
+ */
+function elite_custom_quiz_training( $quiz_nid ) {
+	$training_data = db_select('field_data_field_training_quiz', 'tq')
+    ->fields('tq', array('entity_id'))
+    ->condition('field_training_quiz_target_id', $quiz_nid)
+    ->orderBy('entity_id', 'DESC')
+    ->execute()
+    ->fetchAssoc();
+  return node_load($training_data['entity_id']);
+}
+/**
+ * Implements hook_quiz_finished().
+ *
+ * #todo : either make Base Points = REQUIRED for Training nodes
+ * or add field condition here to load training that has base_points = some # ?
+ *
+ */
+function elite_custom_quiz_finished($quiz, $score, $rid) {
+  $training_node = elite_custom_quiz_training( $quiz->nid );
+	//watchdog('elite quizd', 'trainign done?! score = <pre>'. print_r($score,true) .'</pre><br /><br />quiz = <pre>'. print_r($quiz, true) .'</pre><br />training : <pre>'. print_r($training_node,true) .'</pre>');
+  if (!empty($training_node->field_base_points)) {
+    $base_points = $training_node->field_base_points[LANGUAGE_NONE][0]['value'];
+		// only award points when passing the quiz
+		if ( $score['passing'] == 1 ) {
+      $taken = elite_custom_user_earned_training_points( $training_node->nid );
+      $ptsres = array();
+      if ( $taken == 0 ) {
+        // instead of directly awarding userpoints here..
+        /*
+        $ptsres = userpoints_userpointsapi( array(
+          'points' => $base_points,
+          'operation' => 'elite_custom_quiz_finished',
+          'entity_id' => $training_node->nid,
+          'entity_type' => 'node',
+        ));
+        // and reset training count..
+        _elite_custom_wipe_usercounts_cache('trainings');
+        */
+        // load user account & update field_training_passed_# with time
+        global $user;
+        $account = user_load( $user->uid ); //really?
+        $edits = array();
+        $fname = 'field_training_passed_'. $training_node->nid;
+        $edits[$fname] = array(
+          LANGUAGE_NONE => array(
+            0 => array(
+              'value' => date( 'Y-m-d H:i:s', REQUEST_TIME )
+            ),
+          ),
+        );
+        // and save, which triggers the hook_user_update & awards points there
+        user_save( $account, $edits ); 
+      } else {
+        drupal_set_message( t('You have already redeemed the points from this piece.'), 'warning');
+      }
+      //if ( function_exists('watchdog') ) watchdog('elite quizd', 'training done? <pre>'. print_r($training_data['entity_id'],true) .'</pre> training_node <pre>'. print_r($training_node,true) .'</pre><br />base pts?! '. $base_points .' : <pre>'. print_r($ptsres,true) .'</pre>');
+    }
+  }
+}
+/**
+ * http://stackoverflow.com/a/29526501
+ */
+function _elite_custom_array_diff_recursive($arr1, $arr2) {
+  $outputDiff = array();
+  if ( !is_array( $arr1 ) ) {
+    return $outputDiff;
+  }
+  if ( !is_array( $arr2 ) ) {
+    return $arr1;
+  }
+  foreach ($arr1 as $key => $value) {
+    if (array_key_exists($key, $arr2)) {
+      if (is_array($value)) {
+        $recursiveDiff = _elite_custom_array_diff_recursive($value, $arr2[$key]);
+
+        if (count($recursiveDiff)) {
+          $outputDiff[$key] = $recursiveDiff;
+        }
+      } else if (!in_array($value, $arr2)) {
+        $outputDiff[$key] = $value;
+      }
+    }
+    else if (!in_array($value, $arr2)) {
+      $outputDiff[$key] = $value;
+    }
+  }
+
+  return $outputDiff;
+}
+/**
+ * hook_user_update to wipe some caches
+ */
+function elite_custom_user_update( &$edit, $account, $category ) {
+  //watchdog('userup', 'wipe cache(s) for account : <pre>'. print_r($account,true) .'</pre><br /><br />cat : <pre>'. print_r($category,true) .'</pre>');
+  
+  // double check Taken fields? first we need to figure out what they might be
+  $training_fields = array();
+  foreach ( $account as $k => $v ) {
+    if ( strpos( $k, 'field_training_passed_' ) === 0 ) {
+      $training_fields[] = $k;
+    }
+  }
+  // now loop through and see if any field_training_passed_# has changed?
+  $diffd = array();
+  $og = $account->original;
+  foreach ( $training_fields as $fid ) {
+    $newval = $account->$fid;
+    $ogval = $og->$fid;
+    /*
+    $diffd[] = array(
+      'key' => $fid,
+      'new' => ,
+      'og' => $og->$fid,
+    );
+    */
+    // need to check both ways in case something was removed..
+    $diff1 = _elite_custom_array_diff_recursive( $newval, $ogval );
+    $diff2 = _elite_custom_array_diff_recursive( $ogval, $newval );
+    if ( ( count( $diff1 ) > 0 ) || ( count( $diff2 ) > 0 ) ) {
+      $diffd[] = array(
+        'key' => $fid,
+        'changed_count1' => count( $diff1 ),
+        'changed1' => $diff1,
+        'changed_count2' => count( $diff2 ),
+        'changed2' => $diff2,
+        'newval' => $newval,
+      );
+      // something changed : figure if we need to add pts or remove pts..
+      $addpts = false;
+      if ( isset( $newval[LANGUAGE_NONE] ) ) {
+        if ( isset( $newval[LANGUAGE_NONE][0] ) ) {
+          if ( isset( $newval[LANGUAGE_NONE][0]['value'] ) ) {
+            $addpts = $newval[LANGUAGE_NONE][0]['value'];
+          }
+        }
+      }
+      // add/remove points!
+      $tnid = (int)substr($fid, 22);
+      $training_node = node_load( $tnid );
+      if (!empty($training_node->field_base_points)) {
+        $base_points = (int)$training_node->field_base_points[LANGUAGE_NONE][0]['value'];
+        $taken = elite_custom_user_earned_training_points( $training_node->nid, $account->uid );
+        if ( $addpts !== false ) {
+          if ( $taken == 0 ) {
+            // still want to only award points if they were not already given before
+            $ptsres = userpoints_userpointsapi( array(
+              'points' => $base_points,
+              'uid' => $account->uid,
+              'moderate' => false,
+              'operation' => 'elite_custom_quiz_finished',
+              'entity_id' => $training_node->nid,
+              'entity_type' => 'node',
+            ));
+          }
+        } else {
+          // remove points?
+          if ( $taken != 0 ) {
+            // delete userpoints_txn
+            db_delete('userpoints_txn')
+              ->condition('uid', $account->uid)
+              ->condition('entity_id', $training_node->nid)
+              ->condition('operation', 'elite_custom_quiz_finished')
+              ->execute();
+            $ptsres = userpoints_userpointsapi( array(
+              'points' => $base_points * -1,
+              'uid' => $account->uid,
+              'moderate' => false,
+              'operation' => 'elite_custom_quiz_unfinished',
+              'entity_id' => $training_node->nid,
+              'entity_type' => 'node',
+            ));
+            //watchdog('baleted?', 'belteted : elite_custom_quiz_finished uid '. $account->uid .' nid '. $training_node->nid);
+          }
+        }
+      }
+    }
+  }
+  
+  // and wipe "trainings" taken cache
+  _elite_custom_wipe_usercounts_cache( 'trainings', $account->uid );
+  
+  //watchdog( 'userchk', '<pre>'. print_r($training_fields,true) .'</pre><br /><pre>'. print_r($diffd, true) .'</pre>');
+}
+
+/**
+ * Implements hook_userpoints_info().
+ */
+function elite_custom_userpoints_info() {
+  return array(
+    'elite_custom_collect_points' => array(
+      'description callback' => 'elite_custom_userpoints_description_callback',
+    ),
+    'elite_custom_quiz_finished' => array(
+      'description callback' => 'elite_custom_userpoints_description_callback',
+    ),
+  );
+}
+
+/**
+ * Description callback for userpoint operation description/reason.
+ */
+function elite_custom_userpoints_description_callback($operation, $entity) {
+
+  $arguments = array();
+  // Try to load content type name.
+  if ($operation->entity_type == 'node' && $entity) {
+    $arguments['%title'] = $entity->title;
+  }
+
+  // Fallback to string content if the above failed for some reason.
+  if (empty($arguments['%title'])) {
+    $arguments['%title'] = t('content');
+  }
+
+  switch ($operation->operation) {
+    case 'elite_custom_collect_points':
+      return t('Collected points for "%title" Trend', $arguments);
+      break;
+    case 'elite_custom_quiz_finished':
+      return t('Completed training quiz "%title"', $arguments);
+      break;
+	}
+}
+
+function elite_custom_user_trend_count($uid = -1, $region = false, $fullcount = false) {
+	if ( $uid == -1 ) {
+		global $user;
+		$uid = $user->uid;
+	}
+	
+	if ( $region == false ) {
+		$region = elite_custom_user_region();
+	}
+  $oot = -1; // used to check resets...
+  $cid = 'user_'. $uid .'_'. $region .'_trends';
+  // check cache?
+  if ( $cache = cache_get( $cid, 'cache_usercounts' ) ) {
+    $oot = $cache->data;
+    /*
+    if ( function_exists( 'watchdog' ) ) {
+      //watchdog('elite_cached', 'user_trend_count found cached for '. $cid .' : <pre>'. print_r($oot,true) .'</pre>');
+    }
+    */
+  }// else {
+  if ( $oot == -1 ) {
+    //watchdog('elite_cached', 'recalc user_trend_count for '. $cid .' ?');
+    // recalculate
+    global $language;
+    
+    $query = new EntityFieldQuery;
+    $query->entityCondition( 'entity_type', 'node' )
+      ->entityCondition( 'bundle', 'article' )
+      ->propertyCondition( 'status', 1 );
+      //->propertyCondition( 'language', $language->language )
+      //->fieldCondition( 'field_region', 'value', $region, '=' );
+    
+    $trends = $query->execute();
+    
+    $completed = 0;
+    if ( count( $trends ) ) {
+      $trends = $trends['node'];
+      $trend_ids = array_keys($trends);
+      $total = count( $trend_ids );
+      
+      $completed = (int)db_query("SELECT COUNT(*) FROM flagging WHERE uid=:uid AND fid=2 AND entity_id IN (:eid)", array(':uid' => $uid, ':eid' => $trend_ids ))->fetchField();
+      
+      $remaining = $total - $completed;
+      if ( $remaining < 0 ) $remaining = 0;
+      
+      $oot = array(
+          'total' => $total,
+          'complete' => $completed,
+          'remaining' => $remaining,
+        );
+      // set cache for future
+      cache_set( $cid, $oot, 'cache_usercounts' );
+    }
+  }
+  
+  if ( $fullcount ) {
+    return $oot;
+  } // else
+	//watchdog('trend count', 'user '. $uid .' : region '. $region .' : arrrr <pre>'. print_r($completed,true) .'</pre><br /><br />trends : <pre>'. print_r($trends,true) .'</pre>');
+	return $oot['complete'];
+}
+/**
+ * maybe we can cache this better? do we need to?
+ */
+function _elite_list_trainings() {
+    //global $language;
+    // first use EntityReference to get array of published active Trainings in given region...
+    $query = new EntityFieldQuery;
+    $results = $query->entityCondition( 'entity_type', 'node' )
+      ->entityCondition( 'bundle', 'training' )
+      ->propertyCondition( 'status', 1 )
+      ->execute();
+      //->propertyCondition( 'language', $language->language )
+      //->fieldCondition( 'field_region', 'value', $region, '=' )
+    
+    $total_trainings = count( $results );
+    $trainings = array();
+    if ( $total_trainings ) {
+      foreach ( $results['node'] as $n ) {
+        $trainings[] = $n->nid;
+      }
+    }
+    return $trainings;
+}
+/*
+ * based off quiz module quiz_get_user_results
+ * from quiz.pages.inc
+ */
+function elite_custom_user_training_count($uid = -1, $region = false, $fullcounts = false) {  
+	if ( $uid > 0 ) {
+    $account = user_load( $uid );
+  } else {
+		global $user;
+		$uid = $user->uid;
+    $account = user_load( $uid ); // just for making sure robust
+	}
+	if ( $region == false ) {
+		$region = elite_custom_user_region();
+	}
+  $oot = -1;
+  $cid = 'user_'. $uid .'_'. $region .'_trainings';
+  // check cache?
+  if ( $cache = cache_get( $cid, 'cache_usercounts' ) ) {
+    $oot = $cache->data;
+  }
+  if ( $oot == -1 ) {
+    $trainings = _elite_list_trainings();
+    $total_trainings = count( $trainings );
+    $taken = 0;
+    $required_total = 0;
+    $required_complete = 0;
+    $dbg = '';
+    if ( $total_trainings ) {
+      /*
+      $trainings = array();
+      foreach ( $results['node'] as $n ) {
+        $trainings[] = $n->nid;
+      }
+      */
+      // and then
+      $trainings = node_load_multiple( $trainings );
+      $total_trainings = count( $trainings );
+    
+      foreach ( $trainings as $t ) {
+        $passed = false;
+        $fid = 'field_training_passed_'. $t->nid;
+        $dbg .= '<br />'. $fid;
+        if ( property_exists( $account, $fid ) ) {
+          $dbg .= ' 0';
+          $arr = $account->$fid;
+          $dbg .= ' 0.5';
+          if ( is_array( $arr ) ) {
+            $dbg .=' 1';
+            if ( isset( $arr[LANGUAGE_NONE] ) ) {
+              $dbg .=' 2';
+              if ( isset( $arr[LANGUAGE_NONE][0] ) ) {
+                $dbg .=' 3';
+                if ( isset( $arr[LANGUAGE_NONE][0]['value'] ) ) {
+                  $dbg .=' yup';
+                  $passed = true;
+                  $taken++;
+                } else {
+                  $dbg .= ' NO?! so close..';
+                }
+              }
+            }
+          }
+        } else {
+          $dbg .= ' nope?!';
+        }
+        if ( elite_custom_check_required( $t, $uid, $account ) ) {
+          $dbg .= ' *req?';
+          $required_total++;
+          if ( $passed ) {
+            $required_complete++;
+          }
+        } else {
+          $dbg .= ' and NOT req?';
+        }
+      }
+    } else {
+      $dbg = 'dbg : but the count failed?!';
+    }
+    
+		$remaining_trainings  = $total_trainings - $taken;
+		if ( $remaining_trainings < 0 ) $remaining_trainings = 0; // just in case
+    
+    //watchdog( 'training_count9', 'required '. $required_complete .' of '. $required_total .' : <br /><pre>'. print_r($completed_quizzes,true) .'</pre>' );
+    
+		$oot = array(
+			'total' => $total_trainings,
+			'complete' => $taken,
+			'remaining' => $remaining_trainings,
+      'required' => array(
+        'total' => $required_total,
+        'complete' => $required_complete
+      )
+		);
+    //watchdog( 'training_count7', 'required '. $required_complete .' of '. $required_total .' : <br />counts : <pre>'. print_r($oot,true) .'</pre><br />user account : <pre>'. print_r($account,true) .'</pre><br />trainings results : <pre>'. print_r($trainings,true) .'</pre>'. $dbg );
+    // set cache for future
+    cache_set( $cid, $oot, 'cache_usercounts' );
+  }
+	//return $taken;
+	if ( $fullcounts ) {
+		return $oot;
+	} // else
+	return $oot['complete'];
+}
+/* old function with alex typo in function name... */
+function elite_customer_user_training_count($uid = -1) {
+	return ( $uid % 10 );
+}
+/*
+ * whether a given user has taken a particular quiz
+ *
+ * args:
+ * nid of quiz node,
+ * uid of current user, set to uid of current user if not given / NULL
+ * 
+ */
+function elite_custom_user_taken_quiz( $nid = -1, $uid = NULL ) {
+	if ( $uid == NULL ) {
+		global $user;
+		$uid = $user->uid;
+	}
+	$total = 0;
+	$nid = (int)$nid;
+	if ( $nid > 0 ) {
+		$dbresult = db_query('SELECT DISTINCT(n.nid), n.result_id, n.time_start, n.time_end, n.score, np.pass_rate
+			FROM {quiz_node_results} n
+			LEFT JOIN {quiz_node_properties} np
+			ON n.nid = np.nid
+			WHERE n.nid = :nid
+			AND n.uid = :uid
+			AND n.time_end > 0
+			ORDER BY n.score DESC', array(':nid' => $nid, ':uid' => $uid));
+	
+		$results = array();
+		// count...
+		foreach ($dbresult as $result) {
+			$result = (array) $result;
+			if ( !isset( $results[$result['nid']] ) ) {
+				$results[$result['nid']] = $result;
+				if ( $result['score'] >= $result['pass_rate'] ) {
+					$total++;
+				}
+			}
+		}
+		//watchdog( 'qcheck', 'nid @nid uid @uid : results : <pre>@results</pre>', array( '@nid' => $nid, '@uid' => $uid, '@results' => print_r($results,true) ) );
+	}
+	return ($total==0) ? 0 : 1;
+}
+/*
+ * whether a given user has earned points for completing a particular training quiz
+ *
+ * args:
+ * nid of training node,
+ * uid of current user, set to uid of current user if not given / NULL
+ * 
+ */
+function elite_custom_user_earned_training_points( $nid = -1, $uid = NULL ) {
+	if ( $uid == NULL ) {
+		global $user;
+		$uid = $user->uid;
+	}
+	$total = 0;
+	$nid = (int)$nid;
+	if ( $nid > 0 ) {
+		$total = db_query('SELECT COUNT(*)
+			FROM {userpoints_txn} n
+			WHERE n.entity_id = :nid
+			AND n.uid = :uid
+			AND n.operation = :eop
+			ORDER BY n.time_stamp ASC', array(':nid' => $nid, ':uid' => $uid, ':eop' => 'elite_custom_quiz_finished'))->fetchField();
+	}
+	//watchdog('chk earned pts', 'training nid '. $nid .' : uid '. $uid .' : taken count = '. $total );
+	return ($total==0) ? 0 : 1;
+}
+/*
+ * hook_node_load to tweak some things for Services mostly
+ */
+function elite_custom_node_load( $nodes, $types ) {
+	//watchdog('hook node load', 'args '. arg(0) .' / '. arg(1) .' / '. arg(2) .' ... <br />nodes <pre>'. print_r($nodes,true) .'</pre><br />types <pre>'. print_r($types,true) .'</pre>');
+	foreach ( $nodes as $id => $n ) {
+		switch( $n->type ) {
+			case 'article':
+			case 'training':
+				if ( arg(0) == 'ws' ) {
+					if ( ( arg(1) == 'node' ) && ( arg(2) == $id ) ) {
+            //watchdog('hook node load', 'args '. arg(0) .' / '. arg(1) .' / '. arg(2) .' ... <br />nodes <pre>'. print_r($n,true) .'</pre><br />types <pre>'. print_r($types,true) .'</pre>');
+						// if this is a call from /ws/node/#.json, wipe any HTML from the body area, for now at least
+            // php error for nodes with no body..
+            if ( isset( $n->body[LANGUAGE_NONE] ) ) {
+              if ( isset( $n->body[LANGUAGE_NONE][0] ) ) {
+                if ( isset( $n->body[LANGUAGE_NONE][0]['value'] ) ) {
+						      $n->body[LANGUAGE_NONE][0]['value'] = strip_tags( $n->body[LANGUAGE_NONE][0]['value'] );
+                }
+                if ( isset( $n->body[LANGUAGE_NONE][0]['safe_value'] ) ) {
+						      $n->body[LANGUAGE_NONE][0]['safe_value'] = strip_tags( $n->body[LANGUAGE_NONE][0]['safe_value'], '<p>' );
+                }
+              }
+            }
+            
+            module_load_include( 'inc', 'elite_custom' );
+            if ( $n->type == 'training' ) {
+              // load quiz questions
+              //watchdog('eqtf', '<pre>'. print_r($n,true) .'</pre>');
+              $n->quiz_questions = array();
+              $quiz = $n->field_training_quiz;
+              if ( isset( $quiz[LANGUAGE_NONE] ) ) {
+                if ( isset( $quiz[LANGUAGE_NONE][0] ) ) {
+                  $n->quiz_questions = _elite_custom_get_training_quiz_service( $quiz[LANGUAGE_NONE][0]['target_id'] );
+                }
+              }
+            }
+            // #todo : load related content too?!
+					}
+					
+					// change wslash URL ?
+					if ( defined('ELITELOCAL') ) {
+						if ( is_array( $n->field_wslash_training ) ) {
+							if ( isset( $n->field_wslash_training[LANGUAGE_NONE] ) ) {
+								if ( isset( $n->field_wslash_training[LANGUAGE_NONE][0] ) ) {
+									$ws = $n->field_wslash_training[LANGUAGE_NONE][0]['url'];
+									$firstslash = strpos( $ws, '/', 8 );
+									if ( $firstslash > 0 ) {
+										$n->field_wslash_training[LANGUAGE_NONE][0]['url'] = ELITELOCAL . substr($ws, $firstslash);
+									}
+								}
+							}
+						}
+					}
+				}
+				break;
+		}
+	}
+}
+
+/**
+ * hook_rest_server_execute_errors_alter(&$error_alter_array, $controller, $arguments)
+ */
+function elite_custom_rest_server_execute_errors_alter(&$error_alter_array, $controller, $arguments) {
+	// remove HTML from ALL the errors?
+	if ( isset( $error_alter_array['header_message'] ) ) {
+		$error_alter_array['header_message'] = strip_tags( $error_alter_array['header_message'] );
+	}
+	if ( isset( $error_alter_array['body_data'] ) ) {
+		if ( isset( $error_alter_array['body_data']['form_errors'] ) ) {
+			if ( is_array( $error_alter_array['body_data']['form_errors'] ) ) {
+				foreach( $error_alter_array['body_data']['form_errors'] as $k => $v ) {
+					$error_alter_array['body_data']['form_errors'][$k] = strip_tags( $v );
+				}
+			}
+		}
+	}
+	//watchdog('service ealt', 'error_alter_array <pre>'. print_r($error_alter_array,true) .'</pre><br />controller <pre>'. print_r($controller,true) .'</pre><br />args <pre>'. print_r($arguments,true) .'</pre>');
+}
+/**
+ * help : combine answers without massive php errors?
+ */
+function _elite_custom_format_services_quiz_questions( $result ) {
+  $oot = array();
+  foreach($result as $k => $v) {
+    $i = $v->question_id;
+    if ( !isset( $oot[$i] ) ) {
+      $q = new stdClass();
+      $q->question_id = $i;
+      $q->question_title = $v->question_title;
+      $q->answer = array();
+      $oot[$i] = $q;
+    }
+    $oot[$i]->answer[$v->answer_id] = $v->answer;
+    // also set an "answer_order" standard array
+    if ( !property_exists( $oot[$i], 'answer_order' ) ) {
+      $oot[$i]->answer_order = array();
+    }
+    $oot[$i]->answer_order[] = $v->answer_id;
+  }
+	return array_values($oot);
+}
+/**
+ * hook_services_request_postprocess_alter($controller, $args, &$result)
+ */
+function elite_custom_services_request_postprocess_alter($controller, $args, &$result) {
+	global $user;
+	//watchdog('service alt', 'controller <pre>'. print_r($controller,true) .'</pre><br />args <pre>'. print_r($args,true) .'</pre><br />result <pre>'. print_r($result,true) .'</pre>');
+	switch( $controller['callback'] ) {
+		case 'logintoboggan_services_login':
+			if($user = user_load($result->user->uid, TRUE)) {
+				//load full user object as return value for login service to reduce need
+				//for subsequent calls
+				$result->user = $user;
+        // also load Counts?
+        module_load_include( 'inc', 'elite_custom' );
+        if ( function_exists( 'elite_custom_services_user_counts' ) ) {
+          $result->counts = elite_custom_services_user_counts();
+        } else {
+          watchdog( 'service alt err', 'no elite_custom_services_user_counts?!');
+        }
+        
+        $result->home_slides = _elite_custom_get_home_slides();
+        $result->popular_content = _elite_custom_get_popular_content();
+        $result->trainings = _elite_custom_get_trainings_service( 3 );
+        $result->poll = _elite_custom_get_poll_service();
+        //watchdog('service alt', 'controller <pre>'. print_r($controller,true) .'</pre><br />args <pre>'. print_r($args,true) .'</pre><br />result <pre>'. print_r($result,true) .'</pre>');
+			}
+			break;
+    case '_user_resource_retrieve':
+      if($user = user_load($result->uid, TRUE)) {
+        //services excludes mail for some reason unless users have elevated permissions
+        $result->mail = $user->mail;
+      }
+      break;
+		case 'services_views_execute_view':
+			//watchdog('s v e v', $controller['view info']['view_name']);
+			if ( in_array( $controller['view info']['view_name'], array( 'questions_by_quiz', 'trainings_quiz_service' ) ) ) {
+				$result = _elite_custom_format_services_quiz_questions( $result );
+			}
+			// for ALL views, sanitize Services output some
+      foreach( $result as $k => &$v ) {
+        // make sure Titles contain the special characters, its ok ?!
+				if ( isset( $v->title ) ) {
+          $v->title = htmlspecialchars_decode($v->title);
+        }
+				// make sure field_image always returns a single image object, not array with 1 result
+				if ( isset( $v->field_image ) ) {
+					if ( is_array( $v->field_image ) ) {
+						$v->field_image = $v->field_image[0];
+					}
+				}
+      }
+  
+			break;
+		case '_node_resource_retrieve':
+			$nid = $result->nid;
+			if ( $result->type == 'training' ) {
+				if ( isset( $result->field_training_quiz ) ) {
+					if ( isset( $result->field_training_quiz[LANGUAGE_NONE] ) ) {
+						if ( isset( $result->field_training_quiz[LANGUAGE_NONE]['target_id'] ) ) {
+							$nid = $result->field_training_quiz[LANGUAGE_NONE]['target_id'];
+						} else {
+							if ( isset( $result->field_training_quiz[LANGUAGE_NONE][0] ) ) {
+								if ( isset( $result->field_training_quiz[LANGUAGE_NONE][0]['target_id'] ) ) {
+									$nid = $result->field_training_quiz[LANGUAGE_NONE][0]['target_id'];
+								}
+							}
+						}
+					}
+				}
+			}
+			// fix rating?
+			if ( isset( $result->field_rating ) ) {
+				if ( is_array( $result->field_rating ) ) {
+					if ( function_exists('fivestar_get_votes') ) {
+						$votes = fivestar_get_votes('node', $result->nid);
+						$ratings = array();
+						foreach ( $votes as $k => $v ) {
+							if ( is_array( $v ) ) {
+								if ( isset( $v['value'] ) ) {
+									$ratings[$k] = $v['value'];
+								}
+							}
+						}
+						$result->field_rating = $ratings;
+					}
+				}
+			}
+			if ( in_array( $result->type , array( 'article', 'training', 'tool' ) ) ) {
+				$result->taken = ''. elite_custom_check_taken_content( $result->type, $nid, $user->uid );
+				$fav = 0 ;
+				if ( function_exists('flag_get_flag') ) {
+					$favflag = flag_get_flag('favorites');
+					$fav = $favflag->is_flagged($result->nid);
+				}
+				$result->favorite = (int)$fav;
+			}
+			// clean up some unnecessary results
+			$gone = array( "vid", "uid", "log", "status", "comment", "promote", "sticky", "created", "changed", "tnid", "translate", "revision_timestamp", "revision_uid", "cid", "last_comment_timestamp", "last_comment_name", "last_comment_uid", "comment_count", "name", "picture", "data" );
+			$gcount = count( $gone );
+			while( $gcount-- ) {
+				if ( property_exists( $result, $gone[$gcount] ) ) {
+					unset( $result->$gone[$gcount] );
+				}
+			}
+			//watchdog("node_resource_retrieve", 'result.. <pre>'. print_r($result,true) .'</pre>');
+			break;
+		case 'services_poll_vote':
+			$nid = $result->nid;
+			// fake form call
+			$node = node_load($nid);
+			$nform = array();
+			$nform_state = array();
+			$nform['#node'] = $node;
+			elite_custom_poll_vote( $nform, $nform_state );
+			break;
+  }
+}
+/**
+ * check if a user has taken a quiz or collected points for an article
+ * 
+ * type of node
+ * nid of article node or of Quiz node (NOTE: its the NID of Quiz node not of Training node)
+ * uid of given user
+ *
+ * returns
+ * 	1 if points have already been given for the content,
+ *  0 if not
+ */
+function elite_custom_check_taken_content( $type, $nid, $uid = NULL ) {
+	$taken = 0;
+  if ( $uid == NULL ) {
+		global $user;
+		$uid = $user->uid;
+	}
+  //watchdog( 'elite chk', 'check_taken_content '. $type .' '. $nid .' uid '. $uid );
+  // rather than re checking each item, we'll have a cached array of 1s & 0s
+  $cid = 'user_'. $uid .'_taken';
+  if ( $cache = cache_get( $cid, 'cache_usercounts' ) ) {
+    $oot = $cache->data;
+    //watchdog( 'elite cache', $cid .' found : <pre>'. print_r($oot,true) .'</pre>');
+  } else {
+    //watchdog( 'elite cache', $cid .' NOT FOUND? rebuild..' );
+    $oot = array();
+  }
+  
+  if ( !isset( $oot[ $type ] ) ) {
+    $oot[ $type ] = array();
+  }
+  if ( !isset( $oot[ $type ][ $nid ] ) ) {
+    // then reset..
+    switch ( $type ) {
+      case 'article':
+        $flag = flag_get_flag( 'collect_points' );
+        if ( $flag ) {
+          $fcheck = $flag->is_flagged( $nid, $uid );
+          $taken = $fcheck ? 1 : 0;
+        }
+        break;
+      case 'training':
+        $taken = elite_custom_user_taken_quiz( $nid, $uid );
+        break;
+    }
+    $oot[ $type ][ $nid ] = $taken;
+    cache_set( $cid, $oot, 'cache_usercounts' );
+  }
+  
+	return $oot[ $type ][ $nid ];
+}
+/**
+ * returns # of Favorites (flagged items) the current user has
+ */
+function elite_custom_user_favorites_count( $uid = -1 ) {
+  if ( $uid == -1 ) {
+    global $user;
+    $uid = $user->uid;
+  }
+  $count = -1;
+  // then cache?
+  $cid = 'user_'. $uid .'_favorites';
+  if ( $cache = cache_get( $cid, 'cache_usercounts' ) ) {
+    $count = $cache->data;
+  } //else {
+  // instead of else there, check if $count == -1 then recalc
+  if ( $count == -1 ) {
+    // recalculate
+    $flagged = flag_get_user_flags( 'node', null, $uid );
+    //watchdog('flag count', '<pre>'. print_r($flagged,true) .'</pre>');
+    $count = isset( $flagged['favorites'] ) ? count( $flagged['favorites'] ) : 0;
+    // unfortunately flag_get_user_flags doesnt care about LANGUAGE, so..
+    if ( $count > 0 ) {
+      // create array of just the IDs that have been favorited..
+      $nids = array();
+      foreach ( $flagged['favorites'] as $i => $o ) {
+        $nids[] = $i;
+      }
+      // filter to count those node IDs that match the region + language..
+      global $language;
+      $region = elite_custom_user_region();
+      
+      $query = new EntityFieldQuery;
+      $count = $query->entityCondition( 'entity_type', 'node' )
+        ->entityCondition( 'entity_id', $nids, "IN" )
+        ->propertyCondition( 'status', 1 )
+        ->count()
+        ->execute();
+    }
+    // save for later
+    cache_set( $cid, $count, 'cache_usercounts' );
+  }
+	return $count;
+}
+/**
+ * helper fn to "wipe" user count cache
+ */
+function _elite_custom_wipe_usercounts_cache( $type, $uid = -1 ) {
+  $uid = (int)$uid;
+  if ( $uid < 1 ) {
+    global $user;
+    $uid = $user->uid;
+  }
+  $region = elite_custom_user_region();
+  
+  switch ( $type ) {
+    case 'favorites':
+      $cid = 'user_'. $uid .'_favorites';
+      //$oldcount = elite_custom_user_favorites_count();
+      // "wipe" cache by setting to -1
+      cache_set( $cid, -1, 'cache_usercounts' );
+      // double check?
+      $newcount = elite_custom_user_favorites_count();
+      //watchdog( 'elite usercounts', 'updated user '. $uid .' favorite count from '. $oldcount .' to '. $newcount );
+      break;
+    case 'trainings':
+      $cid = 'user_'. $uid .'_'. $region .'_trainings';
+      $oldcount = elite_custom_user_training_count( $uid, $region, true );
+      // "wipe" cache by setting to -1
+      cache_set( $cid, -1, 'cache_usercounts' );
+      // double check?
+      $newcount = elite_custom_user_training_count( $uid, $region, true );
+      //watchdog( 'elite usercounts', 'updated user '. $uid .' region '. $region .' training count from <pre>'. print_r( $oldcount, true ) .'</pre><br />to<br /><pre>'. print_r( $newcount, true ) .'</pre>' );
+      break;
+    case 'trends':
+      $cid = 'user_'. $uid .'_'. $region .'_trends';
+      //$oldcount = elite_custom_user_trend_count( $uid, $region, true );
+      // "wipe" cache by setting to -1
+      cache_set( $cid, -1, 'cache_usercounts' );
+      // double check?
+      $newcount = elite_custom_user_trend_count( $uid, $region, true );
+      //watchdog( 'elite usercounts', 'updated user '. $uid .' region '. $region .' trend count from <pre>'. print_r( $oldcount, true ) .'</pre><br />to<br /><pre>'. print_r( $newcount, true ) .'</pre>' );
+      break;
+  }
+  
+  // wipe taken array too
+  $cid = 'user_'. $uid .'_taken';
+  $data = array();
+  cache_set( $cid, $data, 'cache_usercounts' );
+}
+/**
+ * hook_flag_flag_flag
+ */
+function elite_custom_flag_flag($flag, $entity_id, $account, $flagging) {
+	//watchdog('flag flag', 'flag <pre>'. print_r($flag,true) .'</pre><br />entity_id <pre>'. print_r($entity_id,true) .'</pre><br />account <pre>'. print_r($account,true) .'</pre><br />flagging <pre>'. print_r($flagging,true) .'</pre>');
+	if ( $flag->name == 'collect_points' ) {
+		$uid = $flagging->uid;
+		$nid = $entity_id;
+		$node = node_load($nid);
+		$base_points = 0;
+		if ( isset( $node->field_base_points ) ) {
+			if ( isset( $node->field_base_points[LANGUAGE_NONE] ) ) {
+				if ( isset( $node->field_base_points[LANGUAGE_NONE][0] ) ) {
+					$base_points = (int)$node->field_base_points[LANGUAGE_NONE][0]['value'];
+				}
+			}
+		}
+		if ( $base_points > 0 ) {
+			$ptsres = userpoints_userpointsapi( array(
+				'points' => $base_points,
+				'uid' => $uid,
+				'timestamp' => $flagging->timestamp,
+				'operation' => 'elite_custom_collect_points',
+				'entity_id' => $entity_id,
+				'entity_type' => 'node',
+			));
+			if ( !$ptsres['status'] ) {
+				drupal_set_message( t('There has been an error in Collecting your Points: ') . $ptsres['reason'], 'error');
+			}
+		}
+    // wipe cache for trends counts too
+    _elite_custom_wipe_usercounts_cache( 'trends', $uid );
+	}
+  // if flag name = favorites, wipe cache..
+  if ( $flag->name == 'favorites' ) {
+    $uid = $flagging->uid;
+    _elite_custom_wipe_usercounts_cache( 'favorites', $uid );
+  }
+}
+/**
+ * hook_flag_flag_unflag
+ */
+function elite_custom_flag_unflag($flag, $entity_id, $account, $flagging) {
+	//watchdog('flag unflag', 'flag <pre>'. print_r($flag,true) .'</pre><br />entity_id <pre>'. print_r($entity_id,true) .'</pre><br />account <pre>'. print_r($account,true) .'</pre><br />flagging <pre>'. print_r($flagging,true) .'</pre>');
+	if ( $flag->name == 'collect_points' ) {
+		$uid = $flagging->uid;
+		$nid = $entity_id;
+		$node = node_load($nid);
+		$base_points = 0;
+		if ( isset( $node->field_base_points ) ) {
+			if ( isset( $node->field_base_points[LANGUAGE_NONE] ) ) {
+				if ( isset( $node->field_base_points[LANGUAGE_NONE][0] ) ) {
+					$base_points = (int)$node->field_base_points[LANGUAGE_NONE][0]['value'];
+				}
+			}
+		}
+		if ( $base_points > 0 ) {
+			$base_points = $base_points * -1;
+			$ptsres = userpoints_userpointsapi( array(
+				'points' => $base_points,
+				'uid' => $uid,
+				'timestamp' => $account->timestamp,
+				'operation' => 'elite_custom_collect_points',
+				'entity_id' => $entity_id,
+				'entity_type' => 'node',
+			));
+			if ( !$ptsres['status'] ) {
+				drupal_set_message( t('There has been an error in Collecting your Points: ') . $ptsres['reason'], 'error');
+			}
+		}
+    // wipe cache for trends counts too
+    _elite_custom_wipe_usercounts_cache( 'trends', $uid );
+	}
+  // if flag name = favorites, wipe cache..
+  if ( $flag->name == 'favorites' ) {
+    //watchdog('flag unflag', 'un favorite?');
+    $uid = $flagging->uid;
+    _elite_custom_wipe_usercounts_cache( 'favorites', $uid );
+  }
+}
+
+function elite_custom_poll_vote($form, &$form_state) {
+  $node = $form['#node'];
+	//watchdog('vote vote', 'for node <pre>'. print_r($node,true) .'</pre>');
+	if ( isset( $node->field_base_points ) ) {
+		if ( isset( $node->field_base_points[LANGUAGE_NONE] ) ) {
+			if ( isset( $node->field_base_points[LANGUAGE_NONE][0] ) ) {
+				$base_points = $node->field_base_points[LANGUAGE_NONE][0]['value'];
+				global $user;
+				$ptsres = userpoints_userpointsapi( array(
+					'points' => $base_points,
+					'uid' => $user->uid,
+					'operation' => 'elite_custom_collect_points',
+					'entity_id' => $node->nid,
+					'entity_type' => 'node',
+				));
+				if ( !$ptsres['status'] ) {
+					drupal_set_message( t('There has been an error in Collecting your Points: ') . $ptsres['reason'], 'error');
+				}
+			}
+		}
+	}
+}
+
+function elite_custom_poll_cancel($form, &$form_state) {
+	$nid = $form['#nid'];
+  $node = node_load($nid);
+	//watchdog('vote CANC', 'for node <pre>'. print_r($node,true) .'</pre>');
+	if ( isset( $node->field_base_points ) ) {
+		if ( isset( $node->field_base_points[LANGUAGE_NONE] ) ) {
+			if ( isset( $node->field_base_points[LANGUAGE_NONE][0] ) ) {
+				$base_points = -1 * (int)$node->field_base_points[LANGUAGE_NONE][0]['value'];
+				global $user;
+				$ptsres = userpoints_userpointsapi( array(
+					'points' => $base_points,
+					'uid' => $user->uid,
+					'operation' => 'elite_custom_collect_points',
+					'entity_id' => $nid,
+					'entity_type' => 'node',
+				));
+				if ( !$ptsres['status'] ) {
+					drupal_set_message( t('There has been an error in Collecting your Points: ') . $ptsres['reason'], 'error');
+				}
+			}
+		}
+	}
+}
+/*
+ * returns # of Published nodes of a given type,
+ * and if $region is provided, nodes REGION matches given REGION
+ */
+function elite_custom_get_node_count($type, $region = false) {
+	$query = new EntityFieldQuery;
+	$query->entityCondition( 'entity_type', 'node' )
+		->entityCondition( 'bundle', $type )
+		->propertyCondition( 'status', 1 );
+	/*
+	if ( $region == false ) {
+		$region = elite_custom_user_region();
+	}
+	if ( in_array( $type , array( 'article', 'poll', 'promo_slide', 'training' ) ) ) {
+		$query->fieldCondition( 'field_region', 'value', $region, '=' );
+	}
+  */
+	$count = $query->count()->execute();
+	
+	//watchdog('node_count', 'content type = '. $type .' : region = '. $region .' : count = '. $count );
+	
+	return $count;
+	/*
+	 $query = "SELECT COUNT(*) amount FROM {node} n ".
+						"WHERE n.type = :type".
+						" AND n.status = 1";
+	 $result = db_query($query, array(':type' => $content_type))->fetch();
+	 return $result->amount;
+	*/
+	
+}
+/*
+ * hook_userpoints
+ */
+function elite_custom_userpoints( $op, $params ) {
+	global $user;
+	if ( $op == 'points after' ) {
+		// delete default POINTS message and add our own. ugly but...
+		@drupal_get_messages('status');
+		$account = user_load($params['uid']);
+		$message = '';
+		if (!empty($params['message'])) {
+			$message = $params['message'];
+		}
+		// Display message if either display property is not set and messages should
+		// be displayed by default or display property is not FALSE.
+		elseif (!empty($params['display']) || (!isset($params['display']) && variable_get(USERPOINTS_DISPLAY_MESSAGE, 1))) {
+			// Prepare arguments. They are the same for all string combinations.
+			$categories = userpoints_get_categories();
+			$arguments = array_merge(userpoints_translation(), array(
+				'!username' => theme('username', array('account' => $account)),
+				'%total' => userpoints_get_current_points($params['uid'], $params['tid']),
+				'%category' => isset($categories[$params['tid']]) ? $categories[$params['tid']] : $categories[0],
+			));
+	
+			$view_own_points = user_access('view own userpoints') || user_access('view userpoints') || user_access('administer userpoints');
+			$view_all_points = user_access('view userpoints') || user_access('administer userpoints');
+	
+			if ($params['status'] == USERPOINTS_TXN_STATUS_DECLINED) {
+				// Points have been declined.
+				if ($account->uid == $user->uid && $view_own_points) {
+					$message = format_plural($params['points'], 'You did not receive approval for @count !point', 'You did not receive approval for @count !points', $arguments);
+				}
+				elseif ($view_all_points) {
+					$message = format_plural($params['points'], '!username did not receive approval for @count !point', '!username did not receive approval for @count !points', $arguments);
+				}
+			}
+			elseif (isset($params['points']) && $params['points'] < 0) {
+				if ($params['status'] == USERPOINTS_TXN_STATUS_PENDING) {
+					if ($account->uid == $user->uid && $view_own_points) {
+						// Directly address the user if he is loosing points.
+						$message = format_plural(abs($params['points']), 'You just had a !point deducted, pending administrator approval.', 'You just had @count !points deducted, pending administrator approval.', $arguments);
+					}
+					elseif ($view_all_points) {
+						// Only display message about other users if user has permission to view userpoints.
+						$message = format_plural(abs($params['points']), '!username just had a !point deducted, pending administrator approval.', '!username just had @count !points deducted, pending administrator approval.', $arguments);
+					}
+				}
+				else {
+					if ($account->uid == $user->uid && $view_own_points) {
+						$message = format_plural(abs($params['points']), 'You just had a !point deducted and now have %total !points', 'You just had @count !points deducted and now have %total !points', $arguments);
+					}
+					elseif ($view_all_points) {
+						$message = format_plural(abs($params['points']), '!username just had a !point deducted and now has %total !points', '!username just had @count !points deducted and now has %total !points', $arguments);
+					}
+				}
+			}
+			elseif (!empty($params['points'])) {
+				if ($params['status'] == USERPOINTS_TXN_STATUS_PENDING) {
+					if ($account->uid == $user->uid && $view_own_points) {
+						// Directly address the user if he is loosing points.
+						$message = format_plural(abs($params['points']), 'You just earned a !point, pending administrator approval.', 'You just earned @count !points, pending administrator approval.', $arguments);
+					}
+					elseif ($view_all_points) {
+						// Only display message about other users if user has permission to view userpoints.
+						$message = format_plural(abs($params['points']), '!username just earned a !point, pending administrator approval.', '!username just earned @count !points, pending administrator approval.', $arguments);
+					}
+				}
+				else {
+					if ($account->uid == $user->uid && $view_own_points) {
+						$message = format_plural(abs($params['points']), 'You just earned a !point and now have %total !points', 'You just earned @count !points and now have %total !points', $arguments);
+					}
+					elseif ($view_all_points) {
+						$message = format_plural(abs($params['points']), '!username just earned a !point and now has %total !points', '!username just earned @count !points and now has %total !points', $arguments);
+					}
+				}
+			}
+		}
+    if (isset($message) && ( $message != '' ) ) {
+			$message = str_replace( '</em>', '', str_replace('<em class="placeholder">', '', $message ) );
+      drupal_set_message($message);
+    }
+	}
+}
+/*
+ * justincase
+ */
+function elite_custom_default_region() {
+	return 'us';
+}
+/*
+ * returns current logged in user's region
+ */
+function elite_custom_user_region() {
+  return elite_custom_default_region();
+}
+
+function elite_custom_actionlink_regions_list() {
+  return array( 'us' => t('United States') );
+}
+function elite_custom_default_regions_list() {
+  $excluded_regions = variable_get('elite_custom_excluded_regions', array());
+  $regions = array(
+		'us' => t('United States'),
+		'uk' => t('United Kingdom'),
+		'russia' => t('Russia'),
+		'mexico' => t('Mexico'),
+		/*
+		'china' => t('China'),
+		'africa' => t('Africa'),
+		'southamerica' => t('South America'),
+		*/
+	);
+  
+  foreach($excluded_regions as $key) {
+    if (isset($regions[$key])) {
+      unset($regions[$key]);
+    }
+  }
+  
+	return $regions; 
+}
+
+function elite_custom_default_regions_list_verbose() {
+	$regions = elite_custom_actionlink_regions_list();
+	$oot = array();
+	foreach ( $regions as $c => $n ) {
+		$oot[] = array(
+			'code' => $c,
+			'name' => $n,
+		);
+	}
+	return $oot;
+}
+/*
+ * hook_userpoints_list_transactions_alter
+ * to remove unwanted columns from /user/#/points via the drupal_alter('userpoints_list_transactions', $output);
+ */
+function elite_custom_userpoints_list_transactions_alter( &$data ) {
+	//watchdog('ecula', 'datas : <pre>'. print_r($data,true) .'</pre>');
+	// remove Status + Actions columns (for now?)
+	$remove = array(3,4);
+	foreach ( $remove as $r ) {
+		unset($data['list']['table']['#header'][$r]);
+	}
+	foreach ( $data['list']['table']['#rows'] as $k => $v ) {
+		foreach ( $remove as $r ) {
+			unset($data['list']['table']['#rows'][$k]['data'][$r]);
+		}
+	}
+}
+/**
+ *
+ */
+function elite_custom_load_user_store($lookupval = array()) {
+  if (array_key_exists('uid', $lookupval)) {
+    $uid = $lookupval['uid'];
+    $query = new EntityFieldQuery;
+
+    $result = $query
+      ->entityCondition('entity_type', 'node')
+			->entityCondition('bundle', 'store')
+      ->propertyCondition('status', 1)
+      ->fieldCondition('field_store_employees', 'target_id', $uid, '=')
+			->addMetaData('account', user_load(1))
+      ->execute();
+
+    if (count($result) > 0) {
+      $id = array_keys($result['node']);
+      $store = entity_load('node', $id);
+
+      // Return just the object.
+      return reset($store);
+    }
+  }
+
+  return FALSE;
+}
+
+/*
+ * hook_user_login
+ *
+ * to redirect on login to homepage
+ * unless under13 then to special under13 "verify" ?
+ */
+function elite_custom_user_login(&$edit, $account) {
+  $edit['redirect'] =  user_access( 'access under13 page' ) ? 'verify' : '<front>';
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function elite_custom_views_api() {
+  return array(
+      'api' => 3,
+  );
+}

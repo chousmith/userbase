@@ -1,0 +1,12 @@
+name = Elite Locations Service
+description = Services View to provide API for listing of all Stores?
+core = 7.x
+package = Elite
+version = 7.x-1.0
+project = elite_locations_service
+dependencies[] = services_views
+dependencies[] = views
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[views_view][] = locations
+features_exclude[dependencies][ctools] = ctools

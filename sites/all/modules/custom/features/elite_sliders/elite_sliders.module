@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Elite Sliders feature.
+ */
+
+include_once 'elite_sliders.features.inc';

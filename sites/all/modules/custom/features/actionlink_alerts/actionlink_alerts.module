@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Actionlink Alerts feature.
+ */
+
+include_once 'actionlink_alerts.features.inc';

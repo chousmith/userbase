@@ -1,0 +1,58 @@
+<?php
+/**
+ * @file logintoboggan_services.module
+ */
+
+/**
+ * Implements hook_services_resources().
+ */
+function logintoboggan_services_services_resources() {
+  $definition = array(
+    'user' => array(
+      'actions' => array(
+        'logintoboggan' => array(
+          'help' => 'Login a user for a new session with their email address or username.',
+          'callback' => 'logintoboggan_services_login',
+          'args' => array(
+            array(
+              'name' => 'username',
+              'type' => 'string',
+              'description' => 'A valid username or email address',
+              'source' => array('data' => 'username'),
+              'optional' => FALSE,
+            ),
+            array(
+              'name' => 'password',
+              'type' => 'string',
+              'description' => 'A valid password',
+              'source' => array('data' => 'password'),
+              'optional' => FALSE,
+            ),
+          ),
+          'access callback' => 'services_access_menu',
+        ),
+      ),
+    ),
+  );
+  return $definition;
+}
+
+/**
+ * Resources callback for logintoboggan
+ */
+function logintoboggan_services_login($username_email, $password){
+  //If an email was used, get the username from that
+  if (valid_email_address($username_email)){
+    $account = user_load_by_mail($username_email);
+    $username = $account->name;
+    if($username == NULL) {
+      services_error(t('Wrong Email or password'), 401);
+    }
+  } else {
+    $username = $username_email;
+  }
+  
+  //Pass through to the existing services callback
+  module_load_include('inc', 'services', 'resources/user_resource');
+  return _user_resource_login($username, $password);
+}

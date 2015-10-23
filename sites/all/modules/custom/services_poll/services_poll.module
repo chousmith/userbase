@@ -1,0 +1,58 @@
+<?php
+
+/**
+ * Implementation of hook_services_resources().
+ */
+function services_poll_services_resources() {
+  $resources = array();
+
+  $resources['poll']['operations']['retrieve'] = array(
+    'file' => array(
+      'type' => 'inc', 
+      'module' => 'services_poll', 
+      'name' => 'services_poll',
+    ),
+    'help'   => t('Retrieve poll data.'),
+    'access arguments' => array('vote on polls'),
+    'callback' => 'services_poll_data',
+    'args'     => array(
+      array(
+        'name' => 'content_id',
+        'type' => 'int',
+        'description' => t('The ID of the poll.'),
+        'source' => array('path' => '0'),
+        'optional' => FALSE,
+      ),
+    ),
+  );
+  
+  $resources['poll']['actions']['vote'] = array(
+    'file' => array(
+      'type' => 'inc', 
+      'module' => 'services_poll', 
+      'name' => 'services_poll',
+    ),
+    'help'   => t('Vote on a poll.'),
+    'access arguments' => array('vote on polls'),
+    'callback' => 'services_poll_vote',
+    'args'     => array(
+      array(
+        'name' => 'content_id',
+        'type' => 'int',
+        'description' => t('The ID of the poll.'),
+        'source' => 'data',
+        'optional' => FALSE,
+      ),
+      array(
+        'name' => 'chid',
+        'type' => 'int',
+        'description' => t('The choice ID that the user selected.'),
+        'source' => 'data',
+        'optional' => FALSE,
+      ),
+    ),
+  );
+  
+  return $resources;
+}
+          

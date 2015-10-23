@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * @file views_aggregator_count_percent.module
+ * Defines additional aggregation functions for Views Aggregator Plus.
+ */
+
+/**
+ * Implements hook_views_aggregation_functions_info().
+ */
+function views_aggregator_count_percent_views_aggregation_functions_info() {
+  $functions = array(
+    'views_aggregator_count_percent' => array(
+      'group' => t('Count % of Total'),
+      'column' => null,
+      'is_renderable' => false,
+    ),
+  );
+  return $functions;
+}
+
+/**
+ * Aggregates a field group as a count of the number of group members.
+ *
+ * @param array $groups
+ *   an array of groups of rows, each group indexed by group value
+ * @param object $field_handler
+ *   the handler for the view column to count groups members in
+ * @param string $group_regexp
+ *   an optional regexp to count, if omitted all non-empty group values count
+ * @param string $column_regexp
+ *   an optional regexp to count, if omitted all non-empty group values count
+ *
+ * @return array
+ *   an array of values, one for each group and one for the column
+ */
+function views_aggregator_count_percent($groups, $field_handler, $group_regexp = NULL, $column_regexp = NULL) {
+  $values = array();
+  $count_column = 0;
+  $regexp = isset($group_regexp) ? $group_regexp : $column_regexp;
+  if (preg_match('/[a-zA-Z0-9_]+/', $regexp)) {
+    // Interpret omitted brace chars in the regexp as a verbatim text match.
+    $regexp = "/$regexp/";
+  }
+  foreach ($groups as $group => $rows) {
+    $count = 0;
+    $total = 0;
+    foreach ($rows as $num => $row) {
+      $cell = views_aggregator_get_cell($field_handler, $num, TRUE);
+      if (isset($cell) && $cell != '' && (empty($regexp) || preg_match($regexp, $cell))) {
+        $count++;
+      }
+      $total++;
+    }
+    $percent = $total > 0 ? round( ( $count / $total ), 2 ) * 100 : 0;
+    //$values[$group] = ''. $count .' <small>('. $percent .'%)</small>';
+    $values[$group] = $percent;
+    $count_column += $count;
+  }
+  $values['column'] = $count_column;
+  //watchdog('vacp', '<pre>'. print_r($values,true) .'</pre>');
+  return $values;
+}

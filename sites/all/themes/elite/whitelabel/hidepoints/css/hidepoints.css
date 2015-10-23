@@ -1,0 +1,13 @@
+#avatar-block-wrapper .points-wrapper,
+#elite-user-flop .points-wrapper,
+#elite-user-flop .usermenu li.activity,
+.view-popular-content .views-field-field-base-points .field-content,
+.view-trainings .views-field-field-base-points .field-content,
+.view-trends .views-field-field-base-points .field-content,
+.view-store .views-field-commerce-price .field-content,
+.view-trainings .view-footer article.node-poll .field-name-field-base-points,
+#elite-user-block-wrapper .points-wrapper,
+article.node-training .field-name-field-base-points,
+article.node-article .field-name-field-base-points {
+	display: none;
+}

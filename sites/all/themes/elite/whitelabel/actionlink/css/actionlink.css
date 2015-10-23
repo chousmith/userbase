@@ -1,0 +1,810 @@
+/* typography */
+body,
+.block-views h2.block-title,
+body.page-trainings h1#page-title,
+body.page-trends h1#page-title,
+body.page-news h1#page-title,
+body.page-resources h1#page-title,
+body.node-type-quiz #quiz_progress,
+body.node-type-quiz #quiz_score_possible,
+body.node-type-quiz #quiz-report-form,
+.view-tools .views-field-body,
+.view-tools .views-field-field-rating .views-label,
+.node-tool .field-name-field-rating .field-label,
+body.node-type-page article.node h1,
+.not-logged-in.page-user .form-text,
+.not-logged-in.page-user .form-select,
+#elite-user-flop .user-name,
+#elite-user-flop a.x,
+#elite-user-flop ul.usermenu li a .title,
+#elite-user-flop ul.usermenu li a .count,
+article.node-reward .field-type-commerce-product-reference .form-submit,
+.node-tool .field-name-body .field-label,
+.section-title,
+#block-elite-custom-avatar-block .points-wrapper,
+#elite-user-flop .points-wrapper strong,
+h1,
+.poll-title,
+.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-subheader,
+.view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-subheader,
+.view-trainings .views-field-title,
+.view-blog .views-field-title,
+.view-trends .views-field-title,
+.view-store .views-field-title,
+.view-tools .views-field-title,
+.view-tools .view-header h1#page-title,
+.view-tools .view-header h2,
+#elite-user-block-wrapper .points-wrapper,
+#elite-user-flop .points-wrapper,
+button, input[type="reset"], input[type="submit"], input[type="button"] {
+  font-weight: 400;
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+}
+
+.privatemsg-send-link-profile,
+.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-title,
+.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-slide-button,
+.view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-slide-button,
+.view-sliders .views-slideshow-cycle-main-frame-row .views-field-title,
+.view-trainings .view-footer article.node-poll h2.node-title,
+#elite-user-block-wrapper .points-wrapper,
+#elite-user-block-wrapper .points-wrapper strong,
+.view-popular-content .views-field-field-base-points,
+.view-trainings .views-field-field-base-points,
+.view-trends .views-field-field-base-points,
+.view-polls .field-name-field-base-points,
+.view-popular-content .views-field-field-base-points strong,
+.view-trainings .views-field-field-base-points strong,
+.view-trends .views-field-field-base-points strong,
+.view-polls .field-name-field-base-points strong,
+.block.block-tips .more-link,
+.block.block-store .more-link,
+.block.block-app .more-link,
+.not-logged-in.page-user h1,
+body.context-vive.node-type-page article.node h1,
+.view-trainings .view-footer article.node-poll h1,
+.view-trainings .view-footer article.node-poll .poll-title,
+.block.block-tips h2,
+.block.block-store h2,
+.block.block-app h2,
+.page-forum ul.action-links a,
+.page-messages ul.action-links a,
+.node-forum .content ul.links.inline a,
+.logged-in .form-actions input[type="submit"],
+.logged-in .form-actions input.form-submit,
+.vote-form input.form-submit,
+.logged-in .form-actions input[type="submit"].form-submit,
+form.comment-form input[type="submit"],
+form.comment-form input.form-submit,
+form.comment-form input[type="submit"].form-submit,
+a.bigBtn,
+span.bigBtn,
+a.outBtn,
+a.bigbtn,
+span.bigbtn,
+a.outbtn,
+#quiz-start-quiz-button-form .form-submit,
+body.node-type-quiz .answering-form input#edit-op,
+body.node-type-quiz .answering-form input#edit-back,
+body.node-type-quiz .answering-form input#edit-submit,
+body.node-type-quiz .quiz-score-submit input.form-submit,
+.comment-links a,
+th {
+  font-weight: 700;
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+}
+/* and then? */
+body,
+.zone-footer,
+#block-menu-menu-footer-menu ul.menu li a,
+#block-menu-menu-reg-footer-menu ul.menu li a,
+.block.block-tips .more-link a,
+.block.block-app .more-link a {
+  color: #111;
+}
+.not-logged-in.page-user h1,
+.view-popular-content .views-field-title a:link,
+.view-popular-content .views-field-title a:visited,
+.section-title {
+  color: #000
+}
+#elite-user-block-wrapper .points-wrapper,
+#block-system-main-menu ul.menu li a:link,
+#block-system-main-menu ul.menu li a:visited {
+  color: #000018;
+}
+.page-forum ul.action-links a,
+.page-messages ul.action-links a,
+.node-forum .content ul.links.inline a,
+.logged-in .form-actions input[type="submit"],
+.logged-in .form-actions input.form-submit,
+.vote-form input.form-submit,
+.logged-in .form-actions input[type="submit"].form-submit,
+form.comment-form input[type="submit"],
+form.comment-form input.form-submit,
+form.comment-form input[type="submit"].form-submit,
+#quiz-start-quiz-button-form .form-submit,
+body.node-type-quiz .answering-form input#edit-op,
+body.node-type-quiz .answering-form input#edit-back,
+body.node-type-quiz .answering-form input#edit-submit,
+body.node-type-quiz .quiz-score-submit input.form-submit,
+a.bigBtn,
+span.bigBtn,
+a.outBtn,
+a.bigbtn,
+span.bigbtn,
+a.outbtn {
+  color: #252525;
+}
+.block-views h2.block-title,
+body.page-trainings h1#page-title,
+body.page-trends h1#page-title,
+body.page-news h1#page-title,
+body.page-resources h1#page-title {
+  color: #464646;
+}
+#elite-user-flop .points-wrapper,
+.not-logged-in.page-user label,
+.not-logged-in.page-user #edit-field-terms-conditions .description,
+.not-logged-in.page-user label .form-required,
+.block-alerts-block .views-row,
+.block-alerts-block .views-row a,
+.forum-title,
+.forum-title a {
+  color: #fff;
+}
+#block-elite-custom-avatar-block .points-wrapper,
+#elite-user-block-wrapper .points-wrapper strong,
+#elite-user-flop .points-wrapper strong,
+#elite-user-flop ul.usermenu li a .count,
+#elite-user-flop ul.usermenu li a:hover,
+#block-system-main-menu ul.menu li a:hover,
+#block-system-main-menu ul.menu li a.active:link,
+#block-system-main-menu ul.menu li a.active:visited,
+.view-trainings .taken .views-field-field-base-points,
+.view-trends .taken .views-field-field-base-points,
+.view-popular-content .taken .views-field-field-base-points,
+.block-views.block-alerts-block h2.block-title,
+.page-user .userpoints-points strong {
+  color: #b3bb16;
+}
+body.logged-in #zone-branding,
+body.logged-in #zone-content,
+body.page-node #zone-content,
+.section-title {
+  border-bottom: 1px solid #cfcfcf;
+}
+.section-title {
+  border-top: 1px solid #cfcfcf;
+}
+.not-logged-in.page-user #zone-content,
+#zone-branding {
+  background: none;
+}
+body,
+.section-title {
+  background: #fff;
+}
+body.not-logged-in {
+  background: #fff url(../images/bg-logins.gif) no-repeat 50% 184px;
+}
+.quiz-end a.button,
+.not-logged-in.page-user #block-system-main,
+.not-logged-in.page-user.responsive-layout-narrow #block-system-main,
+#quiz-start-quiz-button-form .form-submit,
+body.node-type-quiz .answering-form input#edit-op,
+body.node-type-quiz .answering-form input#edit-back,
+body.node-type-quiz .answering-form input#edit-submit,
+body.node-type-quiz .quiz-score-submit input.form-submit {
+  background: #b2bb16 !important;
+}
+.page-forum ul.action-links a,
+.page-messages ul.action-links a,
+.node-forum .content ul.links.inline a,
+.logged-in .form-actions input[type="submit"],
+.logged-in .form-actions input.form-submit,
+.vote-form input.form-submit,
+.logged-in .form-actions input[type="submit"].form-submit,
+form.comment-form input[type="submit"],
+form.comment-form input.form-submit,
+form.comment-form input[type="submit"].form-submit,
+.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a,
+.view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a,
+.not-logged-in.page-user .form-submit,
+.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a:hover,
+.view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a:hover,
+a.bigBtn,
+span.bigBtn,
+a.outBtn,
+a.bigbtn,
+span.bigbtn,
+a.outbtn {
+  background: #fdb800;
+}
+#quiz-start-quiz-button-form .form-submit,
+body.node-type-quiz .answering-form input#edit-op,
+body.node-type-quiz .answering-form input#edit-back,
+body.node-type-quiz .answering-form input#edit-submit,
+body.node-type-quiz .quiz-score-submit input.form-submit,
+a.bigBtn,
+span.bigBtn,
+a.outBtn,
+a.bigbtn,
+span.bigbtn,
+a.outbtn {
+  height: 55px;
+  -webkit-box-shadow: 0 5px 0 0 #b2b2b2;
+  box-shadow: 0 5px 0 0 #b2b2b2;
+}
+
+.not-logged-in .branding-data .logo-img a {
+  background: url(../images/logo-logins.png) no-repeat 0 0;
+  display: block;
+  margin: 12px auto;
+  width: 142px;
+  height: 82px;
+}
+.not-logged-in.page-user #zone-content {
+  padding-top: 15px;
+}
+.not-logged-in.page-user label,
+.not-logged-in.page-user #edit-field-terms-conditions .description,
+.not-logged-in.page-user label .form-required {
+  font-size: 16px;
+  line-height: 1.1;
+}
+.not-logged-in.page-user .form-submit {
+  -webkit-box-shadow: 0 5px 0 0 #7c830f;
+  box-shadow: 0 5px 0 0 #7c830f;
+  color: #000;
+  font-size: 18px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+body.page-resources h1#page-title,
+body.page-news h1#page-title {
+  padding: 15px 20px;
+  font-size: 1.6em;
+  margin: 0;
+}
+.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-title {
+  width: 50%;
+  font-size: 60px;
+  line-height:  1;
+}
+.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-subheader, .view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-subheader {
+  top: 170px;
+  font-size: 18px;
+}
+#elite-user-flop ul.usermenu li a .title {
+  font-size: 14px;
+}
+.view-trainings .view-footer article.node-poll h1,
+.view-trainings .view-footer article.node-poll .poll-title {
+  font-size: 22px;
+  line-height: 24px;
+}
+.view-trainings .view-footer article.node-poll,
+.block-alerts-block,
+.forum-title {
+  background: #464646;
+}
+.view-trainings .view-footer article.node-poll .field-name-field-base-points {
+  background: #838383;
+}
+/* homepage bottom block */
+.block.block-tips {
+  background: #b2bb16 url(../images/icn-tips.png) no-repeat 90% 45% !important;
+}
+.block.block-tips .more-link a {
+  background-color: #c8ce6e;
+}
+.block.block-app {
+  background: #fdb800 url(../images/icn-discussions.png) no-repeat 90% 45% !important;
+}
+.block.block-app .more-link a {
+  background-color: #fbce57;
+}
+.block.block-tips h2,
+.block.block-store h2,
+.block.block-app h2 {
+  font-size: 28px;
+  line-height: 1;
+  width: auto;
+  max-width: 350px;
+}
+.block.block-tips p, .block.block-store p, .block.block-app p {
+  font-size: 16px;
+  line-height: 1.25;
+}
+#drupalchat ul li a,
+#drupalchat ul li a.active {
+  height: auto;
+}
+/* wbar training iframe fixing */
+.wbar {
+  background: #fff url(../images/cfcfcf.gif) repeat-x 0 100%;
+}
+#wback {
+  background-image: url(../images/wback.gif);
+}
+.wbar #logo {
+  background-image: url(../logo.png);
+  margin-left: -83px;
+  top: 12px;
+  width: 186px;
+  height: 30px;
+}
+
+.view-trainings .views-field-field-base-points,
+.view-trends .views-field-field-base-points,
+.view-popular-content .views-field-field-base-points {
+  font-size: 16px;
+}
+.view-trainings .taken .views-field-field-base-points .field-content,
+.view-trends .taken .views-field-field-base-points .field-content,
+.view-popular-content .taken .views-field-field-base-points .field-content {
+  padding-left: 37px;
+}
+.view-trainings .taken .views-field-field-base-points span.chk,
+.view-trends .taken .views-field-field-base-points span.chk,
+.view-popular-content .taken .views-field-field-base-points span.chk {
+  background-image: url(../images/icn-completed.png);
+  width: 29px;
+  height: 29px;
+}
+.view-trainings .views-field-field-base-points span.required,
+.view-trends .views-field-field-base-points span.required,
+.view-popular-content .views-field-field-base-points span.required {
+  background: url(../images/icn-required.png) no-repeat 0 0;
+  float: left;
+  position: relative;
+  margin: 0 8px 0 -20px;
+  width: 29px;
+  height: 29px;
+}
+#elite-user-block-wrapper {
+  background-color: transparent !important;
+  background-image: url(../images/right-node-userimg-bg-full.jpg);
+  height: auto !important;
+  min-height: 470px;
+}
+
+/* progress bars */
+.completecount {
+  margin: 0 auto;
+  max-width: 90%;
+  text-align: center;
+}
+.completecount h5 {
+  margin-top: 40px;
+}
+progress[value] {
+  /* Reset the default appearance */
+  -webkit-appearance: none;
+   appearance: none;
+   
+  border: 1px solid #cfcfcf;
+  margin: 0 10px;
+}
+progress[value]::-webkit-progress-bar {
+  background-color: #fff;
+}
+progress[value]::-webkit-progress-value {
+  background-color: #b3bb16;
+}
+/* more Forums cleanup */
+tr.even,
+tr.odd {
+  background: none;
+}
+.node-forum .user-picture,
+.page-comment-reply .comment-submitted .user-picture {
+  float: left;
+  width: 44px;
+  height: auto;
+  margin: 0 10px 10px 0;
+}
+#forum table,
+table.sticky-table {
+  width: 100%;
+}
+#forum td.posts,
+#forum td.topics,
+#forum td.last-reply,
+#forum td.replies,
+#forum td.pager {
+  vertical-align: middle;
+}
+#forum th,
+#forum td {
+  padding-left: 20px;
+}
+#forum th {
+  border-bottom: 1px solid #cfcfcf;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+#forum td.forum {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  position: relative;
+}
+#forum td.forum .name {
+  font-size: 24px;
+  line-height: 42px;
+}
+#forum td.forum .description {
+  font-size: 16px;
+  margin: 0;
+}
+#forum td.forum .icon {
+  position: absolute;
+  left: 20px;
+  top: 28px;
+}
+#forum td.posts,
+#forum td.topics {
+  text-align: center;
+}
+#forum td.last-reply {
+  padding-right: 45px;
+}
+#forum td.last-reply .time {
+  display: block;
+}
+.multichoice-icon.should,
+.not-logged-in .branding-data .logo-img a img,
+#forum td.last-reply .userimg,
+.comment-form .form-type-item,
+.page-comment-reply li.comment-reply,
+.page-messages ul.tabs.primary {
+  display: none;
+}
+#forum td.forum .userimg {
+  float: left;
+  margin-right: 10px;
+}
+form.node-form,
+.page-messages-new .content form {
+  padding: 40px 40px 80px 32px;
+}
+.forum-title {
+  font-size: 29px;
+  line-height: 1;
+  padding: 1em 20px;
+}
+.forum-title p {
+  margin: 0;
+  padding: 0;
+}
+.page-node-add-forum .forum-title {
+  padding: 1em 32px;
+}
+.page-node-add-forum .form-item {
+  margin-top: 0;
+}
+.page-node-add-forum .form-item.form-item-title {
+  float: left;
+  width: 50%;
+}
+.page-forum ul.action-links,
+.page-messages ul.action-links,
+.node-forum .content ul.links.inline {
+  float: right;
+  margin: 20px;
+  position: relative;
+  z-index: 2;
+}
+#comments {
+  margin-top: 65px;
+}
+.quiz-end a.button,
+.privatemsg-send-link-profile,
+.page-forum ul.action-links a,
+.page-messages ul.action-links a,
+.node-forum .content ul.links.inline a,
+.logged-in .form-actions input[type="submit"],
+.logged-in .form-actions input.form-submit,
+.vote-form input.form-submit,
+.logged-in .form-actions input[type="submit"].form-submit,
+form.comment-form input[type="submit"],
+form.comment-form input.form-submit,
+form.comment-form input[type="submit"].form-submit,
+.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a,
+.view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a {
+  border: none;
+  border-radius: 6px;
+  box-shadow: 0 4px 0 #313131;
+  float: left;
+  font-size: 16px;
+  height: 44px;
+  line-height: 44px;
+  padding: 0 25px;
+  text-shadow: none;
+  text-transform: uppercase;
+  vertical-align: middle;
+	white-space: nowrap;
+}
+.vote-form input.form-submit {
+  padding: 0;
+  width: 100%;
+}
+.privatemsg-send-link-profile,
+.page-forum ul.action-links a,
+.page-messages ul.action-links a,
+.node-forum .content ul.links.inline a,
+.logged-in .form-actions input[type="submit"],
+.logged-in .form-actions input.form-submit,
+.vote-form input.form-submit,
+.logged-in .form-actions input[type="submit"].form-submit,
+form.comment-form input[type="submit"],
+form.comment-form input.form-submit,
+form.comment-form input[type="submit"].form-submit,
+.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a,
+.view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a,
+.not-logged-in.page-user .form-submit,
+.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a:hover,
+.view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a:hover,
+a.bigBtn,
+span.bigBtn,
+a.outBtn {
+  background: #fdb800;
+}
+/* reset some though ... */
+.logged-in #poll-cancel-form .form-actions input.form-submit {
+  background: #ddd url(../../../../omega/omega/images/button.png) repeat-x;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #ddd));
+  background: -moz-linear-gradient(top center, #fff 0%, #ddd 100%);
+  -webkit-border-radius: 11px;
+  -moz-border-radius: 11px;
+  border-radius: 11px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.2;
+  padding: 3px 10px 4px;
+  width: auto;
+  height: auto;
+  box-shadow: none;
+  text-transform: none;
+}
+/* /buttons */
+.comment-links a {
+  text-transform: uppercase;
+}
+.node-forum h2.node-title {
+  padding-left: 20px; /* overwritten later for bigger widths */
+  padding-right: 20px;
+  margin-top: 25px;
+  margin-bottom: 0;
+}
+.node-forum .content {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.node-forum .field-name-body {
+  margin: 10px 0;
+}
+.node-forum .content .submitted {
+  margin-top: 20px;
+}
+.node-forum .comment,
+h2.comment-form.title {
+  border-top: 1px solid #cfcfcf;
+  padding: 30px 20px;
+}
+.node-forum .indented {
+  margin: 0 50px;
+}
+.node-forum .indented .comment {
+  padding-left: 0;
+}
+.page-comment-reply .comment-submitted {
+  margin-top: 20px;
+}
+.page-comment-reply .comment-submitted .user-picture img,
+.node-forum .comment .user-picture img,
+.page-messages-view .privatemsg-author-avatar .user-picture img {
+  border-radius: 22px;
+  float: left;
+  width: 44px;
+  height: 44px;
+}
+h2.comment-form.title {
+  margin: 0;
+  padding-bottom: 0;
+}
+form.comment-form {
+  padding: 0 20px 120px;
+}
+.page-comment-reply form.comment-form {
+  border-top: 1px solid #cfcfcf;
+  margin: 40px 32px 0;
+  padding: 32px 0 80px;
+}
+.page-comment-reply .comment {
+  padding: 32px 32px 0;
+}
+/* more messages cleanup */
+.privatemsg-message-participants {
+  border-bottom: 1px solid #cfcfcf;
+  padding: 20px 32px;
+}
+.privatemsg-message-participants {
+  border-bottom: 1px solid #cfcfcf;
+  padding: 20px 32px;
+}
+.privatemsg-message {
+  margin: 0 32px;
+  width: auto;
+  max-width: none;
+}
+.page-messages-view .privatemsg-author-avatar {
+  width: 54px;
+  margin-right: 10px;
+  padding-top: 0;
+}
+.page-messages-view .privatemsg-message-column {
+  float: none;
+  width: 100%;
+}
+.page-messages-view .content form {
+  border-top: 1px solid #cfcfcf;
+  padding: 20px 32px 80px;
+}
+.youtubeplayer {
+  /* 16x9 */
+  width: 100%;
+  min-width: 320px;
+  height: auto;
+  min-height: 180px;
+  margin-bottom: 1em;
+}
+/* some height fixes */
+#messages {
+  width: 100%;
+  margin: 20px;
+  max-width: 537px;
+}
+.view-home-slides, #views_slideshow_cycle_main_home_slides-block, #views_slideshow_cycle_teaser_section_home_slides-block {
+  min-height: 257px !important;
+}
+@media screen and (max-width: 479px) {
+  #block-system-main-menu ul.menu li a:link, #block-system-main-menu ul.menu li a:visited {
+    padding: 0 5px !important;
+    font-size: 14px !important;
+  }
+}
+@media screen and (max-width: 767px) {
+/* un-break home btns */
+.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-title {
+  width: 100%;
+  font-size: 60px !important;
+}
+.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a, .view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a {
+  height: 312px !important;
+  -webkit-border-radius: 0 !important;
+  border-radius: 0 !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  background: url(../../../images/fx.gif) repeat 0 0 !important;
+}
+}
+@media screen and (max-width: 499px) {
+  .view-home-slides .views-slideshow-cycle-main-frame-row .views-field-title {
+    font-size: 40px !important;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+/* un-break home btns */
+.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-title {
+  font-size: 40px !important;
+}
+}
+@media screen and (min-width: 770px) {
+  .youtubeplayer {
+    /* 16x9 */
+    width: 576px;
+    height: 324px;
+  }
+  /*
+  .page-messages-view .privatemsg-author-avatar {
+    float: left;
+    width: 80px;
+  }
+  */
+  #forum td.forum,
+  .node-forum h2.node-title,
+  .node-forum .content,
+  .node-forum .comment,
+  h2.comment-form.title,
+  form.comment-form {
+    padding-left: 65px;
+  }
+  form.comment-form {
+    padding-right: 65px;
+  }
+  .page-comment-reply form.comment-form {
+    padding: 32px 0 80px;
+  }
+  .node-forum .indented {
+    margin: 0 110px;
+  }
+  .node-forum .indented .comment {
+    padding-left: 0;
+  }
+  #block-system-main-menu ul.menu li a:link, #block-system-main-menu ul.menu li a:visited {
+    font-size: 15px !important;
+  }
+  
+  .block.block-tips,
+  .block.block-app {
+    height: 260px !important;
+  }
+  .responsive-layout-normal .view-trainings .views-column,
+  .responsive-layout-normal .view-trends .views-column,
+  .view-trainings .view-footer article.node-poll {
+    min-height: 303px !important;
+  }
+}
+@media screen and (min-width: 1024px) {
+  #messages {
+    max-width: 771px;
+  }
+  .youtubeplayer {
+    /* 16x9 */
+    width: 810px;
+    height: 456px;
+  }
+  .block-home-slides-block,
+  .view-home-slides,
+  #views_slideshow_cycle_main_home_slides-block,
+  #views_slideshow_cycle_teaser_section_home_slides-block {
+    width: 1080px;
+    height: 455px !important;
+  }
+}
+
+@media screen and (min-width: 770px) {
+  body.logged-in #zone-branding,
+  body.logged-in #zone-content,
+  body.page-node #zone-content,
+  .section-title {
+    background: #fff url(../images/border768.gif) repeat-y 0 0;
+  }
+  body.page-trainings #zone-content,
+  body.page-trends #zone-content,
+  body.page-news #zone-content,
+  body.page-node.node-type-training #zone-content,
+  body.page-node.node-type-quiz #zone-content,
+  body.page-node.node-type-article #zone-content,
+  body.page-node.node-type-tool #zone-content {
+    background-image: url(../images/bg-twocol768.gif) !important;
+  }
+  article.node-training .field-name-field-image, 
+	article.node-article .field-name-field-image, 
+	#qvideo, 
+	.sublimevideo-View {
+    padding-left: 1px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  body.logged-in #zone-branding,
+  body.logged-in #zone-content,
+  body.page-node #zone-content,
+  .section-title {
+    background-image: url(../images/border1080.gif);
+  }
+  body.page-trainings #zone-content,
+  body.page-trends #zone-content,
+  body.page-news #zone-content,
+  body.page-node.node-type-training #zone-content,
+  body.page-node.node-type-quiz #zone-content,
+  body.page-node.node-type-article #zone-content,
+  body.page-node.node-type-tool #zone-content {
+    background-image: url(../images/bg-twocol.gif) !important;
+  }
+}

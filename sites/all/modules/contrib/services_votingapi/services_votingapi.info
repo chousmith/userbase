@@ -1,0 +1,14 @@
+name = Services Voting API
+description = Build service resourses for VotingAPI.
+package = Services
+core = 7.x
+
+dependencies[] = services
+dependencies[] = votingapi
+
+; Information added by drupal.org packaging script on 2012-09-12
+version = "7.x-1.0-beta1"
+core = "7.x"
+project = "services_votingapi"
+datestamp = "1347451777"
+

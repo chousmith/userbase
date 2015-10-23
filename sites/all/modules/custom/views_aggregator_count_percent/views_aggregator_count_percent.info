@@ -1,0 +1,7 @@
+name = Views Aggregator Plus Count Percent
+description = Adds aggregation function for Views Aggregator Plus : group by "Count + %"
+package = Views
+dependencies[] = views_aggregator
+version = "7.x-1.0"
+core = "7.x"
+

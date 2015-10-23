@@ -1,0 +1,6 @@
+name = Services Poll
+description = "Provides services for the voting on polls"
+package = Services
+dependencies[] = services
+dependencies[] = poll
+core = 7.x

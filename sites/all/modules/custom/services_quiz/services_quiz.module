@@ -1,0 +1,85 @@
+<?php
+
+/**
+ * Implementation of hook_services_resources().
+ */
+function services_quiz_services_resources() {
+  $resources = array();
+
+  $resources['quiz']['operations']['retrieve'] = array(
+    'file' => array(
+      'type' => 'inc', 
+      'module' => 'services_quiz', 
+      'name' => 'services_quiz',
+    ),
+    'help'   => t('Retrieve quiz data.'),
+    'access arguments' => array('access quiz'),
+    'callback' => 'services_quiz_data',
+    'args'     => array(
+      array(
+        'name' => 'content_id',
+        'type' => 'int',
+        'description' => t('The ID of the quiz.'),
+        'source' => array('path' => '0'),
+        'optional' => FALSE,
+      ),
+    ),
+  );
+  
+  $resources['quiz']['actions']['eval_question'] = array(
+    'file' => array(
+      'type' => 'inc', 
+      'module' => 'services_quiz', 
+      'name' => 'services_quiz',
+    ),
+    'help'   => t('Evaluate a single question on a quiz.'),
+    'access arguments' => array('access quiz'),
+    'callback' => 'services_quiz_eval_question',
+    'args'     => array(
+      array(
+        'name' => 'quiz_id',
+        'type' => 'int',
+        'description' => t('The ID of the quiz.'),
+        'source' => 'data',
+        'optional' => FALSE,
+      ),
+      array(
+        'name' => 'question_id',
+        'type' => 'int',
+        'description' => t('The choice ID that the user selected.'),
+        'source' => 'data',
+        'optional' => FALSE,
+      ),
+      array(
+        'name' => 'answer',
+        'type' => 'int',
+        'description' => t('The index of the answer selected.'),
+        'source' => 'data',
+        'optional' => FALSE,
+      ),
+    ),
+  );
+  
+  $resources['quiz']['actions']['finalize_quiz'] = array(
+    'file' => array(
+      'type' => 'inc', 
+      'module' => 'services_quiz', 
+      'name' => 'services_quiz',
+    ),
+    'help'   => t('Finalize quiz, submit to grading and assign points.'),
+    'access arguments' => array('access quiz'),
+    'callback' => 'services_quiz_finalize',
+    'args' => array(
+      array(
+        'name' => 'quiz_id',
+        'type' => 'int',
+        'description' => t('The ID of the quiz.'),
+        'source' => 'data',
+        'optional' => FALSE,
+      ),
+    ),
+  );
+  
+  return $resources;
+}
+          

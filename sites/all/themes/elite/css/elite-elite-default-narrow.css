@@ -1,0 +1,310 @@
+/* CSS for max-width = 320px? */
+body.page-node.node-type-training #zone-content,
+body.page-node.node-type-quiz #zone-content,
+body.page-node.node-type-article #zone-content,
+body.page-node.node-type-tool #zone-content {
+  background: #fff;
+	background-image: none;
+}
+.not-logged-in.page-user.responsive-layout-narrow #zone-content {
+  padding: 20px 0;
+  min-height: 0;
+}
+.not-logged-in.page-user.responsive-layout-narrow #block-system-main {
+  width: 100%;
+  padding: 20px;
+  background: none;
+}
+.not-logged-in.page-user.responsive-layout-narrow #messages .messages {
+  width: 100%;
+}
+
+.not-logged-in.page-user.responsive-layout-narrow .form-item.password-parent,
+.not-logged-in.page-user.responsive-layout-narrow .form-item.confirm-parent,
+.not-logged-in.page-user.responsive-layout-narrow #edit-field-user-of-age,
+.not-logged-in.page-user.responsive-layout-narrow #edit-field-terms-conditions,
+.not-logged-in.page-user.responsive-layout-narrow #edit-field-region,
+.not-logged-in.page-user.responsive-layout-narrow #edit-field-user-language-pref {
+  width: 100%;
+  float: none;
+  clear: both;
+}
+
+a.bigBtn,
+a.bigbtn,
+span.bigBtn,
+span.bigbtn {
+	display: block;
+	float: none;
+	width: 90%;
+	margin: 0 auto 35px;
+}
+.node-tool h1 {
+	margin: 0.5em 0.5em 0;
+}
+.node-tool .field-name-field-company {
+	margin: 0 1em 1em;
+}
+.node-tool a.outBtn,
+.node-tool a.outbtn {
+	margin: 0;
+	padding: 0 1em;
+}
+.node-tool .tool-mainimg {
+	width: 100%;
+	margin: 0;
+}
+.node-tool .field-name-field-rating {
+	margin-left: 1em;
+}
+.node-tool .flag-outer-favorites {
+	margin-right: 1em;
+}
+/* vive / padding grid fix? */
+body.context-vive .field-name-title-field {
+	height: 162px;
+}
+.container-12 .grid-12 .pad {
+	margin: 0 20px;
+}
+.container-12 .grid-12 .pad .grid-4,
+.container-12 .grid-12 .pad .grid-8,
+.container-12 .grid-12 .pad .grid-10,
+.container-12 .grid-12 .pad .grid-12 {
+	width: 100%;
+	margin-left: 0;
+}
+
+body.context-vive .device.odd img {
+	border-right: none;
+}
+body.context-vive .devicerow {
+	border-top: none;
+}
+/* header */
+#avatar-block-wrapper .points-wrapper {
+	display: none
+}
+.block-main-menu ul.menu li a:link, .block-main-menu ul.menu li a:visited {
+	padding: 0 7px;
+	font-size: 16px;
+}
+/* homepage */
+.view-popular-content .views-field-field-image img {
+	margin: 0 0 5px;
+	max-width: none;
+	width: 100%;
+	float: none;
+}
+.view-popular-content .views-field-title {
+	width: 135px;
+}
+.view-popular-content .views-field-field-image {
+	width: 114px;
+	margin-right: 10px;
+}
+.view-trainings img,
+.view-trends img,
+.view-tools img {
+  width: 100%;
+  height: auto;
+}
+.view-trainings .views-field-title, 
+.view-trends .views-field-title, 
+.view-store .views-field-title {
+	margin: 0 1em 2em;
+}
+.view-trainings .views-field-field-rating, 
+.view-trends .views-field-field-rating, 
+.view-store .views-field-field-rating {
+	left: 20px;
+}
+.view-trends .views-field-ops, 
+.view-trainings .views-field-ops, 
+.view-popular-content .views-field-ops,
+.view-trainings .views-field-field-media-types, 
+.view-trends .views-field-field-media-types {
+	right: 22px;
+}
+.view-trends .views-field-ops, 
+.view-trainings .views-field-ops {
+	top: auto;
+}
+.view-sliders .views-slideshow-cycle-main-frame-row .views-field-title {
+	font-size: 36px;
+	top: 10px;
+}
+.view-tools .views-column {
+	float: left;
+	width: 100%;
+}
+article.node-training .field-name-field-rating, 
+article.node-article .field-name-field-rating {
+	margin: 20px 0 0;
+}
+article.node-training .field-name-field-rating .field-label, 
+article.node-article .field-name-field-rating .field-label {
+	display: none;
+}
+article.node-article .flag-outer-favorites, 
+article.node-training .flag-outer-favorites {
+	right: 35px;
+}
+article.node-training .field-name-field-media-types, 
+article.node-article .field-name-field-media-types {
+	right: 2px;
+}
+#elite-user-block-wrapper {
+	background-color: #363636;
+	height: 270px;
+}
+.not-logged-in.page-user h1 {
+	letter-spacing: 0;
+	font-size: 1.5em;
+	line-height: 1;
+}
+.not-logged-in.page-user .form-submit {
+	font-size: 0.9em;
+}
+.view-trainings .views-field-field-rating,
+.view-trends .views-field-field-rating {
+  padding-top: 13px;
+  position: relative;
+}
+
+
+/* home slider : 768 x 380 */
+.view-home-slides, #views_slideshow_cycle_main_home_slides-block, #views_slideshow_cycle_teaser_section_home_slides-block {
+  width: 100%;
+  min-height: 212px;
+  position: relative;
+}
+.block-home-slides-block {
+  width: 100%;
+  min-height: 212px;
+  overflow: hidden;
+}
+.block-home-slides-block:before{
+  content: "";
+  display: block;
+  padding-top: 66.6%;
+}
+.block-home-slides-block .view-id-home_slides {
+  position:  absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+.view-home-slides .views-slideshow-controls-bottom {
+  display:none;
+}
+.view-trainings .view-footer article.node-poll {
+  min-height: 238px;
+}
+
+.tabs ul.primary li a {
+  padding: 10px 6px;
+}
+.wbar #logo {
+  left: 60%;
+}
+body.node-type-quiz .quiz-score-submit input.form-submit {
+  padding: 0 60px;
+}
+.block-main-menu ul.menu li.first {
+  display: none;
+}
+.password-strength {
+  float: none;
+}
+
+@media only screen and (max-device-width: 400px) {
+  .view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-subheader, 
+  .view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-subheader {
+    bottom: 0;
+  }
+}
+
+
+/*
+	* Public profile View
+	*/
+.profile {}
+.profile:before {
+	height: 318px;
+}
+.profile:after {
+	top: 320px;
+}
+.page-user .group-column-first {
+	width: auto;
+	float: none;
+	padding-top: 30px;
+	padding-left: 150px;
+	margin-left: 0;
+	font-size: 14px;
+}
+.page-user .group-column-first div:first-of-type h3,
+.page-user .group-column-first .field-label {
+	width: auto;
+	display: block;
+}
+.page-user .group-column-second {
+	width: auto;
+	float: none;
+	padding: 0 20px;
+	margin: 0;
+}
+.page-user .group-column-second .item-list {
+	margin-bottom: 20px;
+}
+.page-user .group-column-second a {
+	float: none;
+	display: block;
+	white-space: inherit;
+	line-height: 1;
+	height: auto;
+	padding: 10px 22px;
+}
+.page-user .group-personal {
+	padding: 25px;
+}
+.page-user .group-personal .field {
+	margin-bottom: 25px;
+}
+
+
+/*
+	* User Edit 
+	*/
+body.page-user-me-edit .block-main,
+body.page-user-edit .block-main {
+	padding: 25px;
+}
+#user-profile-form #edit-picture .user-picture {
+	width: 30%;
+}
+#user-profile-form #edit-picture legend, 
+#user-profile-form #edit-picture .form-type-file {
+	width: 66%;
+}
+#user-profile-form #edit-field-user-shipping .street-block, 
+#user-profile-form #edit-field-user-shipping .addressfield-container-inline, 
+#user-profile-form #edit-field-user-job-type, 
+#user-profile-form #edit-field-user-shipping, 
+#user-profile-form #edit-account .form-item-current-pass, 
+#user-profile-form #edit-account .form-type-password-confirm, 
+#user-profile-form #edit-account .form-type-textfield, 
+#user-profile-form #edit-account .form-type-textfield,
+#user-profile-form .field-name-field-user-name-first, 
+#user-profile-form .field-name-field-user-name-last {
+	float: none;
+	width: 100%;
+}
+#user-profile-form #edit-account div.password-confirm,
+#user-profile-form #edit-account .password-strength{
+	width: 47%;
+	float: right;
+	clear: right;
+}

@@ -1,0 +1,4 @@
+name = Club ID Validation
+description = Validating users against Club IDs, plus giving anonymous access to Privacy Policy type pages.
+core = 7.x
+package = Elite

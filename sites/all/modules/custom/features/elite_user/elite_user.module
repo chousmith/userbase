@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Elite User feature.
+ */
+
+include_once 'elite_user.features.inc';
