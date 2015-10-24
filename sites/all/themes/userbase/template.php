@@ -444,3 +444,27 @@ function userbase_quiz_progress($variables) {
   }
   return $output;
 }
+
+/**
+ * hook_css_alter
+ */
+function userbase_css_alter( &$css ) {
+  $gkey = 'sites/all/themes/userbase/css/global.css';
+  $reord = array( $gkey => $css[$gkey] );
+  unset($css[$gkey]);
+  
+  $reord['sites/all/themes/userbase/css/global.css']['weight'] = -1;
+  $reord['sites/all/themes/userbase/css/global.css']['every_page'] = 1;
+  $css = array_merge( $reord, $css );
+  /*
+  $globalcss = $css['sites/all/themes/userbase/css/global.css'];
+  unset( $css['sites/all/themes/userbase/css/global.css'] );
+  array_unshift( $css, $globalcss );
+  
+  /*
+  $css['sites/all/themes/userbase/css/narrow.css']['weight'] = 7;
+  $css['sites/all/themes/userbase/css/normal.css']['weight'] = 8;
+  $css['sites/all/themes/userbase/css/wide.css']['weight'] = 9;
+  */
+  watchdog('cssd', '<pre>'. print_r($css,true) .'</pre>');
+}
