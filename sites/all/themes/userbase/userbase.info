@@ -81,10 +81,10 @@ stylesheets[all and (min-width: 320px)][] = css/grid/userbase/narrow/userbase-na
 
 ; WHITELABEL STYLES
 
-css[thinkabit.css][name] = Thinkabit styles
-css[thinkabit.css][description] = Provides additional styling for the Club Thinkabit LMS site.
-css[thinkabit.css][path] = whitelabel/thinkabit/css
-css[thinkabit.css][options][weight] = 12
+css[jacuzzi.css][name] = Jacuzzi styles
+css[jacuzzi.css][description] = Provides additional styling for the Jacuzzi Playbook Learning Engine site.
+css[jacuzzi.css][path] = whitelabel/jacuzzi/css
+css[jacuzzi.css][options][weight] = 10
 
 ; JS FILES
 

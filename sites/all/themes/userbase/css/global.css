@@ -1,10 +1,10 @@
 /* typography */
 body,
-.block-views h2.block-title,
-body.page-trainings h1#page-title,
-body.page-trends h1#page-title,
-body.page-news h1#page-title,
-body.page-resources h1#page-title,
+applet, object, iframe, blockquote, pre, abbr, acronym, address, big, cite, code, del, dfn, font, ins, kbd, q, s, samp, small, strike, sub, sup, tt, var, b, u, i, center, dl, dt, dd, caption, fieldset, form, label, legend,
+h2,
+h2.block-title,
+h1,
+h1#page-title,
 body.node-type-quiz #quiz_progress,
 body.node-type-quiz #quiz_score_possible,
 body.node-type-quiz #quiz-report-form,
@@ -23,7 +23,6 @@ article.node-reward .field-type-commerce-product-reference .form-submit,
 .section-title,
 #block-elite-custom-avatar-block .points-wrapper,
 #elite-user-flop .points-wrapper strong,
-h1,
 .poll-title,
 .view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-subheader,
 .view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-subheader,
@@ -36,7 +35,8 @@ h1,
 .view-tools .view-header h2,
 #elite-user-block-wrapper .points-wrapper,
 #elite-user-flop .points-wrapper,
-button, input[type="reset"], input[type="submit"], input[type="button"] {
+button, input[type="reset"], input[type="submit"], input[type="button"],
+.form-submit {
   font-weight: 400;
   font-family: "Montserrat", Helvetica, Arial, sans-serif;
 }
@@ -169,6 +169,8 @@ body.page-resources h1#page-title {
 .block.block-app,
 .block.block-store h2,
 .block.block-app h2,
+.node-poll h1,
+.node-poll label,
 #quiz-start-quiz-button-form .form-submit,
 body.node-type-quiz .answering-form input#edit-op,
 body.node-type-quiz .answering-form input#edit-back,
@@ -221,12 +223,16 @@ body,
 .section-title {
   background: #fff;
 }
+/*
 body.not-logged-in {
   background: #fff url(../images/bg-logins.gif) no-repeat 50% 184px;
 }
+*/
 .quiz-end a.button,
 .not-logged-in.page-user #block-system-main,
-.not-logged-in.page-user.responsive-layout-narrow #block-system-main,
+.not-logged-in.page-user.responsive-layout-narrow #block-system-main {
+  background: #c2c2c2;
+}
 #quiz-start-quiz-button-form .form-submit,
 body.node-type-quiz .answering-form input#edit-op,
 body.node-type-quiz .answering-form input#edit-back,
@@ -237,10 +243,6 @@ body.node-type-quiz .quiz-score-submit input.form-submit {
 .page-forum ul.action-links a,
 .page-messages ul.action-links a,
 .node-forum .content ul.links.inline a,
-.logged-in .form-actions input[type="submit"],
-.logged-in .form-actions input.form-submit,
-.vote-form input.form-submit,
-.logged-in .form-actions input[type="submit"].form-submit,
 form.comment-form input[type="submit"],
 form.comment-form input.form-submit,
 form.comment-form input[type="submit"].form-submit,
@@ -256,6 +258,12 @@ a.bigbtn,
 span.bigbtn,
 a.outbtn {
   background: #fdb800;
+}
+.vote-form input.form-submit,
+.logged-in .form-actions input[type="submit"],
+.logged-in .form-actions input.form-submit,
+.logged-in .form-actions input[type="submit"].form-submit {
+  background: #d7d7d7;
 }
 body.node-type-blog .page-header, 
 body.page-blog .page-header,
@@ -566,8 +574,7 @@ p  {
 body.page-trainings h1#page-title,
 body.page-trends h1#page-title {
   padding: 15px 20px;
-  font-size: 1.6em;
-  color: #898989;
+  font-size: 22px;
   margin: 0;
 }
 body.page-resources h1#page-title,
@@ -756,6 +763,12 @@ body.page-news h1#page-title {
 .view-store .views-field-commerce-price strong,
 .view-polls .field-name-field-base-points strong {
   font-weight: normal;
+}
+.node-poll label.option {
+  font-size: 14px;
+}
+.node-poll .poll {
+  overflow: visible;
 }
 /* store?! */
 .view-store .views-field-add-to-cart-form {
@@ -1650,8 +1663,9 @@ form.comment-form input[type="submit"].form-submit,
 .view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a,
 .view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a {
   border: none;
-  border-radius: 6px;
-  box-shadow: 0 4px 0 #313131;
+	border-radius: 8px;
+  -webkit-box-shadow: 0 5px 0 0 #b2b2b2;
+  box-shadow: 0 5px 0 0 #b2b2b2;
   float: left;
   font-size: 16px;
   height: 44px;
@@ -2003,7 +2017,10 @@ body.node-type-page .region-sidebar-second {
 #block-menu-menu-reg-footer-menu ul.menu li a {
   color: #f5f5f5;
 }
-
+.not-logged-in .zone-footer {
+  color: #959595;
+  text-align: center;
+}
 
 /*
 * User Login
@@ -2019,8 +2036,10 @@ body.node-type-page .region-sidebar-second {
   text-align: center;
 }
 .not-logged-in.page-user #zone-content {
+  /*
   background: #008d95 url(../images/bg-login.jpg) repeat-y 50% 0;
   min-height: 830px;
+  */
   text-align: center;
   padding: 50px 0;
   position: relative;
@@ -2039,14 +2058,6 @@ body.node-type-page .region-sidebar-second {
   width: 50%;
   min-height: 350px;
   padding: 40px;
-  background: #073e5a;
-  background: -moz-linear-gradient(left,  #073e5a 0%, #00616c 100%);
-  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#073e5a), color-stop(100%,#00616c));
-  background: -webkit-linear-gradient(left,  #073e5a 0%,#00616c 100%);
-  background: -o-linear-gradient(left,  #073e5a 0%,#00616c 100%);
-  background: -ms-linear-gradient(left,  #073e5a 0%,#00616c 100%);
-  background: linear-gradient(to right,  #073e5a 0%,#00616c 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#073e5a', endColorstr='#00616c',GradientType=1 );
 }
 .not-logged-in.page-user #messages .messages {
   border: 0;
@@ -2057,9 +2068,11 @@ body.node-type-page .region-sidebar-second {
 .not-logged-in.page-user.page-user-password #block-system-main {
   min-height: 240px;
 }
+/*
 .not-logged-in.page-user.page-user-register #block-system-main {
   min-height: 590px;
 }
+*/
 .not-logged-in.page-user .form-item,
 .not-logged-in.page-user .form-actions {
   margin: 0 0 16px;
@@ -2154,28 +2167,25 @@ body.node-type-page .region-sidebar-second {
   top: -25px;
 }
 .not-logged-in.page-user .form-submit {
-  width: 100%;
-  background: #59ae79;
-  background: -moz-linear-gradient(top,  #59ae79 0%, #088154 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#59ae79), color-stop(100%,#088154));
-  background: -webkit-linear-gradient(top,  #59ae79 0%,#088154 100%);
-  background: -o-linear-gradient(top,  #59ae79 0%,#088154 100%);
-  background: -ms-linear-gradient(top,  #59ae79 0%,#088154 100%);
-  background: linear-gradient(to bottom,  #59ae79 0%,#088154 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#59ae79', endColorstr='#088154',GradientType=0 );
+  background: #959595;
   -webkit-border-radius: 10px;
   border-radius: 10px;
   border: 1px solid #8dc8a3;
   border-width: 2px 0 0 1px;
-  text-shadow: none;
-  font-size: 1.3em;
-  text-transform: uppercase;
-  color: #fff;
-  padding: 18px;
-  margin: 0;
-  -webkit-box-shadow:  0 5px 0 0 #033042;
-  box-shadow:  0 5px 0 0 #033042;
+  -webkit-box-shadow:  0 5px 0 0 #878787;
+  box-shadow:  0 5px 0 0 #878787;
   clear: both;
+  color: #000;
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0;
+  padding: 18px;
+  text-shadow: none;
+  text-transform: uppercase;
+  width: 100%;
+}
+.not-logged-in.page-user #zone-branding {
+  background: none !important;
 }
 .not-logged-in.page-user .user-links a {
   color: #fff;
@@ -2188,14 +2198,6 @@ body.node-type-page .region-sidebar-second {
 .not-logged-in.page-user #forget-password-link a {
   color: #fff;
 }
-
-.not-logged-in .branding-data .logo-img a {
-  background: url(../images/logo-logins.png) no-repeat 0 0;
-  display: block;
-  margin: 12px auto;
-  width: 142px;
-  height: 82px;
-}
 .not-logged-in.page-user #zone-content {
   padding-top: 15px;
 }
@@ -2204,14 +2206,6 @@ body.node-type-page .region-sidebar-second {
 .not-logged-in.page-user label .form-required {
   font-size: 16px;
   line-height: 1.1;
-}
-.not-logged-in.page-user .form-submit {
-  -webkit-box-shadow: 0 5px 0 0 #7c830f;
-  box-shadow: 0 5px 0 0 #7c830f;
-  color: #000;
-  font-size: 18px;
-  font-weight: 400;
-  text-transform: uppercase;
 }
 /*
 * profile

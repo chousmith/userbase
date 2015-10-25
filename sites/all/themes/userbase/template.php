@@ -445,26 +445,39 @@ function userbase_quiz_progress($variables) {
   return $output;
 }
 
+// HOOK_preprocess_html
+function userbase_preprocess_html(&$variables) {
+  // Montserrat
+  drupal_add_css('http://fonts.googleapis.com/css?family=Montserrat:400,700', array('type' => 'external'));
+}
+
 /**
- * hook_css_alter
+ * hook_css_alter because somehow userbase name messes with alpha & omega order
  */
 function userbase_css_alter( &$css ) {
-  $gkey = 'sites/all/themes/userbase/css/global.css';
-  $reord = array( $gkey => $css[$gkey] );
-  unset($css[$gkey]);
+  $orderfix = array(
+    'sites/all/themes/omega/alpha/css/alpha-reset.css',
+    'sites/all/themes/omega/omega/css/formalize.css',
+    'sites/all/themes/omega/omega/css/omega-menu.css',
+    'sites/all/themes/omega/omega/css/omega-forms.css',
+    'sites/all/themes/userbase/css/grid/userbase/narrow/userbase-narrow-12.css',
+    'sites/all/themes/userbase/css/grid/userbase/normal/userbase-normal-12.css',
+    'sites/all/themes/userbase/css/grid/userbase/wide/userbase-wide-12.css',
+    'sites/all/themes/userbase/css/global.css',
+    'sites/all/themes/userbase/css/narrow.css',
+    'sites/all/themes/userbase/css/normal.css',
+    'sites/all/themes/userbase/css/wide.css',
+    'sites/all/themes/userbase/whitelabel/jacuzzi/css/jacuzzi.css'
+  );
+  $reord = array();
+  foreach ( $orderfix as $i => $gkey ) {
+    $reord[$gkey] = $css[$gkey];
+    unset($css[$gkey]);
+    
+    $reord[$gkey]['weight'] = $i - 2;
+    $reord[$gkey]['every_page'] = 1;
+  }
   
-  $reord['sites/all/themes/userbase/css/global.css']['weight'] = -1;
-  $reord['sites/all/themes/userbase/css/global.css']['every_page'] = 1;
   $css = array_merge( $reord, $css );
-  /*
-  $globalcss = $css['sites/all/themes/userbase/css/global.css'];
-  unset( $css['sites/all/themes/userbase/css/global.css'] );
-  array_unshift( $css, $globalcss );
-  
-  /*
-  $css['sites/all/themes/userbase/css/narrow.css']['weight'] = 7;
-  $css['sites/all/themes/userbase/css/normal.css']['weight'] = 8;
-  $css['sites/all/themes/userbase/css/wide.css']['weight'] = 9;
-  */
-  watchdog('cssd', '<pre>'. print_r($css,true) .'</pre>');
+  //watchdog('cssd', '<pre>'. print_r($css,true) .'</pre>');
 }
