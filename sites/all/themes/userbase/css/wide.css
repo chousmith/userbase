@@ -562,3 +562,7 @@ body.logged-in #zone-branding,
     top: 10px;
     right: 9px;
   }
+  
+  #forum td.forum, .node-forum h2.node-title, .node-forum .content, .node-forum .comment, h2.comment-form.title, form.comment-form {
+    padding-left: 65px;
+  }

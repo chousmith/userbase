@@ -311,14 +311,12 @@ function userbase_menu_local_task($variables) {
 /**
  * template_preprocess_forum_submitted
  */
-function userbase_preprocess_forum_submitted(&$variables) {
-  /*
+function elite_preprocess_forum_submitted(&$variables) {
   $userimg = '<span class="userimg">';
   if ( isset($variables['topic']->uid) ) {
-    if ( function_exists('userbase_custom_user_image') ) {
+    if ( function_exists('elite_custom_user_image') ) {
       $usr = user_load($variables['topic']->uid);
-      $userimg .= '<pre>'. print_r($usr,true) .'</pre>';
-      $userimg .= userbase_custom_user_image($usr,'micro');
+      $userimg .= elite_custom_user_image($usr,'micro');
     }
     // and change usernamehtml link
     // NOT to messages via here, for now at least
@@ -332,16 +330,6 @@ function userbase_preprocess_forum_submitted(&$variables) {
   
   // and then set variables for use in the templates
   $variables['author'] = isset($variables['topic']->uid) ? ( $userimg . $usernamehtml ) : '';
-  */
-  // per COPPA, we will Not show user image, or username or link to profile..
-  // JUST show user's first name
-  $variables['author'] = '';
-  if ( isset($variables['topic']->uid) ) {
-    $usr = user_load( $variables['topic']->uid );
-    if (!empty($usr->field_user_name_first)) {
-      $variables['author'] = $usr->field_user_name_first[LANGUAGE_NONE][0]['value'];
-    }
-  }
   $variables['time'] = isset($variables['topic']->created) ? format_interval(REQUEST_TIME - $variables['topic']->created) : '';
 }
 /**
