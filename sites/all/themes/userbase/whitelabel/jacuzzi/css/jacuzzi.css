@@ -17,6 +17,26 @@ body.adminimal-menu #admin-menu .dropdown li.admin-menu-action.admin-menu-accoun
 body.adminimal-menu #admin-menu .dropdown li.admin-menu-action.admin-menu-account a:hover {
   color: #cd9601;
 }
+.page-forum ul.action-links a,
+.page-messages ul.action-links a,
+.node-forum .content ul.links.inline a,
+form.comment-form input[type="submit"],
+form.comment-form input.form-submit,
+form.comment-form input[type="submit"].form-submit,
+.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a,
+.view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a,
+.not-logged-in.page-user .form-submit, .view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a:hover,
+.view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a:hover,
+a.bigBtn,
+span.bigBtn,
+a.outBtn,
+a.bigbtn,
+span.bigbtn,
+a.outbtn,
 progress[value]::-webkit-progress-value {
   background-color: #cd9601;
+}
+.not-logged-in.page-user #block-system-main,
+.not-logged-in.page-user.responsive-layout-narrow #block-system-main {
+  background: #000;
 }
