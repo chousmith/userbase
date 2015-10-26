@@ -1,0 +1,4 @@
+name = UserBase Validation
+description = Validating Users matching against Stores
+core = 7.x
+package = UserBase

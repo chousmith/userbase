@@ -1,14 +1,14 @@
 <?php
 /**
  * @file
- * Code related to validating users and stores
+ * Code related to validating users matching against stores
  */
 
 /**
  * hook_form_alter() user registration form to add a Store ID field
  * that can be used for both the employees and managers
  */
-function elite_validation_form_user_register_form_alter( &$form, &$form_state, $form_id) {
+function userbase_validation_form_user_register_form_alter( &$form, &$form_state, $form_id) {
   // move REGION field to account...
   $form['account']['region'] = $form['field_region'];
   // unset( $form['field_region'] );
@@ -25,14 +25,14 @@ function elite_validation_form_user_register_form_alter( &$form, &$form_state, $
   $form['account']['locale']['#weight'] = 9;
   
   // add our custom validation handler
-  $form['#validate'][] = 'elite_validation_user_register_validate';
+  $form['#validate'][] = 'userbase_validation_user_register_validate';
   // and our custom submit handler
-  $form['#submit'][] = 'elite_validation_user_register_submit';
+  $form['#submit'][] = 'userbase_validation_user_register_submit';
 }
 /**
  * Form alter validate
  */
-function elite_validation_user_register_validate($form, &$form_state) {
+function userbase_validation_user_register_validate($form, &$form_state) {
 	// Check the store id against valid database ids
 	$store_id = $form_state['values']['store'];
 	if (!elite_store_valid_store_id($store_id)) {
@@ -87,7 +87,7 @@ function elite_validation_user_register_validate($form, &$form_state) {
 /**
  * Form alter submit
  */
-function elite_validation_user_register_submit($form, &$form_state) {
+function userbase_validation_user_register_submit($form, &$form_state) {
   $store_id = $form_state['values']['store'];
   $user_id = $form_state['values']['uid'];
 /*
@@ -126,7 +126,7 @@ function elite_validation_user_register_submit($form, &$form_state) {
 /**
  * hook node access to also allow some 'page' nodes to be viewed by anonymous
  */
-function elite_validation_node_access($node, $op, $account) {
+function userbase_validation_node_access($node, $op, $account) {
   $type = is_string($node) ? $node : $node->type;
 
   // if its a super cool content type, user content types machine name.
@@ -171,7 +171,7 @@ function elite_validation_node_access($node, $op, $account) {
 /*
  * hook_services_request_preprocess_alter ?
  */
-function elite_validation_services_request_preprocess_alter($controller, &$args, $options) {
+function userbase_validation_services_request_preprocess_alter($controller, &$args, $options) {
 	$languages = array();
 	$lang = 'LANGUAGEFAIL';
 	switch ( $controller['callback'] ) {

@@ -19,10 +19,9 @@ function elite_user_regions_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'list',
         'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 5,
+        'type' => 'hidden',
+        'weight' => 18,
       ),
     ),
     'entity_type' => 'user',
@@ -37,7 +36,7 @@ function elite_user_regions_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 5,
+      'weight' => 10,
     ),
   );
 

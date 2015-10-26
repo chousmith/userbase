@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Elite Locations Service feature.
- */
-
-include_once 'elite_locations_service.features.inc';

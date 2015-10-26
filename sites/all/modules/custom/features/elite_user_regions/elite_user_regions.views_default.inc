@@ -62,7 +62,7 @@ function elite_user_regions_views_default_views() {
     'skip_safe' => 0,
     'skip_empty_values' => 0,
   );
-  /* Field: User: Job Type */
+  /* Field: User: Role: */
   $handler->display->display_options['fields']['field_user_job_type']['id'] = 'field_user_job_type';
   $handler->display->display_options['fields']['field_user_job_type']['table'] = 'field_data_field_user_job_type';
   $handler->display->display_options['fields']['field_user_job_type']['field'] = 'field_user_job_type';
@@ -209,18 +209,26 @@ function elite_user_regions_views_default_views() {
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
     'name' => 'name',
-    'field_region' => 'field_region',
+    'field_storeid' => 'field_storeid',
+    'field_store_area' => 'field_store_area',
   );
   $handler->display->display_options['style_options']['default'] = 'name';
   $handler->display->display_options['style_options']['info'] = array(
     'name' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
-    'field_region' => array(
+    'field_storeid' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_store_area' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -228,6 +236,12 @@ function elite_user_regions_views_default_views() {
       'empty_column' => 0,
     ),
   );
+  /* Relationship: Entity Reference: Referencing entity */
+  $handler->display->display_options['relationships']['reverse_field_store_employees_node']['id'] = 'reverse_field_store_employees_node';
+  $handler->display->display_options['relationships']['reverse_field_store_employees_node']['table'] = 'users';
+  $handler->display->display_options['relationships']['reverse_field_store_employees_node']['field'] = 'reverse_field_store_employees_node';
+  $handler->display->display_options['relationships']['reverse_field_store_employees_node']['label'] = 'Store';
+  $handler->display->display_options['relationships']['reverse_field_store_employees_node']['required'] = TRUE;
   /* Field: User: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'users';
@@ -235,11 +249,22 @@ function elite_user_regions_views_default_views() {
   $handler->display->display_options['fields']['name']['label'] = 'Username';
   $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
-  /* Field: Field: Region */
-  $handler->display->display_options['fields']['field_region']['id'] = 'field_region';
-  $handler->display->display_options['fields']['field_region']['table'] = 'field_data_field_region';
-  $handler->display->display_options['fields']['field_region']['field'] = 'field_region';
-  $handler->display->display_options['fields']['field_region']['element_label_colon'] = FALSE;
+  /* Field: Content: Store ID */
+  $handler->display->display_options['fields']['field_storeid']['id'] = 'field_storeid';
+  $handler->display->display_options['fields']['field_storeid']['table'] = 'field_data_field_storeid';
+  $handler->display->display_options['fields']['field_storeid']['field'] = 'field_storeid';
+  $handler->display->display_options['fields']['field_storeid']['relationship'] = 'reverse_field_store_employees_node';
+  $handler->display->display_options['fields']['field_storeid']['type'] = 'title_linked';
+  $handler->display->display_options['fields']['field_storeid']['settings'] = array(
+    'title_style' => '_none',
+    'title_link' => 'content',
+    'title_class' => '',
+  );
+  /* Field: Content: Area */
+  $handler->display->display_options['fields']['field_store_area']['id'] = 'field_store_area';
+  $handler->display->display_options['fields']['field_store_area']['table'] = 'field_data_field_store_area';
+  $handler->display->display_options['fields']['field_store_area']['field'] = 'field_store_area';
+  $handler->display->display_options['fields']['field_store_area']['relationship'] = 'reverse_field_store_employees_node';
   /* Sort criterion: User: Created date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'users';
@@ -277,8 +302,10 @@ function elite_user_regions_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
+    t('Store'),
     t('Username'),
-    t('Region'),
+    t('Store ID'),
+    t('Area'),
     t('All'),
     t('Page'),
   );

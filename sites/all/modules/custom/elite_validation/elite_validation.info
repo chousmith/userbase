@@ -1,4 +1,4 @@
 name = Elite Store Employee Validation
-description = (outdated) Validating users and Stores locations
+description = Validating users and Stores locations
 core = 7.x
 package = Elite
