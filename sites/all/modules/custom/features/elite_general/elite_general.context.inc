@@ -21,7 +21,6 @@ function elite_general_context_default_contexts() {
       'values' => array(
         'about' => 'about',
         'about/*' => 'about/*',
-        'verify' => 'verify',
         'contact' => 'contact',
       ),
     ),
