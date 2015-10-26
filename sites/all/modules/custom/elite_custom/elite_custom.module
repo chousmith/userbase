@@ -1726,13 +1726,10 @@ function elite_custom_load_user_store($lookupval = array()) {
 }
 
 /*
- * hook_user_login
- *
- * to redirect on login to homepage
- * unless under13 then to special under13 "verify" ?
+ * hook_user_login to redirect to homepage
  */
 function elite_custom_user_login(&$edit, $account) {
-  $edit['redirect'] =  user_access( 'access under13 page' ) ? 'verify' : '<front>';
+  $edit['redirect'] =  '<front>';
 }
 
 /**
