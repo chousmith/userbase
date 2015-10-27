@@ -245,13 +245,10 @@ function elite_custom_block_flop_view() {
   if (!empty($user->field_user_name_first)) {
 		$uname .= $user->field_user_name_first[LANGUAGE_NONE][0]['value'];
 	}
-  // no last name..
-  /*
 	$uname .= ' ';
   if (!empty($user->field_user_name_last)) {
 		$uname .= $user->field_user_name_last[LANGUAGE_NONE][0]['value'];
 	}
-  */
 	$uname_markup = elite_custom_markup_wrapper( check_plain( $uname ), array('class' => 'user-name' ) );
 	
   $picture_markup = elite_custom_user_image($user, 'rounduser');
