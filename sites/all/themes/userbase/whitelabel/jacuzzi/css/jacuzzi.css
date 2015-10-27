@@ -33,6 +33,7 @@ a.outBtn,
 a.bigbtn,
 span.bigbtn,
 a.outbtn,
+a.privatemsg-send-link-profile,
 progress[value]::-webkit-progress-value {
   background-color: #cd9601;
 }
