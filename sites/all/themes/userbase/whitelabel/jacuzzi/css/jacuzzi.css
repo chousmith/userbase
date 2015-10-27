@@ -9,6 +9,8 @@ body.adminimal-menu #admin-menu .dropdown li.admin-menu-action.admin-menu-accoun
 #block-system-main-menu ul.menu li a:hover,
 #block-system-main-menu ul.menu li a.active:link,
 #block-system-main-menu ul.menu li a.active:visited,
+#block-system-main-menu ul.menu li a.active-trail:link,
+#block-system-main-menu ul.menu li a.active-trail:visited,
 .view-trainings .taken .views-field-field-base-points,
 .view-trends .taken .views-field-field-base-points,
 .view-popular-content .taken .views-field-field-base-points,
