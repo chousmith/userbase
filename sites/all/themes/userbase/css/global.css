@@ -156,7 +156,7 @@ body.page-resources h1#page-title,
 .block-main-menu ul.menu li a:hover,
 .block-main-menu ul.menu li a.active:link,
 .block-main-menu ul.menu li a.active:visited,
-#elite-user-flop .points-wrapper,
+#elite-user-flop,
 .not-logged-in.page-user label,
 .not-logged-in.page-user #edit-field-terms-conditions .description,
 .not-logged-in.page-user label .form-required,
@@ -2231,22 +2231,19 @@ body.node-type-page .region-sidebar-second {
   z-index: 99;
   box-shadow: -1px 1px 3px #000;
 }
-#elite-user-block-wrapper,
-#elite-user-flop {
+#elite-user-block-wrapper {
   background: url(../images/right-node-userimg-bg-full.jpg) no-repeat 50% 0;
   float: left;
   width: 100%;
-  height: 209px;
-  padding: 41px 0 0;
-}
-#elite-user-block-wrapper {
-  background-color: transparent !important;
-  background-image: url(../images/right-node-userimg-bg-full.jpg);
   height: auto !important;
   min-height: 470px;
+  padding: 41px 0 0;
 }
 #elite-user-flop {
-  padding-top: 0;
+  background: url(../images/right-node-userimg-bg.jpg) no-repeat 50% 0;
+  float: left;
+  width: 100%;
+  padding: 0;
   height: auto;
   background-position: 50% 41px;
 }

@@ -289,7 +289,7 @@ function elite_custom_block_flop_view() {
     $atts['attributes'] = array( 'onclick' => 'return false' );
   }
 	$lt = l( $training, $aurl, $atts );
-	$umenu .= '<li class="trainings'. ( $aurl == false ? ' disabled' : 'active' ) .'">'. $lt .'</li>';
+	$umenu .= '<li class="trainings'. ( $aurl == false ? ' disabled' : ' active' ) .'">'. $lt .'</li>';
 	
   if ( function_exists( 'privatemsg_unread_count' ) ) {
     // My Messages (with #)
@@ -303,7 +303,7 @@ function elite_custom_block_flop_view() {
   if ( $aurl == false ) {
     $atts['attributes'] = array( 'onclick' => 'return false' );
   }
-	$umenu .= '<li class="activity nocount'. ( $aurl == false ? ' disabled' : 'active' ) .'">'. l( elite_custom_markup_wrapper(t('My Activity'), false, 'usermenu'), $aurl, $atts ) .'</li>';
+	$umenu .= '<li class="activity nocount'. ( $aurl == false ? ' disabled' : ' active' ) .'">'. l( elite_custom_markup_wrapper(t('My Activity'), false, 'usermenu'), $aurl, $atts ) .'</li>';
 	
   // My Favorites (with #)
 	$fnum = elite_custom_user_favorites_count();
@@ -314,7 +314,7 @@ function elite_custom_block_flop_view() {
   if ( $aurl == false ) {
     $atts['attributes'] = array( 'onclick' => 'return false' );
   }
-	$umenu .= '<li class="favorites'. ( $aurl == false ? ' disabled' : 'active' ) .'">'. l( elite_custom_markup_wrapper(t('My Favorites'), $mattr, 'usermenu'), $aurl, $atts ) .'</li>';
+	$umenu .= '<li class="favorites'. ( $aurl == false ? ' disabled' : ' active' ) .'">'. l( elite_custom_markup_wrapper(t('My Favorites'), $mattr, 'usermenu'), $aurl, $atts ) .'</li>';
 	
   // Log out
 	$umenu .= '<li class="logout nocount active">'. l( elite_custom_markup_wrapper(t('Log out'), false, 'usermenu'), 'user/logout', array('html'=>true) ) .'</li>';
