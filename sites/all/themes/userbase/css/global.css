@@ -366,16 +366,6 @@ hr {
 /*
 ** Header
 */
-#zone-branding {
-  background: #1b2021; /* Old browsers */
-  background: -moz-linear-gradient(top,  #1b2021 0%, #22292c 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1b2021), color-stop(100%,#22292c)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  #1b2021 0%,#22292c 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  #1b2021 0%,#22292c 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  #1b2021 0%,#22292c 100%); /* IE10+ */
-  background: linear-gradient(to bottom,  #1b2021 0%,#22292c 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1b2021', endColorstr='#22292c',GradientType=0 ); /* IE6-9 */
-}
 .branding-data {
   float: left;
   padding: 15px 10px 0px 23px;
@@ -470,47 +460,6 @@ p  {
 .view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a:hover,
 .view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a:hover {
   background: #6eceed;
-}
-@media only screen and (max-width: 767px) {
-	.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-title,
-	.view-sliders .views-slideshow-cycle-main-frame-row .views-field-title {
-		font-size: 61px;
-		line-height: 100%;
-		top: 20px;
-		left: 20px;
-	}
-	.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-subheader,
-	.view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-subheader {
-		font-size: 17px;
-		line-height: 100%;
-		top: auto;
-		bottom: 30px;
-		left: 20px;
-	}
-	.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-slide-button,
-	.view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-slide-button {
-		top: 0;
-		bottom: 0;
-		left: 0;
-		width: 100%;
-		height: 312px;
-	}
-	.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a,
-	.view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-slide-button  a{
-		background: url(../images/fx.gif) repeat 0 0;
-		-webkit-border-radius: 0;
-		border-radius: 0;
-		padding: 0;
-		width: 100%;
-		height: 208px;
-		-webkit-box-shadow: none;
-		box-shadow: none;
-		text-indent: -999em;
-	}
-	.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a:hover,
-	.view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-slide-button  a:hover{
-		background: url(../images/fx.gif) repeat 0 0;
-	}
 }
 .view-home-slides .views-slideshow-controls-bottom,
 .view-sliders .views-slideshow-controls-bottom {
@@ -1665,6 +1614,49 @@ form.comment-form input[type="submit"].form-submit,
   text-transform: uppercase;
   vertical-align: middle;
 	white-space: nowrap;
+}
+
+@media only screen and (max-width: 767px) {
+	.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-title,
+	.view-sliders .views-slideshow-cycle-main-frame-row .views-field-title {
+		font-size: 61px;
+		line-height: 100%;
+		top: 20px;
+		left: 20px;
+	}
+	.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-subheader,
+	.view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-subheader {
+		font-size: 17px;
+		line-height: 100%;
+		top: auto;
+		bottom: 30px;
+		left: 20px;
+	}
+	.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-slide-button,
+	.view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-slide-button {
+		top: 0;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 312px;
+	}
+	.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a,
+	.view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-slide-button  a{
+		background: url(../images/fx.gif) repeat 0 0;
+    background-color: transparent !important;
+		-webkit-border-radius: 0;
+		border-radius: 0;
+		padding: 0;
+		width: 100%;
+		height: 330px;
+		-webkit-box-shadow: none;
+		box-shadow: none;
+		text-indent: -999em;
+	}
+	.view-home-slides .views-slideshow-cycle-main-frame-row .views-field-field-slide-button a:hover,
+	.view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-slide-button  a:hover{
+		background: url(../images/fx.gif) repeat 0 0;
+	}
 }
 .vote-form input.form-submit {
   padding: 0;

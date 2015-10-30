@@ -97,9 +97,11 @@ body.context-vive .devicerow {
 	float: none;
 }
 .view-popular-content .views-field-title {
-	width: 135px;
+  float: none;
+	width: 100%;
 }
 .view-popular-content .views-field-field-image {
+  float: left;
 	width: 114px;
 	margin-right: 10px;
 }
