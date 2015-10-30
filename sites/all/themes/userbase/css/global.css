@@ -272,9 +272,6 @@ body.page-blog .page-header,
 .forum-title {
 	background: #464646;
 }
-.view-trainings .view-footer article.node-poll .field-name-field-base-points {
-  background: #838383;
-}
 
 body {
   margin: 0;
@@ -758,7 +755,7 @@ body.page-news h1#page-title {
 }
 */
 .node-poll label.option {
-  font-size: 14px;
+  font-size: 16px;
 }
 .node-poll .poll {
   overflow: visible;
@@ -818,6 +815,7 @@ body.page-news h1#page-title {
   font-size: 1.5em;
 }
 .view-trainings .view-footer article.node-poll .field-name-field-base-points {
+  background: #838383;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -826,7 +824,7 @@ body.page-news h1#page-title {
   background: #91c8a5;
   height: 30px;
   line-height: 30px;
-  font-size: 1.2em;
+  font-size: 16px;
   padding: 0 15px;
 }
 .view-trainings .view-footer article.node-poll .poll .total {

@@ -304,7 +304,7 @@ padding-left: 0;
 .responsive-layout-normal .view-trainings .views-column,
 .responsive-layout-normal .view-trends .views-column,
 .view-trainings .view-footer article.node-poll {
-  min-height: 303px !important;
+  min-height: 305px !important;
 }
   .youtubeplayer {
     /* 16x9 */
@@ -344,11 +344,6 @@ padding-left: 0;
   .block.block-tips,
   .block.block-app {
     height: 260px !important;
-  }
-  .responsive-layout-normal .view-trainings .views-column,
-  .responsive-layout-normal .view-trends .views-column,
-  .view-trainings .view-footer article.node-poll {
-    min-height: 303px !important;
   }
   .block-alerts-block {
     position: relative;
