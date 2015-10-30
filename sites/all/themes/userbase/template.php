@@ -464,8 +464,20 @@ function userbase_css_alter( &$css ) {
     
     $reord[$gkey]['weight'] = $i - 2;
     $reord[$gkey]['every_page'] = 1;
+    
+    switch ( $gkey ) {
+      case 'sites/all/themes/userbase/css/narrow.css':
+        $reord[$gkey]['media'] = 'all';
+        break;
+      case 'sites/all/themes/userbase/css/normal.css':
+        $reord[$gkey]['media'] = 'all and (min-width: 770px)';
+        break;
+      case 'sites/all/themes/userbase/css/wide.css':
+        $reord[$gkey]['media'] = 'all and (min-width: 1024px)';
+        break;
+    }
   }
   
   $css = array_merge( $reord, $css );
-  //watchdog('cssd', '<pre>'. print_r($css,true) .'</pre>');
+  watchdog('cssd', '<pre>'. print_r($css,true) .'</pre>');
 }

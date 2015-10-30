@@ -612,31 +612,6 @@ body.page-news h1#page-title {
   left: 130px;
   bottom: 40px;
 }
-.view-popular-content .views-field-field-base-points {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  clear: both;
-  border: 1px solid #d6d6d6;
-  border-width: 1px 0;
-  width: 100%;
-  height: 30px;
-  line-height: 30px;
-  font-size: 1.2em;
-  background: #ebebeb; /* Old browsers */
-  background: -moz-linear-gradient(top,  #ebebeb 0%, #ffffff 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ebebeb), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  #ebebeb 0%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  #ebebeb 0%,#ffffff 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  #ebebeb 0%,#ffffff 100%); /* IE10+ */
-  background: linear-gradient(to bottom,  #ebebeb 0%,#ffffff 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
-  -webkit-box-shadow: inset 0 0 4px 2px #fff;
-  box-shadow: inset 0 0 4px 2px #fff;
-}
-.view-popular-content .views-field-field-base-points .field-content {
-  padding: 0 20px;
-}
 .view-popular-content .views-field-field-media-types {
   position: absolute;
   bottom: 5px;
@@ -660,7 +635,14 @@ body.page-news h1#page-title {
   box-shadow: 0 0 3px rgba(0, 0, 0, .2);
   padding: 5px 4px 5px 5px;
   border-right: 1px solid #d6d6d6;
-  min-height: 303px;
+}
+
+.view-trainings .views-column,
+.view-trends .views-column,
+.view-store .views-column,
+.view-tools .views-column,
+.view-trainings .view-footer article.node-poll {
+  min-height: 305px;
 }
 .view-tools .view-empty,
 .view-trends .view-empty,
@@ -708,12 +690,14 @@ body.page-news h1#page-title {
   left: 20px;
   bottom: 40px;
 }
+.view-popular-content .views-field-field-base-points,
 .view-trainings .views-field-field-base-points,
 .view-trends .views-field-field-base-points,
 .view-store .views-field-commerce-price {
   position: absolute;
   bottom: 0;
   left: 0;
+  clear: both;
   border: 1px solid #d6d6d6;
   border-width: 1px 0;
   width: 100%;
@@ -733,9 +717,16 @@ body.page-news h1#page-title {
 }
 .view-trainings .views-field-field-base-points .field-content,
 .view-trends .views-field-field-base-points .field-content,
-.view-store .views-field-commerce-price .field-content {
-  padding: 0 20px 0 37px;
+.view-store .views-field-commerce-price .field-content,
+.view-popular-content .views-field-field-base-points .field-content {
+  padding: 0 20px;
 }
+.view-trainings .taken .views-field-field-base-points .field-content,
+.view-trends .taken .views-field-field-base-points .field-content,
+.view-popular-content .taken .views-field-field-base-points .field-content {
+  padding-left: 37px;
+}
+
 .view-trainings .taken .views-field-field-base-points span.chk,
 .view-trends .taken .views-field-field-base-points span.chk,
 .view-store .taken .views-field-commerce-price span.chk,
@@ -758,12 +749,14 @@ body.page-news h1#page-title {
   width: 29px;
   height: 29px;
 }
+/*
 .view-trainings .views-field-field-base-points strong,
 .view-trends .views-field-field-base-points strong,
 .view-store .views-field-commerce-price strong,
 .view-polls .field-name-field-base-points strong {
   font-weight: normal;
 }
+*/
 .node-poll label.option {
   font-size: 14px;
 }
@@ -806,7 +799,6 @@ body.page-news h1#page-title {
 .view-trainings .view-footer article.node-poll {
   background: #5baf7a;
   padding: 20px;
-  min-height: 303px;
 }
 .view-trainings .view-footer article.node-poll h1,
 .view-trainings .view-footer article.node-poll .poll-title {
@@ -2236,7 +2228,6 @@ body.node-type-page .region-sidebar-second {
   float: left;
   width: 100%;
   height: auto !important;
-  min-height: 470px;
   padding: 41px 0 0;
 }
 #elite-user-flop {
@@ -2262,7 +2253,6 @@ body.node-type-page .region-sidebar-second {
 }
 #elite-user-block-wrapper .points-wrapper,
 #elite-user-flop .points-wrapper {
-  color: #d97914;
   display: block;
   font-size: 28px;
   line-height: 31px;

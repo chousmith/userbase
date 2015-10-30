@@ -1,4 +1,4 @@
-/* CSS for width > 770 */
+/* CSS for min-width 1024px? */
 body.page-node.node-type-training #zone-content,
 body.page-node.node-type-quiz #zone-content,
 body.page-node.node-type-article #zone-content,
@@ -53,6 +53,9 @@ span.bigbtn {
 .view-popular-content .views-field-field-image {
 	width: 114px;
 	margin-right: 10px;
+}
+.view-popular-content .views-field-title {
+  width: 135px;
 }
 .view-trainings .views-field-title,
 .view-trends .views-field-title,

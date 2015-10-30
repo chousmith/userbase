@@ -1,4 +1,4 @@
-/* CSS for max-width = 320px? */
+/* CSS for min-width = 320px? for all widths? */
 body.page-node.node-type-training #zone-content,
 body.page-node.node-type-quiz #zone-content,
 body.page-node.node-type-article #zone-content,
@@ -155,7 +155,6 @@ article.node-article .field-name-field-media-types {
 	right: 2px;
 }
 #elite-user-block-wrapper {
-	background-color: #363636;
 	height: 270px;
 }
 .not-logged-in.page-user h1 {
