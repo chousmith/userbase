@@ -1,4 +1,0 @@
-name = Elite Store Employee Validation
-description = Validating users and Stores locations
-core = 7.x
-package = Elite
