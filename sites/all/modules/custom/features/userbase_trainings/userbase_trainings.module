@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the UserBase Trainings feature.
+ */
+
+include_once 'userbase_trainings.features.inc';

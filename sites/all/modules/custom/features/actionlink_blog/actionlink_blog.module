@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Actionlink Blog feature.
- */
-
-include_once 'actionlink_blog.features.inc';

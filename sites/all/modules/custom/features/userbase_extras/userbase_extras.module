@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the UserBase Content Extras feature.
+ */
+
+include_once 'userbase_extras.features.inc';

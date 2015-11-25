@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the UserBase Trends feature.
+ */
+
+include_once 'userbase_trends.features.inc';

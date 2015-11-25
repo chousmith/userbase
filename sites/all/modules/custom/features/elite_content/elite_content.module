@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Elite Popular + Related Content feature.
- */
-
-include_once 'elite_content.features.inc';

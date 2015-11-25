@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Elite Tools feature.
- */
-
-include_once 'elite_tools.features.inc';

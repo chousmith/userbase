@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Elite Polls feature.
- */
-
-include_once 'elite_polls.features.inc';

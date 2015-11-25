@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the UserBase Polls feature.
+ */
+
+include_once 'userbase_polls.features.inc';

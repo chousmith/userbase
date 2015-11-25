@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the UserBase Tools feature.
+ */
+
+include_once 'userbase_tools.features.inc';

@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Elite User Regions feature.
- */
-
-include_once 'elite_user_regions.features.inc';

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the UserBase Contact feature.
+ */
+
+include_once 'userbase_contact.features.inc';

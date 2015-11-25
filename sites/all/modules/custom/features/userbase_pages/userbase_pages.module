@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the UserBase Pages feature.
+ */
+
+include_once 'userbase_pages.features.inc';
