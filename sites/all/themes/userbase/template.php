@@ -311,12 +311,12 @@ function userbase_menu_local_task($variables) {
 /**
  * template_preprocess_forum_submitted
  */
-function elite_preprocess_forum_submitted(&$variables) {
+function userbase_preprocess_forum_submitted(&$variables) {
   $userimg = '<span class="userimg">';
   if ( isset($variables['topic']->uid) ) {
-    if ( function_exists('elite_custom_user_image') ) {
+    if ( function_exists('userbase_custom_user_image') ) {
       $usr = user_load($variables['topic']->uid);
-      $userimg .= elite_custom_user_image($usr,'micro');
+      $userimg .= userbase_custom_user_image($usr,'micro');
     }
     // and change usernamehtml link
     // NOT to messages via here, for now at least
