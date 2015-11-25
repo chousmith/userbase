@@ -81,10 +81,10 @@ stylesheets[all and (min-width: 320px)][] = css/grid/userbase/narrow/userbase-na
 
 ; WHITELABEL STYLES
 
-css[jacuzzi.css][name] = Jacuzzi styles
-css[jacuzzi.css][description] = Provides additional styling for the Jacuzzi Playbook Learning Engine site.
-css[jacuzzi.css][path] = whitelabel/jacuzzi/css
-css[jacuzzi.css][options][weight] = 10
+css[ninthlink.css][name] = Learn.Ninthlink styles
+css[ninthlink.css][description] = Provides additional styling for the Learn.Ninthlink site.
+css[ninthlink.css][path] = whitelabel/ninthlink/css
+css[ninthlink.css][options][weight] = 10
 
 ; JS FILES
 

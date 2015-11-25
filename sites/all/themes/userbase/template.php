@@ -455,7 +455,7 @@ function userbase_css_alter( &$css ) {
     'sites/all/themes/userbase/css/narrow.css',
     'sites/all/themes/userbase/css/normal.css',
     'sites/all/themes/userbase/css/wide.css',
-    'sites/all/themes/userbase/whitelabel/jacuzzi/css/jacuzzi.css'
+    'sites/all/themes/userbase/whitelabel/ninthlink/css/ninthlink.css'
   );
   $reord = array();
   foreach ( $orderfix as $i => $gkey ) {
