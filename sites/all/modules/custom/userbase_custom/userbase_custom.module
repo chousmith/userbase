@@ -833,7 +833,7 @@ function userbase_custom_user_trend_count($uid = -1, $region = false, $fullcount
 /**
  * maybe we can cache this better? do we need to?
  */
-function _elite_list_trainings() {
+function _userbase_custom_list_trainings() {
     //global $language;
     // first use EntityReference to get array of published active Trainings in given region...
     $query = new EntityFieldQuery;
@@ -875,7 +875,7 @@ function userbase_custom_user_training_count($uid = -1, $region = false, $fullco
     $oot = $cache->data;
   }
   if ( $oot == -1 ) {
-    $trainings = _elite_list_trainings();
+    $trainings = _userbase_custom_list_trainings();
     $total_trainings = count( $trainings );
     $taken = 0;
     $required_total = 0;
@@ -1647,14 +1647,6 @@ function userbase_custom_default_regions_list() {
   $excluded_regions = variable_get('userbase_custom_excluded_regions', array());
   $regions = array(
 		'us' => t('United States'),
-		'uk' => t('United Kingdom'),
-		'russia' => t('Russia'),
-		'mexico' => t('Mexico'),
-		/*
-		'china' => t('China'),
-		'africa' => t('Africa'),
-		'southamerica' => t('South America'),
-		*/
 	);
   
   foreach($excluded_regions as $key) {
@@ -1667,7 +1659,7 @@ function userbase_custom_default_regions_list() {
 }
 
 function userbase_custom_default_regions_list_verbose() {
-	$regions = userbase_custom_actionlink_regions_list();
+	$regions = userbase_custom_default_regions_list();
 	$oot = array();
 	foreach ( $regions as $c => $n ) {
 		$oot[] = array(

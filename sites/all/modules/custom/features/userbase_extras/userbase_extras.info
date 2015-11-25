@@ -24,6 +24,6 @@ features[views_view][] = popular_content
 features[views_view][] = related_content
 features_exclude[dependencies][context] = context
 features_exclude[dependencies][ctools] = ctools
-features_exclude[dependencies][elite_custom] = elite_custom
+features_exclude[dependencies][userbase_custom] = userbase_custom
 features_exclude[dependencies][entityreference] = entityreference
 features_exclude[dependencies][features] = features

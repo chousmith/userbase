@@ -17,7 +17,7 @@ function userbase_trends_user_default_permissions() {
       'administrator' => 'administrator',
       'authenticated user' => 'authenticated user',
     ),
-    'module' => 'elite_custom',
+    'module' => 'userbase_custom',
   );
 
   return $permissions;

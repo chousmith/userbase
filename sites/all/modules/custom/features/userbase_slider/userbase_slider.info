@@ -4,6 +4,7 @@ core = 7.x
 package = UserBase Features
 version = 7.x-1.0
 dependencies[] = text
+dependencies[] = userbase_custom
 dependencies[] = userbase_trends
 dependencies[] = views
 dependencies[] = views_slideshow

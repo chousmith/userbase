@@ -21,6 +21,7 @@ body.node-type-page article.node h1,
 article.node-reward .field-type-commerce-product-reference .form-submit,
 .node-tool .field-name-body .field-label,
 .section-title,
+#block-userbase-custom-avatar-block .points-wrapper,
 #block-elite-custom-avatar-block .points-wrapper,
 #elite-user-flop .points-wrapper strong,
 .poll-title,
@@ -191,6 +192,7 @@ a.outbtn,
 .view-sliders .views-slideshow-cycle-main-frame-row .views-field-field-subheader {
   color: #fff;
 }
+#block-userbase-custom-avatar-block .points-wrapper,
 #block-elite-custom-avatar-block .points-wrapper,
 #elite-user-block-wrapper .points-wrapper strong,
 #elite-user-flop .points-wrapper strong,
@@ -2186,7 +2188,10 @@ body.node-type-page .region-sidebar-second {
 /*
 * profile
 */
-#block-elite-custom-avatar-block {float: right;}
+#block-userbase-custom-avatar-block,
+#block-elite-custom-avatar-block {
+  float: right;
+}
 /*
 #avatar-block-wrapper .picture-wrapper,
 #avatar-block-wrapper .points-wrapper {display: inline-block;}
@@ -2196,13 +2201,15 @@ body.node-type-page .region-sidebar-second {
   padding: 0;
   margin: 5px 17px 0 12px;
 }
+#block-userbase-custom-avatar-block .points-wrapper,
 #block-elite-custom-avatar-block .points-wrapper {
   float: left;
   font-size: 1.6em;
   height: 54px;
   line-height: 54px;
 }
-#block-elite-custom-userflop {
+#block-elite-custom-userflop,
+#block-userbase-custom-userflop {
   background: #363636;
   display: none;
   float: right;

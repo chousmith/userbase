@@ -57,12 +57,12 @@ function userbase_taketraining_btn() {
 			
 			if ( $('#elite-user-flop').size() > 0 ) {
 				$('#avatar-block-wrapper a').unbind('click.userbase').bind('click.userbase',function() {
-					$('#block-elite-custom-userflop').slideToggle(100);
+					$('#block-userbase-custom-userflop').slideToggle(100);
 					return false;
 				});
 				if ( $('#elite-user-flop a.x').size() == 0 ) {
 					$('<a href="#x" class="x">x</a>').click(function() {
-						$('#block-elite-custom-userflop').slideUp(41);
+						$('#block-userbase-custom-userflop').slideUp(41);
 						return false;
 					}).appendTo('#elite-user-flop');
 				}
