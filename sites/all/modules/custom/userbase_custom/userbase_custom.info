@@ -1,0 +1,12 @@
+name = UserBase Custom
+description = "Provides site specific customizations for the UserBase learning engine system"
+package = UserBase
+core = 7.x
+files[]=userbase_custom.module
+files[]=userbase_custom.views.inc
+files[]=views/userbase_custom_views_handler_field_login_total.inc
+files[]=views/userbase_custom_views_handler_field_trainings_tot.inc
+files[]=views/userbase_custom_views_handler_field_trainings_completed.inc
+files[]=views/userbase_custom_views_handler_field_required_total.inc
+files[]=views/userbase_custom_views_handler_field_required_completed.inc
+files[]=views/userbase_custom_views_handler_field_training_lasttaken.inc

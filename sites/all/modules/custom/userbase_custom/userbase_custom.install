@@ -1,0 +1,27 @@
+<?php
+/**
+ * Implements hook_schema()
+ * for custom caching table
+ */
+function userbase_custom_schema() {
+  $schema['cache_usercounts'] = drupal_get_schema_unprocessed( 'system', 'cache' );
+  $schema['cache_usercounts']['description'] = 'Cache bin for the userbase_custom module user counts';
+  
+  return $schema;
+}
+/**
+ * Creates the new db cache tables if they don't exist
+ */
+function userbase_custom_update_7301() {
+  // cache_usercounts
+  if ( db_table_exists('cache_usercounts') ) {
+    if ( function_exists( 'watchdog' ) ) {
+      watchdog('userbase_custom', 'cache_usercounts table already existed when hook update_7301 ran?');
+    }
+  } else {
+    $schema['cache_usercounts'] = drupal_get_schema_unprocessed( 'system', 'cache' );
+    $schema['cache_usercounts']['description'] = 'Cache bin for the userbase_custom module user counts';
+    
+    db_create_table( 'cache_usercounts', $schema['cache_usercounts'] );
+  }
+}
