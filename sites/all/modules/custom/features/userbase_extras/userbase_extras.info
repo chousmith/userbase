@@ -1,7 +1,7 @@
 name = UserBase Content Extras
 description = Whats Hot Popular Content + Related Content + Favorite functionality. NOTE : doesnt contain Whats Hot nodequeue
 core = 7.x
-package = UserBase
+package = UserBase Features
 version = 7.x-1.0
 dependencies[] = block
 dependencies[] = fivestar

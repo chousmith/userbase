@@ -1,7 +1,7 @@
 name = UserBase Users
 description = Configuration of user fields and profiles and initial roles
 core = 7.x
-package = UserBase
+package = UserBase Features
 version = 7.x-1.0
 dependencies[] = ctools
 dependencies[] = features

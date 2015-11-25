@@ -42,52 +42,9 @@ function userbase_users_image_default_styles() {
         ),
         'weight' => 2,
       ),
-      8 => array(
-        'name' => 'coloractions_convert',
-        'data' => array(
-          'format' => 'image/png',
-          'quality' => 100,
-        ),
-        'weight' => 3,
-      ),
-      9 => array(
-        'name' => 'canvasactions_roundedcorners',
-        'data' => array(
-          'radius' => 17,
-          'independent_corners_set' => array(
-            'independent_corners' => 0,
-            'radii' => array(
-              'tl' => 0,
-              'tr' => 0,
-              'bl' => 0,
-              'br' => 0,
-            ),
-          ),
-        ),
-        'weight' => 4,
-      ),
-      10 => array(
-        'name' => 'canvasactions_definecanvas',
-        'data' => array(
-          'RGB' => array(
-            'HEX' => '',
-          ),
-          'under' => 1,
-          'exact' => array(
-            'width' => 34,
-            'height' => 34,
-            'xpos' => 'center',
-            'ypos' => 'center',
-          ),
-          'relative' => array(
-            'leftdiff' => '',
-            'rightdiff' => '',
-            'topdiff' => '',
-            'bottomdiff' => '',
-          ),
-        ),
-        'weight' => 5,
-      ),
+      8 => NULL,
+      9 => NULL,
+      10 => NULL,
     ),
   );
 
@@ -118,52 +75,9 @@ function userbase_users_image_default_styles() {
         ),
         'weight' => 2,
       ),
-      3 => array(
-        'name' => 'coloractions_convert',
-        'data' => array(
-          'format' => 'image/png',
-          'quality' => 100,
-        ),
-        'weight' => 3,
-      ),
-      4 => array(
-        'name' => 'canvasactions_roundedcorners',
-        'data' => array(
-          'radius' => 70,
-          'independent_corners_set' => array(
-            'independent_corners' => 0,
-            'radii' => array(
-              'tl' => 0,
-              'tr' => 0,
-              'bl' => 0,
-              'br' => 0,
-            ),
-          ),
-        ),
-        'weight' => 4,
-      ),
-      5 => array(
-        'name' => 'canvasactions_definecanvas',
-        'data' => array(
-          'RGB' => array(
-            'HEX' => '',
-          ),
-          'under' => 1,
-          'exact' => array(
-            'width' => 140,
-            'height' => 140,
-            'xpos' => 'center',
-            'ypos' => 'center',
-          ),
-          'relative' => array(
-            'leftdiff' => '',
-            'rightdiff' => '',
-            'topdiff' => '',
-            'bottomdiff' => '',
-          ),
-        ),
-        'weight' => 5,
-      ),
+      3 => NULL,
+      4 => NULL,
+      5 => NULL,
     ),
   );
 

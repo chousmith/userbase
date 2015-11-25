@@ -57,7 +57,7 @@ function userbase_trends_views_default_views() {
     'type' => 0,
     'userpoints' => 0,
   );
-  /* Field: Content: Background Image */
+  /* Field: Content: Main Image */
   $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
   $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
   $handler->display->display_options['fields']['field_image']['field'] = 'field_image';

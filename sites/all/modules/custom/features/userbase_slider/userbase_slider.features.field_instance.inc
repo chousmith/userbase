@@ -328,7 +328,7 @@ function userbase_slider_field_default_field_instances() {
     'label' => 'Subheader',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 1,
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -376,7 +376,7 @@ function userbase_slider_field_default_field_instances() {
         'entity' => 0,
         'page' => 0,
       ),
-      'text_processing' => 1,
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(

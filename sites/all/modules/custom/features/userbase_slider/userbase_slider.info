@@ -1,7 +1,7 @@
 name = UserBase Slider
 description = Promo Slide content type + Home slider view. NOTE: Nodequeue not included
 core = 7.x
-package = UserBase
+package = UserBase Features
 version = 7.x-1.0
 dependencies[] = text
 dependencies[] = userbase_trends

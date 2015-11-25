@@ -1,7 +1,7 @@
 name = UserBase Polls
 description = Polls content type and View for Poll on the Homepage
 core = 7.x
-package = UserBase
+package = UserBase Features
 version = 7.x-1.0
 dependencies[] = options
 dependencies[] = poll
