@@ -42,7 +42,7 @@ function userbase_users_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 8,
+      'weight' => 5,
     ),
   );
 
@@ -78,7 +78,7 @@ function userbase_users_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 9,
+      'weight' => 6,
     ),
   );
 
@@ -134,10 +134,10 @@ function userbase_users_field_default_field_instances() {
     'entity_type' => 'user',
     'field_name' => 'field_user_name_last',
     'label' => 'Last Name',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'text_processing' => 0,
-      'user_register_form' => 1,
+      'user_register_form' => 0,
     ),
     'widget' => array(
       'active' => 1,

@@ -26,14 +26,14 @@ function userbase_users_image_default_styles() {
   $styles['micro'] = array(
     'label' => 'micro',
     'effects' => array(
-      6 => array(
+      7 => array(
         'name' => 'imagecrop_reuse',
         'data' => array(
           'imagecrop_style' => 'rounduser',
         ),
         'weight' => 1,
       ),
-      7 => array(
+      8 => array(
         'name' => 'image_scale',
         'data' => array(
           'width' => 34,
@@ -42,9 +42,52 @@ function userbase_users_image_default_styles() {
         ),
         'weight' => 2,
       ),
-      8 => NULL,
-      9 => NULL,
-      10 => NULL,
+      9 => array(
+        'name' => 'coloractions_convert',
+        'data' => array(
+          'format' => 'image/png',
+          'quality' => 100,
+        ),
+        'weight' => 3,
+      ),
+      10 => array(
+        'name' => 'canvasactions_roundedcorners',
+        'data' => array(
+          'radius' => 17,
+          'independent_corners_set' => array(
+            'independent_corners' => 0,
+            'radii' => array(
+              'tl' => 0,
+              'tr' => 0,
+              'bl' => 0,
+              'br' => 0,
+            ),
+          ),
+        ),
+        'weight' => 4,
+      ),
+      11 => array(
+        'name' => 'canvasactions_definecanvas',
+        'data' => array(
+          'RGB' => array(
+            'HEX' => '',
+          ),
+          'under' => 1,
+          'exact' => array(
+            'width' => 34,
+            'height' => 34,
+            'xpos' => 'center',
+            'ypos' => 'center',
+          ),
+          'relative' => array(
+            'leftdiff' => '',
+            'rightdiff' => '',
+            'topdiff' => '',
+            'bottomdiff' => '',
+          ),
+        ),
+        'weight' => 5,
+      ),
     ),
   );
 
@@ -52,7 +95,7 @@ function userbase_users_image_default_styles() {
   $styles['rounduser'] = array(
     'label' => 'rounduser',
     'effects' => array(
-      1 => array(
+      2 => array(
         'name' => 'imagecrop_javascript',
         'data' => array(
           'width' => 140,
@@ -66,7 +109,7 @@ function userbase_users_image_default_styles() {
         ),
         'weight' => 1,
       ),
-      2 => array(
+      3 => array(
         'name' => 'image_scale',
         'data' => array(
           'width' => 140,
@@ -75,9 +118,52 @@ function userbase_users_image_default_styles() {
         ),
         'weight' => 2,
       ),
-      3 => NULL,
-      4 => NULL,
-      5 => NULL,
+      4 => array(
+        'name' => 'coloractions_convert',
+        'data' => array(
+          'format' => 'image/png',
+          'quality' => 100,
+        ),
+        'weight' => 3,
+      ),
+      5 => array(
+        'name' => 'canvasactions_roundedcorners',
+        'data' => array(
+          'radius' => 70,
+          'independent_corners_set' => array(
+            'independent_corners' => 0,
+            'radii' => array(
+              'tl' => 0,
+              'tr' => 0,
+              'bl' => 0,
+              'br' => 0,
+            ),
+          ),
+        ),
+        'weight' => 4,
+      ),
+      6 => array(
+        'name' => 'canvasactions_definecanvas',
+        'data' => array(
+          'RGB' => array(
+            'HEX' => '',
+          ),
+          'under' => 1,
+          'exact' => array(
+            'width' => 140,
+            'height' => 140,
+            'xpos' => 'center',
+            'ypos' => 'center',
+          ),
+          'relative' => array(
+            'leftdiff' => '',
+            'rightdiff' => '',
+            'topdiff' => '',
+            'bottomdiff' => '',
+          ),
+        ),
+        'weight' => 5,
+      ),
     ),
   );
 

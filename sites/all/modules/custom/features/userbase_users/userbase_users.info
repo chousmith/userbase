@@ -1,5 +1,5 @@
 name = UserBase Users
-description = Configuration of user fields and profiles and initial roles
+description = Configuration of user fields, profiles, initial roles, and profile image styles
 core = 7.x
 package = UserBase Features
 version = 7.x-1.0
@@ -51,4 +51,3 @@ features[variable][] = user_picture_file_size
 features[variable][] = user_picture_style
 features[variable][] = user_pictures
 features[variable][] = user_register
-project path = sites/all/modules/custom/features

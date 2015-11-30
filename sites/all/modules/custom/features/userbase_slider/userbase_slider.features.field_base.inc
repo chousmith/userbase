@@ -94,8 +94,13 @@ function userbase_slider_field_default_field_bases() {
     'locked' => 0,
     'module' => 'list',
     'settings' => array(
-      'allowed_values' => array(),
-      'allowed_values_function' => 'userbase_custom_default_regions_list',
+      'allowed_values' => array(
+        'us' => 'United States',
+        'uk' => 'United Kingdom',
+        'russia' => 'Russia',
+        'mexico' => 'Mexico',
+      ),
+      'allowed_values_function' => 'elite_custom_default_regions_list',
     ),
     'translatable' => 0,
     'type' => 'list_text',

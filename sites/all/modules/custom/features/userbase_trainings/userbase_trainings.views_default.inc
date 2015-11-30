@@ -132,11 +132,10 @@ function userbase_trainings_views_default_views() {
   $handler->display->display_options['sorts']['position_and_other']['field'] = 'position_and_other';
   $handler->display->display_options['sorts']['position_and_other']['relationship'] = 'nodequeue_rel';
   $handler->display->display_options['sorts']['position_and_other']['order'] = 'DESC';
-  /* Sort criterion: Content: Post date */
-  $handler->display->display_options['sorts']['created']['id'] = 'created';
-  $handler->display->display_options['sorts']['created']['table'] = 'node';
-  $handler->display->display_options['sorts']['created']['field'] = 'created';
-  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+  /* Sort criterion: Content: Title */
+  $handler->display->display_options['sorts']['title']['id'] = 'title';
+  $handler->display->display_options['sorts']['title']['table'] = 'node';
+  $handler->display->display_options['sorts']['title']['field'] = 'title';
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -150,13 +149,6 @@ function userbase_trainings_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'training' => 'training',
-  );
-  /* Filter criterion: Content: Region (field_region) */
-  $handler->display->display_options['filters']['field_region_value']['id'] = 'field_region_value';
-  $handler->display->display_options['filters']['field_region_value']['table'] = 'field_data_field_region';
-  $handler->display->display_options['filters']['field_region_value']['field'] = 'field_region_value';
-  $handler->display->display_options['filters']['field_region_value']['value'] = array(
-    'us' => 'us',
   );
 
   /* Display: Block : Featured */
