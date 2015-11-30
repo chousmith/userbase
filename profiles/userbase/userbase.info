@@ -1,0 +1,120 @@
+; Packaging information for userbase
+name = "UserBase"
+description = "Modules and Features for getting Content and Users rolling in to the UserBase Learning Engine."
+exclusive = "1"
+core = "7.x"
+; ----------
+; Dependencies
+; ----------
+; Administration
+dependencies[] = admin_menu
+dependencies[] = admin_views
+dependencies[] = adminimal_admin_menu
+dependencies[] = module_filter
+; Authentication
+dependencies[] = login_one_time
+; Chaos tool suite
+dependencies[] = ctools
+; Context
+dependencies[] = context
+dependencies[] = context_ui
+; Core
+dependencies[] = block
+dependencies[] = contextual
+dependencies[] = dblog
+dependencies[] = field
+dependencies[] = field_sql_storage
+dependencies[] = field_ui
+dependencies[] = file
+dependencies[] = filter
+dependencies[] = image
+dependencies[] = list
+dependencies[] = menu
+dependencies[] = node
+dependencies[] = number
+dependencies[] = options
+dependencies[] = path
+dependencies[] = poll
+dependencies[] = system
+dependencies[] = taxonomy
+dependencies[] = text
+dependencies[] = update
+dependencies[] = user
+; Development
+dependencies[] = profiler_builder
+; Fields
+dependencies[] = addressfield
+dependencies[] = entityreference
+dependencies[] = field_group
+dependencies[] = field_permissions
+dependencies[] = link
+dependencies[] = phone
+dependencies[] = title
+; Flags
+dependencies[] = flag
+; Masonry
+dependencies[] = masonry
+dependencies[] = masonry_views
+; Media
+dependencies[] = cs_adaptive_image
+dependencies[] = imagecache_actions
+dependencies[] = imagecache_canvasactions
+dependencies[] = imagecache_coloractions
+; Nodequeue
+dependencies[] = nodequeue
+; Other
+dependencies[] = block_class
+dependencies[] = entity
+dependencies[] = imagecrop
+dependencies[] = libraries
+dependencies[] = logintoboggan
+dependencies[] = pathauto
+dependencies[] = remove_generator
+dependencies[] = strongarm
+dependencies[] = token
+dependencies[] = username_enumeration_prevention
+; Pantheon
+dependencies[] = pantheon_api
+dependencies[] = pantheon_login
+; Quiz Core
+dependencies[] = quiz
+dependencies[] = quiz_question
+; Quiz Question
+dependencies[] = multichoice
+; Security
+dependencies[] = seckit
+; Services
+dependencies[] = services
+dependencies[] = services_views
+; User interface
+dependencies[] = jquery_update
+; UserBase
+dependencies[] = userbase_custom
+; Userpoints
+dependencies[] = userpoints
+; Views
+dependencies[] = views
+dependencies[] = views_bulk_operations
+dependencies[] = views_litepager
+dependencies[] = views_responsive_grid
+dependencies[] = views_slideshow
+dependencies[] = views_slideshow_cycle
+dependencies[] = views_ui
+; Voting
+dependencies[] = fivestar
+dependencies[] = votingapi
+; Webform
+dependencies[] = webform
+dependencies[] = webform_phone
+; Features
+dependencies[] = features
+dependencies[] = userbase_alerts
+dependencies[] = userbase_extras
+dependencies[] = userbase_pages
+dependencies[] = userbase_polls
+dependencies[] = userbase_slider
+dependencies[] = userbase_tools
+dependencies[] = userbase_trainings
+dependencies[] = userbase_trends
+dependencies[] = userbase_users
+
