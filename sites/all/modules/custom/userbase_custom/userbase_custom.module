@@ -654,7 +654,7 @@ function userbase_custom_user_update( &$edit, $account, $category ) {
     $newval = $account->$fid;
     $ogval = $og->$fid;
     /*
-    $diffd[] = array(
+      $diffd[] = array(
       'key' => $fid,
       'new' => ,
       'og' => $og->$fid,

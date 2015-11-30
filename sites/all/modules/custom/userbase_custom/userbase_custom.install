@@ -4,10 +4,13 @@
  * for custom caching table
  */
 function userbase_custom_schema() {
-  $schema['cache_usercounts'] = drupal_get_schema_unprocessed( 'system', 'cache' );
-  $schema['cache_usercounts']['description'] = 'Cache bin for the userbase_custom module user counts';
-  
-  return $schema;
+  if ( db_table_exists('cache_usercounts') ) {
+    // already installed once but not uninstalled?
+  } else {
+    $schema['cache_usercounts'] = drupal_get_schema_unprocessed( 'system', 'cache' );
+    $schema['cache_usercounts']['description'] = 'Cache bin for the userbase_custom module user counts';
+    return $schema;
+  }
 }
 /**
  * Creates the new db cache tables if they don't exist
